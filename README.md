@@ -1,75 +1,75 @@
 # Muse Reading
 
-Muse Reading is an AI reading workspace for long-form text. It combines uploadable book text, progress-aware retrieval, inline highlight QA, chapter summaries, lightweight persona-guided companionship, and anti-spoiler controls into a single MVP that can be run locally and extended as an open-source project.
+Muse Reading 是一个面向长文本的 AI 阅读工作空间。它将可上传的书籍文本、进度感知检索、内联高亮问答、章节摘要、轻量级角色引导式陪伴阅读以及防剧透控制整合为一个可本地运行的 MVP，并可作为开源项目进行扩展。
 
-This repository is the current engineering scaffold for that idea. It is built around one principle: get the reading loop working first, then deepen the intelligence with better datasets, richer temporal graphs, stronger persona grounding, and more complete evaluation.
+本仓库是该构想的当前工程骨架。其核心原则是：先跑通阅读闭环，再通过更好的数据集、更丰富的时间图、更强的角色一致性以及更完整的评测来深化智能。
 
-## Project Goals
+## 项目目标
 
-- Turn uploaded reading text into a structured, retrievable reading corpus.
-- Support immersive reading with paragraph-level navigation and reading progress tracking.
-- Answer user questions from highlighted text without leaking future plot.
-- Generate chapter-level summaries based on current reading stage.
-- Support persona-guided companion reading as a pluggable layer.
-- Build a dataset and evaluation pipeline around retrieval, anti-spoiler behavior, and reading understanding.
+- 将上传的阅读文本转化为结构化、可检索的阅读语料库。
+- 支持沉浸式阅读，提供段落级导航和阅读进度追踪。
+- 从用户高亮文本中回答问题，且不泄露未来剧情。
+- 根据当前阅读进度生成章节级摘要。
+- 支持角色引导式陪伴阅读，作为可插拔层。
+- 围绕检索、防剧透行为和阅读理解构建数据集与评测流水线。
 
-## Core Features
+## 核心功能
 
-- Text upload and local book ingestion for `.txt`, `.pdf`, and `.epub` files.
-- Chapter and paragraph parsing with chunk-level metadata.
-- Temporal graph generation from uploaded book content.
-- Reader UI with chapter navigation, paragraph selection, and payload preview.
-- Highlight-triggered QA with progress-aware retrieval.
-- Chapter summary endpoint with persona-aware generation.
-- Complete runtime path for Lu Xun, Mark Twain, and Zhang Ailing lead-reader agents through persona RAG plus OpenAI-compatible model endpoints.
-- Benchmark fixtures for `highlight_qa`, `anti_spoiler`, and `chapter_summary`.
+- 支持 `.txt`、`.pdf` 和 `.epub` 文件的文本上传与本地书籍导入。
+- 章节与段落解析，附带 chunk 级元数据。
+- 基于上传书籍内容生成时间图。
+- 阅读器 UI：章节导航、段落选择、内容预览。
+- 高亮触发式问答，带进度感知检索。
+- 章节摘要端点，支持角色感知生成。
+- 完整的运行时路径：通过角色 RAG 加 OpenAI 兼容模型端点，支持鲁迅、马克·吐温和张爱玲三位领读 Agent。
+- 基准测试数据：`highlight_qa`、`anti_spoiler`、`chapter_summary`。
 
-## System Architecture
+## 系统架构
 
-Muse Reading currently has four cooperating layers:
+Muse Reading 目前包含四个协作层：
 
-1. `Frontend interaction layer`
-   The static web reader in [frontend](/C:/Users/21358/Desktop/MuseReading/frontend) handles upload, chapter navigation, paragraph selection, summary triggers, and question submission.
+1. `前端交互层`
+   [frontend](/C:/Users/21358/Desktop/MuseReading/frontend) 中的静态 Web 阅读器处理上传、章节导航、段落选择、摘要触发和提问提交。
 
-2. `Application and orchestration layer`
-   The FastAPI app in [backend/api/app.py](/C:/Users/21358/Desktop/MuseReading/backend/api/app.py) exposes upload, book, persona, QA, orchestration, summary, and graph endpoints.
+2. `应用与编排层`
+   [backend/api/app.py](/C:/Users/21358/Desktop/MuseReading/backend/api/app.py) 中的 FastAPI 应用暴露了上传、书籍、角色、问答、编排、摘要和图谱等端点。
 
-3. `Knowledge and retrieval layer`
-   The backend builds normalized book records, retrieval chunks, and a temporal context graph from uploaded text. Retrieval is progress-aware and designed to support anti-spoiler filtering before answer generation.
+3. `知识与检索层`
+   后端从上传文本中构建归一化的书籍记录、检索 chunk 和时间上下文图。检索是进度感知的，并设计为在生成回答之前支持防剧透过滤。
 
-4. `Dataset and evaluation layer`
-   The repository includes schemas, manifests, examples, benchmark fixtures, and evaluation scripts so that ingestion, QA, summary, and anti-spoiler behavior can be regression-tested and expanded into a fuller benchmark suite.
+4. `数据集与评测层`
+   仓库包含 schema、清单（manifest）、示例、基准测试数据和评测脚本，以便对导入、问答、摘要和防剧透行为进行回归测试，并可扩展为更完备的基准测试套件。
 
-### Current Runtime Flow
+### 当前运行时流程
 
 ```text
-upload text
-  -> normalize into book record
-  -> parse chapters and paragraphs
-  -> build retrieval chunks
-  -> build temporal graph
-  -> read in frontend
-  -> ask highlight question or request chapter summary
-  -> retrieve only visible context
-  -> generate answer with persona style and spoiler guard
+上传文本
+  -> 归一化为书籍记录
+  -> 解析章节和段落
+  -> 构建检索 chunk
+  -> 构建时间图
+  -> 在前端阅读
+  -> 提出高亮问题或请求章节摘要
+  -> 仅检索可见上下文
+  -> 以角色风格生成回答，附带防剧透保护
 ```
 
-## Dataset Construction Strategy
+## 数据集构建策略
 
-The repository follows a schema-first, metadata-first structure rather than bundling large copyrighted corpora.
+仓库采用 schema 优先、元数据优先的结构，而非打包大型受版权保护的语料。
 
-### Data Categories
+### 数据分类
 
-- `book text corpus`
-  User-uploaded text, demo text, and future public-domain or licensed books.
-- `persona source corpus`
-  Materials used to shape lead-reader agents, such as essays, letters, speeches, prefaces, biographies, and criticism.
-- `annotation data`
-  `highlight_qa`, `chapter_evolution`, salience labels, and future reading-session annotations.
-- `evaluation data`
-  Retrieval, persona consistency, anti-spoiler, and user-study-oriented evaluation packages.
+- `书籍文本语料`
+  用户上传的文本、演示文本，以及未来的公版或授权书籍。
+- `角色源语料`
+  用于塑造领读 Agent 的资料，如论文、信件、演讲、序言、传记和评论。
+- `标注数据`
+  `highlight_qa`、`chapter_evolution`、显著性标签，以及未来的阅读会话标注。
+- `评测数据`
+  检索、角色一致性、防剧透以及面向用户研究的评测包。
 
-### Current Data Layout
+### 当前数据布局
 
 ```text
 backend/assets/data/
@@ -89,66 +89,66 @@ backend/assets/data/
   manifests/
 ```
 
-### Layered Text Representation
+### 分层文本表示
 
-The current project reserves a hierarchical representation for uploaded book text:
+当前项目为上传的书籍文本保留了一个层级化表示：
 
-- `L0`: raw paragraph units
-- `L1`: retrieval-ready chunks
-- `L2`: chapter structure summaries
-- `L3`: global topic or route index
-- `L4`: quote, stance, or commentary-ready layer
+- `L0`：原始段落单元
+- `L1`：检索就绪的 chunk
+- `L2`：章节结构摘要
+- `L3`：全局主题或路径索引
+- `L4`：引用、立场或评论就绪层
 
-The first practical use of this hierarchy already exists in the local dataset-building scripts and graph export pipeline.
+此层级的首次实际应用已存在于本地数据集构建脚本和图谱导出流水线中。
 
-## Quick Start
+## 快速开始
 
-### Requirements
+### 环境要求
 
-- Python `3.10+` recommended
+- 推荐 Python `3.10+`
 - `pip`
 
-### Install
+### 安装
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-### Configure Persona Agents
+### 配置角色 Agent
 
-To use `lu-xun`, `mark-twain`, or `zhang-ailing`, copy [`.env.example`](/C:/Users/21358/Desktop/MuseReading/.env.example) to `.env` and fill in your own OpenAI-compatible endpoint, model name, and API key for each agent. The app reads this root-level `.env` automatically at startup.
+要使用 `lu-xun`、`mark-twain` 或 `zhang-ailing`，请将 [`.env.example`](/C:/Users/21358/Desktop/MuseReading/.env.example) 复制为 `.env`，并为每个 Agent 填入你自己的 OpenAI 兼容端点、模型名称和 API key。应用启动时会自动加载此根目录下的 `.env` 文件。
 
-### Run The API And Reader
+### 运行 API 和阅读器
 
 ```bash
 uvicorn backend.api.app:app --reload
 ```
 
-Then open [http://127.0.0.1:8000](http://127.0.0.1:8000).
+然后打开 [http://127.0.0.1:8000](http://127.0.0.1:8000)。
 
-On startup, the app auto-loads the bundled demo book from [backend/assets/examples/muse_demo_book.txt](/C:/Users/21358/Desktop/MuseReading/backend/assets/examples/muse_demo_book.txt) if it exists.
+启动时，如果 [backend/assets/examples/muse_demo_book.txt](/C:/Users/21358/Desktop/MuseReading/backend/assets/examples/muse_demo_book.txt) 存在，应用会自动加载该内置演示书籍。
 
-## Frontend Usage
+## 前端使用
 
-The reader UI is served directly by FastAPI from [frontend/index.html](/C:/Users/21358/Desktop/MuseReading/frontend/index.html).
+阅读器 UI 由 FastAPI 直接从 [frontend/index.html](/C:/Users/21358/Desktop/MuseReading/frontend/index.html) 提供服务。
 
-Current UI capabilities:
+当前 UI 能力：
 
-- upload a `.txt`, `.pdf`, or `.epub` book
-- browse chapter and paragraph content
-- select a paragraph as reading focus
-- inspect `reading_progress` and `selection_context`
-- ask a question from the current reading context
-- request a chapter summary
-- switch personas from the local persona registry
+- 上传 `.txt`、`.pdf` 或 `.epub` 书籍
+- 浏览章节和段落内容
+- 选中段落作为阅读焦点
+- 查看 `reading_progress` 和 `selection_context`
+- 从当前阅读上下文提问
+- 请求章节摘要
+- 从本地角色注册表中切换角色
 
-Screenshot placeholder:
+截图占位：
 
-- add future screenshots under `backend/docs/` or a dedicated `screenshots/` folder before public release
+- 公开发布前，在 `backend/docs/` 或专用的 `screenshots/` 目录下添加截图。
 
-## API Overview
+## API 概览
 
-Current endpoints exposed by [backend/api/app.py](/C:/Users/21358/Desktop/MuseReading/backend/api/app.py):
+[backend/api/app.py](/C:/Users/21358/Desktop/MuseReading/backend/api/app.py) 当前暴露的端点：
 
 - `GET /api/health`
 - `GET /api/books`
@@ -160,104 +160,104 @@ Current endpoints exposed by [backend/api/app.py](/C:/Users/21358/Desktop/MuseRe
 - `POST /api/orchestrate`
 - `POST /api/summary`
 
-### Minimal API Notes
+### API 简要说明
 
 - `POST /api/upload`
-  Uploads a `.txt`, `.pdf`, or `.epub` file, parses it into a book record, and builds a temporal graph.
+  上传 `.txt`、`.pdf` 或 `.epub` 文件，解析为书籍记录并构建时间图。
 - `POST /api/qa`
-  Accepts `book_id`, `question`, optional `highlight_text`, `current_chapter`, and `persona_id`.
+  接收 `book_id`、`question`，可选参数 `highlight_text`、`current_chapter`、`persona_id`。
 - `POST /api/orchestrate`
-  Runs mixed retrieval over visible chunks and graph context.
+  在可见 chunk 和图谱上下文中运行混合检索。
 - `POST /api/summary`
-  Generates a current-chapter summary with an optional persona style.
+  生成当前章节的摘要，可选角色风格。
 
-## Repository Structure
+## 仓库结构
 
 ```text
-architecture/        interface and system design notes
-backend/             backend application, data, knowledge base, safety, and llm memory modules
-backend/benchmarks/          benchmark fixtures for smoke evaluation
-backend/assets/data/                raw, processed, annotation, eval, and manifest assets
-backend/docs/                architecture and data design documentation
-eval/                evaluation runners
-backend/assets/examples/            demo reading text
-frontend/            static reader UI and browser-facing assets
-backend/assets/schemas/             JSON schema definitions
-backend/scripts/             dataset and registry builders
-backend/tests/               regression tests
-backend/workspace_state/     local runtime artifacts such as saved books and graphs
+architecture/        接口与系统设计说明
+backend/             后端应用、数据、知识库、安全与 LLM 记忆模块
+backend/benchmarks/          用于冒烟评测的基准测试数据
+backend/assets/data/                原始、处理后、标注、评测和清单资产
+backend/docs/                架构与数据设计文档
+eval/                评测运行器
+backend/assets/examples/            演示阅读文本
+frontend/            静态阅读器 UI 和浏览器端资源
+backend/assets/schemas/             JSON schema 定义
+backend/scripts/             数据集与注册表构建脚本
+backend/tests/               回归测试
+backend/workspace_state/     本地运行时产物，如已保存的书籍和图谱
 ```
 
-### Backend module layout
+### 后端模块布局
 
 ```text
 backend/
-  api/               FastAPI endpoints and app wiring
-  common/            shared config and Pydantic models
-  backend/assets/data/              ingestion and local persistence
-  knowledge_base/    graph, QA retrieval, and character modules
-  safety/            anti-spoiler safeguards
-  llm_memory/        persona, orchestration, and summary generation
+  api/               FastAPI 端点和应用接线
+  common/            共享配置和 Pydantic 模型
+  backend/assets/data/              数据导入和本地持久化
+  knowledge_base/    图谱、问答检索和角色模块
+  safety/            防剧透保护
+  llm_memory/        角色、编排和摘要生成
 ```
 
-## Evaluation
+## 评测
 
-The current repository includes a minimal but working evaluation scaffold.
+当前仓库包含一个最小但可运行的评测框架。
 
-### Run Benchmarks
+### 运行基准测试
 
 ```bash
 python backend/eval/run_eval.py
 ```
 
-### Run Tests
+### 运行测试
 
 ```bash
 pytest -q
 ```
 
-### What Is Covered Today
+### 当前覆盖内容
 
 - `highlight_qa`
-  Checks whether expected support chunks are retrieved and answers are returned.
+  检查是否检索到预期的支撑 chunk 并返回答案。
 - `anti_spoiler`
-  Checks whether future-plot questions are refused or constrained correctly.
+  检查未来剧情问题是否被拒绝或正确约束。
 - `chapter_summary`
-  Checks whether summaries include expected phrases and avoid forbidden ones.
+  检查摘要是否包含预期短语并避免禁止短语。
 
-These are smoke and regression checks, not full leaderboard-grade benchmarks yet.
+目前这些属于冒烟和回归检查，尚不是完整的排行榜级基准测试。
 
-## Current Limitations
+## 当前局限
 
-- `pdf` support currently expects a text-layer PDF rather than a scanned image PDF.
-- Temporal graph extraction is heuristic and lightweight.
-- Frontend copy contains placeholder or draft text in several places.
-- Persona output depends on locally configured model credentials in `.env`.
-- Evaluation is still small and synthetic compared with the intended benchmark scope.
-- Copyright-sensitive corpora are represented mostly through manifests and examples rather than full released text.
+- `pdf` 支持目前期望 PDF 包含可选文本层，而非扫描版图片 PDF。
+- 时间图提取是启发式且轻量级的。
+- 前端文案在多处包含占位或草稿文本。
+- 角色输出依赖 `.env` 中本地配置的模型凭证。
+- 评测规模仍然较小且偏合成，与目标基准测试范围有差距。
+- 受版权保护的语料主要通过清单和示例呈现，而非完整的已发布文本。
 
-## Roadmap
+## 路线图
 
-- Add richer ingestion for `epub`, `docx`, and controlled `pdf` workflows.
-- Strengthen temporal graph extraction and graph-aware retrieval.
-- Expand Chinese lead-reader personas and persona consistency evaluation.
-- Build larger retrieval, narrative understanding, long-dialog, and anti-spoiler benchmarks.
-- Add screenshot assets, deployment instructions, and packaging for public release.
-- Improve frontend text quality and polish the reading interaction loop.
+- 为 `epub`、`docx` 和受控 `pdf` 工作流增加更丰富的导入功能。
+- 强化时间图提取和图谱感知检索。
+- 扩展中文领读角色和角色一致性评测。
+- 构建更大规模的检索、叙事理解、长对话和防剧透基准测试。
+- 添加截图资源、部署说明和公开发布打包。
+- 改进前端文本质量，打磨阅读交互闭环。
 
-## Open-Source Release Notes
+## 开源发布说明
 
-This repository is structured to be safely open-sourced:
+本仓库的结构设计为可安全开源：
 
-- schemas, manifests, examples, and scripts are included
-- benchmark fixtures are tiny and synthetic
-- copyrighted book content should remain out of public releases unless redistribution rights are explicit
-- public-domain or licensed content can be added later through the existing data structure
+- schema、清单、示例和脚本已包含在内
+- 基准测试数据量小且为合成数据
+- 受版权保护的书籍内容应保持在公开发布之外，除非具备明确的再分发权利
+- 公版或授权内容可通过现有数据结构后续添加
 
-## Related Project Docs
+## 相关项目文档
 
-- [Architecture alignment](/C:/Users/21358/Desktop/MuseReading/backend/docs/architecture_alignment.md)
-- [README architecture summary](/C:/Users/21358/Desktop/MuseReading/backend/docs/readme_architecture_summary.md)
-- [Data design](/C:/Users/21358/Desktop/MuseReading/backend/docs/data/muse_reading_data_design.md)
-- [Benchmarks README](/C:/Users/21358/Desktop/MuseReading/backend/benchmarks/README.md)
-- [Data skeleton README](/C:/Users/21358/Desktop/MuseReading/backend/assets/data/README.md)
+- [架构对齐](/C:/Users/21358/Desktop/MuseReading/backend/docs/architecture_alignment.md)
+- [README 架构摘要](/C:/Users/21358/Desktop/MuseReading/backend/docs/readme_architecture_summary.md)
+- [数据设计](/C:/Users/21358/Desktop/MuseReading/backend/docs/data/muse_reading_data_design.md)
+- [基准测试 README](/C:/Users/21358/Desktop/MuseReading/backend/benchmarks/README.md)
+- [数据骨架 README](/C:/Users/21358/Desktop/MuseReading/backend/assets/data/README.md)

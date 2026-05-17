@@ -1,60 +1,60 @@
-# Muse Reading Data Design
+# Muse Reading 数据设计
 
-## 1. Design alignment with existing materials
+## 1. 与现有材料的设计对齐
 
-This design follows the current project line in the provided reports and slides rather than replacing it:
+本文遵循已有报告和幻灯片中设定的当前项目路线，而非替代它：
 
-- Four core asset classes stay unchanged: `book text corpus`, `persona source corpus`, `annotation data`, `evaluation data`.
-- Chunking keeps both current practical work and future expansion:
-  - current implementable layer: paragraph or sliding-window retrieval chunks;
-  - reserved higher layers: chapter structure summary, global index, quote/stance layers.
-- Anti-spoiler evaluation keeps the PBM direction:
-  - `SANQA`: progress-aware answerability and spoiler control;
-  - `ERE`: emotion resonance and response boundary;
-  - `CME`: cumulative meaning evolution across reading progress.
-- Persona construction keeps the source split already proposed in slides:
-  - `fact layer`
-  - `style layer`
-  - `source layer`
+- 四类核心资产保持不变：`book text corpus`、`persona source corpus`、`annotation data`、`evaluation data`。
+- 分块同时保留当前实际工作和未来扩展：
+  - 当前可实现的层：段落或滑动窗口检索 chunk；
+  - 保留的更高层：章节结构摘要、全局索引、引用/立场层。
+- 防剧透评测保持 PBM 方向：
+  - `SANQA`：进度感知的可回答性与剧透控制；
+  - `ERE`：情感共鸣与回应边界；
+  - `CME`：跨阅读进度的累积意义演化。
+- 角色构建保持幻灯片中已提出的来源划分：
+  - `fact layer`（事实层）
+  - `style layer`（风格层）
+  - `source layer`（来源层）
 
-## 2. Data source taxonomy
+## 2. 数据来源分类
 
-### 2.1 Book text sources
+### 2.1 书籍文本来源
 
-- `public_domain_book`: public-domain novels, essays, classics.
-- `open_license_book`: openly licensed text corpora.
-- `licensed_book`: EPUB/TXT obtained with explicit permission.
-- `project_demo_book`: internal demo-only text used for prototype verification before full licensing is clear.
+- `public_domain_book`：公版小说、散文、经典作品。
+- `open_license_book`：开放许可的文本语料。
+- `licensed_book`：获得明确授权的 EPUB/TXT。
+- `project_demo_book`：在完整授权明确之前，仅用于内部原型验证的演示文本。
 
-Typical raw formats:
+典型原始格式：
 
 - `epub`
 - `txt`
 - `docx`
-- `pdf` as temporary input only, not the preferred archival format
+- `pdf` 仅作为临时输入，不作为首选归档格式
 
-### 2.2 Persona sources
+### 2.2 角色来源
 
-- `author_work`: original essays, letters, prefaces, interviews, diaries.
-- `character_source`: book passages directly describing a character's speech, motives, relations, and arc.
-- `biography_reference`: biographies, memoirs, encyclopedia pages, educational summaries.
-- `critical_reference`: literary criticism or public lectures used to extract stable analysis style.
+- `author_work`：原创论文、信件、序言、访谈、日记。
+- `character_source`：直接描述角色言语、动机、关系和弧线的书籍段落。
+- `biography_reference`：传记、回忆录、百科页面、教育性摘要。
+- `critical_reference`：用于提取稳定分析风格的文学评论或公开讲座。
 
-### 2.3 Annotation sources
+### 2.3 标注来源
 
-- `highlight_qa`: user-highlight-triggered QA or commentary pairs.
-- `salience_label`: emotional peak, conflict intensity, symbolism density, psychological complexity.
-- `chapter_evolution`: chapter summary plus meaning updates across progress checkpoints.
-- `persona_review`: human review for persona style fidelity and boundary control.
+- `highlight_qa`：用户高亮触发的问答或评论对。
+- `salience_label`：情绪峰值、冲突强度、象征密度、心理复杂度。
+- `chapter_evolution`：章节摘要加上跨进度检查点的意义更新。
+- `persona_review`：对角色风格一致性和边界控制的人工审查。
 
-### 2.4 Evaluation sources
+### 2.4 评测来源
 
 - `retrieval_eval`
 - `persona_consistency_eval`
 - `anti_spoiler_eval`
 - `user_study_sample`
 
-## 3. Unified directory structure
+## 3. 统一目录结构
 
 ```text
 backend/assets/data/
@@ -90,39 +90,39 @@ backend/assets/examples/backend/assets/data/
   anti_spoiler_eval/
 ```
 
-## 4. Naming convention
+## 4. 命名约定
 
-Use lowercase ASCII only. Use underscore `_` inside identifiers and hyphen `-` only in dates.
+仅使用小写 ASCII。标识符内部使用下划线 `_`，仅在日期中使用连字符 `-`。
 
-### 4.1 Canonical ids
+### 4.1 规范 ID
 
-- `book_id`: `book_<title_slug>`
-  - example: `book_the_pig_like_maverick`
-- `chapter_id`: `ch_<3-digit-index>`
-  - example: `ch_003`
-- `section_id`: `sec_<3-digit-index>`
-- `paragraph_id`: `para_<4-digit-index>`
-- `chunk_id`: `chunk_<book_short>_<chapter>_<local_index>`
-  - example: `chunk_pig_003_0007`
-- `persona_id`: `persona_<name_slug>`
-  - example: `persona_lu_xun`
-- `sample_id`: `<task>_<book_short>_<chapter>_<index>`
-  - example: `highlight_qa_pig_003_0002`
+- `book_id`：`book_<title_slug>`
+  - 示例：`book_the_pig_like_maverick`
+- `chapter_id`：`ch_<3位序号>`
+  - 示例：`ch_003`
+- `section_id`：`sec_<3位序号>`
+- `paragraph_id`：`para_<4位序号>`
+- `chunk_id`：`chunk_<book_short>_<chapter>_<local_index>`
+  - 示例：`chunk_pig_003_0007`
+- `persona_id`：`persona_<name_slug>`
+  - 示例：`persona_lu_xun`
+- `sample_id`：`<task>_<book_short>_<chapter>_<index>`
+  - 示例：`highlight_qa_pig_003_0002`
 
-### 4.2 File naming
+### 4.2 文件命名
 
-- Raw text file:
+- 原始文本文件：
   - `book_<title_slug>__source_<source_type>__v001.json`
-- Chunk file:
-  - `chunks__book_<title_slug>__ch_<3-digit-index>__v001.jsonl`
-- Persona file:
+- Chunk 文件：
+  - `chunks__book_<title_slug>__ch_<3位序号>__v001.jsonl`
+- 角色文件：
   - `persona_<name_slug>__v001.json`
-- Annotation file:
+- 标注文件：
   - `<task>__book_<title_slug>__split_<split>__v001.jsonl`
-- Eval file:
+- 评测文件：
   - `<task>__book_<title_slug>__split_<split>__v001.jsonl`
 
-### 4.3 Split naming
+### 4.3 划分命名
 
 - `train`
 - `dev`
@@ -130,96 +130,96 @@ Use lowercase ASCII only. Use underscore `_` inside identifiers and hyphen `-` o
 - `gold`
 - `demo`
 
-## 5. Core schema intent
+## 5. 核心 schema 意图
 
 ### 5.1 `raw_text`
 
-Stores one book or source document before chunking but after basic legal and provenance registration.
+存储分块前但已完成基本法律和来源登记的书籍或源文档。
 
 ### 5.2 `chunk`
 
-Stores retrieval-ready units with strict position metadata for anti-spoiler filtering.
+存储检索就绪的单元，带有严格的位置元数据，用于防剧透过滤。
 
 ### 5.3 `persona`
 
-Stores fact, style, stance, quote references, and usage constraints for author or character agents.
+存储作者或角色 Agent 的事实、风格、立场、引用参考和使用约束。
 
 ### 5.4 `highlight_qa`
 
-Stores interaction samples centered on a highlighted span and surrounding context.
+存储以高亮片段及周围上下文为中心的交互样本。
 
 ### 5.5 `chapter_evolution`
 
-Stores chapter summary plus progress-aware understanding updates, designed to support chapter wrap-up and CME-style evaluation.
+存储章节摘要和进度感知的理解更新，设计用于支撑章节收尾和 CME 风格的评测。
 
 ### 5.6 `anti_spoiler_eval`
 
-Stores adversarial progress-aware questions, gold labels, leakage categories, and scoring metadata.
+存储对抗式进度感知问题、金标标签、泄漏类别和评分数元数据。
 
-## 6. Data flow
+## 6. 数据流
 
 ```text
-source acquisition
-  -> legal/provenance registration
-  -> raw text normalization
-  -> chapter/section parsing
-  -> paragraph alignment
-  -> chunk generation
-  -> metadata enrichment
-  -> persona extraction / annotation authoring
-  -> golden-set review
-  -> eval-set packaging
-  -> open-source filtering and release manifest
+来源获取
+  -> 法律/来源登记
+  -> 原始文本归一化
+  -> 章节/节解析
+  -> 段落对齐
+  -> chunk 生成
+  -> 元数据增强
+  -> 角色抽取 / 标注创作
+  -> 金标集审查
+  -> 评测集打包
+  -> 开源过滤和发布清单
 ```
 
-### 6.1 Detailed handoff points
+### 6.1 详细交接点
 
-1. `raw/books` and `raw/persona_sources`
-   - owned by ingestion / copyright checking.
+1. `raw/books` 和 `raw/persona_sources`
+   - 由导入 / 版权检查负责。
 2. `processed/books`
-   - owned by text pipeline and chunking pipeline.
+   - 由文本流水线和分块流水线负责。
 3. `processed/personas`
-   - owned by persona extraction and prompt-design collaboration.
+   - 由角色抽取和 prompt 设计协作负责。
 4. `annotations/*`
-   - owned by human annotation and QA review.
+   - 由人工标注和 QA 审查负责。
 5. `eval/*`
-   - owned by benchmark design and evaluation scripts.
+   - 由基准测试设计和评测脚本负责。
 
-## 7. Open-source boundary
+## 7. 开源边界
 
-### Can be open-sourced
+### 可以开源的
 
-- Schema definitions.
-- Naming rules and directory conventions.
-- Annotation guidelines and scoring rubrics.
-- Evaluation prompts, labels, and score aggregation code.
-- Metadata-only manifests for copyrighted books.
-- Synthetic or manually rewritten demo examples that do not reproduce large copyrighted passages.
+- Schema 定义。
+- 命名规则和目录约定。
+- 标注指南和评分标准。
+- 评测 prompt、标签和分数聚合代码。
+- 受版权保护书籍的仅元数据清单。
+- 不复制大量版权段落的合成或人工重写演示示例。
 
-### Should not be openly released by default
+### 默认不应公开发布的
 
-- Full copyrighted EPUB/TXT content.
-- Large contiguous passages from licensed books.
-- Raw persona corpora compiled from non-open biographical or critical sources without redistribution rights.
-- Internal API logs containing user reading traces.
+- 完整的受版权保护 EPUB/TXT 内容。
+- 来自授权书籍的大段连续段落。
+- 从无再分发权的非开放传记或评论来源汇编的原始角色语料。
+- 包含用户阅读痕迹的内部 API 日志。
 
-### Conditional release
+### 有条件发布
 
-- Public-domain full texts may be released if source and license are recorded.
-- Short excerpts may be released as demo context if rights and length are reviewed.
+- 如果记录了来源和许可，公版全文可以发布。
+- 如果经过权利和长度审查，短摘录可以作为演示上下文发布。
 
-## 8. Current minimum build strategy
+## 8. 当前最小构建策略
 
-This delivery intentionally builds only the minimum stable scaffold:
+本次交付有意只构建最小的稳定骨架：
 
-- schema-first
-- metadata-first
-- sample-first
-- no assumption that ingestion scripts already exist
+- schema 优先
+- 元数据优先
+- 样本优先
+- 不假设导入脚本已经存在
 
-That keeps the structure decoupled for other agents who may later add:
+这保持了结构的解耦，便于其他 Agent 后续添加：
 
-- EPUB parsers
-- chunk builders
-- annotation tooling
-- evaluation runners
+- EPUB 解析器
+- chunk 构建器
+- 标注工具
+- 评测运行器

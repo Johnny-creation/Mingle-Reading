@@ -1,77 +1,77 @@
-# Contributing
+# 参与贡献
 
-Thanks for helping improve Muse Reading. The current repository is a lightweight Python MVP built with:
+感谢你帮助改进 Muse Reading。当前仓库是一个基于以下技术构建的轻量级 Python MVP：
 
-- `FastAPI` for the API layer
-- a static frontend in `frontend/`
-- local JSON files under `backend/workspace_state/` for runtime storage
+- `FastAPI` 作为 API 层
+- `frontend/` 中的静态前端
+- `backend/workspace_state/` 下的本地 JSON 文件作为运行时存储
 
-## Before You Start
+## 开始之前
 
-- Read the project overview in `README.md`.
-- Keep changes aligned with the existing MVP scope.
-- Do not commit generated files from `backend/workspace_state/`.
-- Prefer small, reviewable pull requests.
+- 阅读 `README.md` 中的项目概览。
+- 保持变更与现有 MVP 范围一致。
+- 不要提交 `backend/workspace_state/` 中的生成文件。
+- 倾向于小而可审查的 Pull Request。
 
-## Local Setup
+## 本地环境搭建
 
-1. Create and activate a Python environment.
-2. Install dependencies:
+1. 创建并激活 Python 环境。
+2. 安装依赖：
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Start the app:
+3. 启动应用：
 
 ```bash
 python main.py
 ```
 
-4. Open `http://127.0.0.1:8000`.
+4. 打开 `http://127.0.0.1:8000`。
 
-## Project Areas
+## 项目区域
 
-- `backend/api/`: FastAPI app and HTTP endpoints
-- `backend/common/`: shared config and Pydantic models
-- `backend/data/`: ingestion and local storage helpers
-- `backend/knowledge_base/`: graph, QA retrieval, and character logic
-- `backend/safety/`: anti-spoiler safeguards
-- `backend/llm_memory/`: persona, orchestration, and summary generation
-- `frontend/`: static HTML/CSS/JS reader UI
-- `backend/assets/data/`, `backend/assets/schemas/`, `backend/benchmarks/`, `backend/eval/`: dataset, schema, and evaluation assets
-- `backend/scripts/`: build and dataset utility scripts
-- `backend/tests/`: pytest coverage for the MVP
+- `backend/api/`：FastAPI 应用和 HTTP 端点
+- `backend/common/`：共享配置和 Pydantic 模型
+- `backend/data/`：导入和本地存储辅助模块
+- `backend/knowledge_base/`：图谱、问答检索和角色逻辑
+- `backend/safety/`：防剧透保护
+- `backend/llm_memory/`：角色、编排和摘要生成
+- `frontend/`：静态 HTML/CSS/JS 阅读器 UI
+- `backend/assets/data/`、`backend/assets/schemas/`、`backend/benchmarks/`、`backend/eval/`：数据集、schema 和评测资产
+- `backend/scripts/`：构建和数据集工具脚本
+- `backend/tests/`：MVP 的 pytest 覆盖
 
-## Development Expectations
+## 开发期望
 
-- Reuse the current data schemas and file naming conventions where possible.
-- Keep new features compatible with the existing FastAPI + static frontend architecture.
-- Add or update tests when behavior changes.
-- Document any new root-level setup requirement in a follow-up README change.
+- 尽可能复用当前的数据 schema 和文件命名约定。
+- 保持新功能与现有 FastAPI + 静态前端架构兼容。
+- 当行为发生变化时，添加或更新测试。
+- 如有新的根级环境搭建要求，应在 README 的后续修改中说明。
 
-## Recommended Checks
+## 推荐检查项
 
-Run these before opening a pull request:
+在发起 Pull Request 之前运行以下命令：
 
 ```bash
 pytest -q
 python backend/eval/run_eval.py
 ```
 
-If your change touches dataset builders, also run the relevant script and confirm it produces valid JSON/JSONL output.
+如果你的变更涉及数据集构建器，还需运行相关脚本并确认其产生有效的 JSON/JSONL 输出。
 
-## Pull Request Notes
+## Pull Request 注意事项
 
-When opening a PR, include:
+发起 PR 时请包含：
 
-- what changed
-- why it changed
-- how you verified it
-- any known limitations or follow-up work
+- 变更了什么
+- 为什么变更
+- 如何验证的
+- 任何已知局限或后续工作
 
-## Scope and Safety
+## 范围与安全
 
-- Avoid committing copyrighted raw text unless it is clearly redistributable.
-- Prefer schema, examples, and metadata-only records when source redistribution is unclear.
-- Keep persona and evaluation assets traceable to their sources.
+- 除非明确可再分发，否则避免提交受版权保护的原始文本。
+- 当来源再分发权限不明确时，优先使用 schema、示例和仅元数据记录。
+- 保持角色和评测资产可追溯至其来源。

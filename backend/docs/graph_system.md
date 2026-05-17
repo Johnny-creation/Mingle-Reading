@@ -1,19 +1,19 @@
-# Temporal Context Graph
+# 时间上下文图
 
-Muse Reading currently treats the temporal context graph as a local graph store layered on top of the chunked book record rather than as a separate external database.
+Muse Reading 当前将时间上下文图视为叠加在已分块书籍记录之上的本地图存储，而非独立的外部数据库。
 
-## What The Graph Stores
+## 图谱存储内容
 
-- `chapter` nodes: chapter-level timeline anchors and browse summaries
-- `episode` nodes: paragraph or chunk level narrative units with provenance
-- `entity` nodes: characters, locations, groups, concepts, and themes
-- `relation` edges: co-presence, dialogue, and conflict relations with chapter validity
-- `community` nodes: connected components over entity adjacency
-- `saga` nodes: contiguous multi-chapter narrative threads
+- `chapter` 节点：章节级时间线锚点和浏览摘要
+- `episode` 节点：段落或 chunk 级叙事单元，带来源信息
+- `entity` 节点：角色、地点、群体、概念和主题
+- `relation` 边：共现、对话和冲突关系，带章节有效性
+- `community` 节点：基于实体邻接的连通分量
+- `saga` 节点：连续多章节叙事线索
 
-## Timeline Layer
+## 时间线层
 
-Each graph includes a `chapter_timeline` array. Every entry records:
+每个图谱包含一个 `chapter_timeline` 数组。每条记录包含：
 
 - `chapter_index`
 - `episode_ids`
@@ -24,13 +24,13 @@ Each graph includes a `chapter_timeline` array. Every entry records:
 - `spoiler_level`
 - `summary`
 
-This gives API consumers a stable chapter-by-chapter browse surface without needing to reconstruct timeline state from raw edges.
+这使得 API 使用者可以获得稳定的逐章浏览界面，无需从原始边重建时间线状态。
 
-## Query Layer
+## 查询层
 
-`backend/knowledge_base/graph/retrieval.py` supports progress-aware retrieval with filters for:
+`backend/knowledge_base/graph/retrieval.py` 支持带以下过滤条件的进度感知检索：
 
-- `max_chapter` and `min_chapter`
+- `max_chapter` 和 `min_chapter`
 - `entity_names`
 - `entity_types`
 - `relation_types`
@@ -39,27 +39,27 @@ This gives API consumers a stable chapter-by-chapter browse surface without need
 - `min_entity_mentions`
 - `min_relation_weight`
 
-The retrieval result also returns `hit_type_breakdown`, `applied_filters`, and graph-level stats so higher layers can inspect what the graph actually surfaced.
+检索结果还返回 `hit_type_breakdown`、`applied_filters` 和图谱级统计信息，以便上层查看图谱实际返回了什么。
 
-## Storage Layer
+## 存储层
 
-Graphs are persisted as JSON under `backend/workspace_state/graphs/`. The storage metadata currently records:
+图谱以 JSON 格式持久化在 `backend/workspace_state/graphs/` 下。存储元数据当前记录：
 
 - `storage_version`
 - `saved_at`
 - `graph_path`
 
-This is still a local file-backed graph store. Future work can swap the storage backend while preserving the same graph model and retrieval surface.
+目前仍是本地文件级图存储。后续工作可在保留相同图谱模型和检索接口的前提下更换存储后端。
 
-## API Surface
+## API 接口
 
-The graph layer is now exposed through the FastAPI app:
+图谱层当前通过 FastAPI 应用暴露：
 
 - `GET /api/books/{book_id}/graph`
-  - Returns graph stats plus browsable `chapters`, `chapter_timeline`, `episodes`, `entities`, `relations`, `communities`, and `sagas`
+  - 返回图谱统计信息以及可浏览的 `chapters`、`chapter_timeline`、`episodes`、`entities`、`relations`、`communities` 和 `sagas`
 - `GET /api/books/{book_id}/graph/metadata`
-  - Returns storage metadata and graph stats only
+  - 仅返回存储元数据和图谱统计信息
 - `POST /api/books/{book_id}/graph/query`
-  - Runs progress-aware graph retrieval using the `GraphQuery` schema
+  - 使用 `GraphQuery` schema 运行进度感知图谱检索
 
-This keeps the graph store local and file-backed while still giving the frontend and evaluation scripts a stable database-style query surface.
+这保持了图谱存储的本地文件化，同时为前端和评测脚本提供了稳定的数据库式查询接口。

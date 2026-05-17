@@ -1,28 +1,28 @@
-## Upload Ingestion
+## 上传导入
 
-Muse Reading now supports local ingestion for `txt`, `pdf`, and `epub` uploads without using external services.
+Muse Reading 现在支持 `.txt`、`.pdf` 和 `.epub` 格式的本地导入，无需使用外部服务。
 
-### Supported formats
+### 支持格式
 
 - `txt`
-  - Decoded as UTF-8 text
+  - 以 UTF-8 文本解码
 - `pdf`
-  - Parsed locally with `pypdf`
-  - Extracted page text is normalized and forwarded into the existing `build_book_record` pipeline
+  - 使用 `pypdf` 本地解析
+  - 提取的页面文本经归一化后送入现有的 `build_book_record` 流水线
 - `epub`
-  - Parsed locally with a zip/XML reader
-  - The spine order is respected so chapter XHTML files are read in reading order
+  - 使用 zip/XML 读取器本地解析
+  - 遵循 spine 顺序，确保各章节 XHTML 文件按阅读顺序读取
 
-### Ingestion flow
+### 导入流程
 
-1. `POST /api/upload` receives the file
-2. `backend/data/ingest/parser.py` detects the suffix and extracts readable text locally
-3. Extracted text is normalized
-4. The existing `build_book_record(...)` flow builds chapters and chunks
-5. The existing temporal graph builder runs on the resulting `BookRecord`
+1. `POST /api/upload` 接收文件
+2. `backend/data/ingest/parser.py` 检测后缀并在本地提取可读文本
+3. 提取的文本被归一化
+4. 现有 `build_book_record(...)` 流程构建章节和 chunk
+5. 现有时间图构建器基于生成的 `BookRecord` 运行
 
-### Current limits
+### 当前限制
 
-- `pdf` extraction quality depends on whether the PDF contains selectable text
-- Scanned PDFs without an OCR text layer are not yet supported
-- `epub` support currently focuses on standard spine-based XHTML content
+- `pdf` 提取质量取决于 PDF 是否包含可选文本
+- 不含 OCR 文本层的扫描版 PDF 暂不支持
+- `epub` 支持目前聚焦于基于标准 spine 的 XHTML 内容

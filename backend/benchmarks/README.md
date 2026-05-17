@@ -1,26 +1,25 @@
-# Benchmark Fixtures
+# 基准测试数据
 
-This directory holds the minimum benchmark data needed to smoke-test the MVP
-evaluation flow.
+此目录包含对 MVP 评测流程进行冒烟测试所需的最小基准数据。
 
-## Files
+## 文件
 
 - `highlight_qa/demo/*.jsonl`
-  - line-delimited samples aligned with `backend/assets/schemas/highlight_qa.schema.json`
+  - 与 `backend/assets/schemas/highlight_qa.schema.json` 对齐的逐行样本
 - `anti_spoiler/demo/*.jsonl`
-  - line-delimited samples aligned with `backend/assets/schemas/anti_spoiler_eval.schema.json`
+  - 与 `backend/assets/schemas/anti_spoiler_eval.schema.json` 对齐的逐行样本
 - `chapter_summary/demo/*.jsonl`
-  - lightweight summary checks used by `backend/eval/run_eval.py`
+  - `backend/eval/run_eval.py` 使用的轻量级摘要检查
 
-## Scope
+## 范围
 
-These fixtures are intentionally tiny and synthetic:
+这些测试数据刻意保持小规模和合成化：
 
-- they target the bundled `backend/assets/examples/muse_demo_book.txt`
-- they are meant for regression checks, not model ranking
-- they only assert minimum behavior needed for a direct `eval` run
+- 它们针对内置的 `backend/assets/examples/muse_demo_book.txt`
+- 用于回归检查，而非模型排名
+- 仅断言直接 `eval` 运行所需的最小行为
 
-## Run
+## 运行
 
 ```bash
 python backend/eval/run_eval.py

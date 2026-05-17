@@ -1,32 +1,32 @@
-# Hierarchical Dataset And Source Registry Builders
+# 层级化数据集与来源注册表构建器
 
-`backend/scripts/` now contains two entrypoints:
+`backend/scripts/` 现在包含两个入口点：
 
 - `backend/scripts/source_registry_manifest_builder.py`
-  - registers local `txt/json` sources into standard raw records and source manifests
-  - supports `books` and `persona_sources` modes
-  - can optionally call the hierarchical builder for `books`
+  - 将本地 `txt/json` 来源注册为标准原始记录和来源清单
+  - 支持 `books` 和 `persona_sources` 模式
+  - 可选择性调用层级化构建器处理 `books`
 - `backend/scripts/hierarchical_dataset_builder.py`
-  - builds layered Muse Reading dataset artifacts plus graph-intermediate exports from one normalized book source
+  - 从一份归一化的书籍来源构建层级化 Muse Reading 数据集产物以及图谱中间导出
 
-## 1. Source registry entrypoint
+## 1. 来源注册表入口点
 
-Use this when a local source should first be registered into the `backend/assets/data/`-style directory layout and manifest structure.
+当需要首先将本地来源注册到 `backend/assets/data/` 风格的目录布局和清单结构中时使用此入口。
 
-### Supported inputs
+### 支持的输入
 
-- plain `.txt`
-- source `.json` with `content` or `text`
-- serialized `BookRecord` `.json` in `books` mode
-- one file, multiple files, or a directory of `.txt/.json`
+- 纯 `.txt`
+- 包含 `content` 或 `text` 的来源 `.json`
+- `books` 模式下的序列化 `BookRecord` `.json`
+- 单文件、多文件或目录中的 `.txt/.json`
 
-### Run for books
+### 处理书籍
 
 ```bash
 python backend/scripts/source_registry_manifest_builder.py backend/scripts/demo_book.txt --mode books
 ```
 
-This writes to `backend/scripts/registry_output/` by default:
+默认写入到 `backend/scripts/registry_output/`：
 
 ```text
 backend/scripts/registry_output/
@@ -58,13 +58,13 @@ backend/scripts/registry_output/
       source_registry__books__v001.json
 ```
 
-### Run for persona sources
+### 处理角色来源
 
 ```bash
 python backend/scripts/source_registry_manifest_builder.py path/to/persona_notes.txt --mode persona_sources --persona-name "Lu Xun" --source-type author_work
 ```
 
-This writes:
+输出：
 
 ```text
 backend/scripts/registry_output/
@@ -77,47 +77,47 @@ backend/scripts/registry_output/
       source_registry__persona_sources__v001.json
 ```
 
-### Useful options
+### 实用选项
 
 - `--output-root backend/scripts/registry_output_custom`
 - `--version v002`
 - `--source-type licensed_book`
 - `--copyright-status licensed`
 - `--skip-hierarchical-build`
-  - `books` mode only
-  - registers raw/manifests without generating processed chunks
+  - 仅限 `books` 模式
+  - 仅注册原始文件/清单，不生成处理后的 chunk
 - `--recursive`
-  - expands directory inputs and picks up `.txt/.json` files
+  - 展开目录输入并拾取 `.txt/.json` 文件
 
-### Registration behavior
+### 注册行为
 
-- `books` mode normalizes ids to lowercase ASCII with underscores, for example `book_demo_book`.
-- `persona_sources` mode emits `persona_source_<slug>` and optional `persona_<slug>`.
-- Raw source filenames follow the `backend/docs/data/muse_reading_data_design.md` pattern for books:
+- `books` 模式将 ID 归一化为小写 ASCII 加下划线，例如 `book_demo_book`。
+- `persona_sources` 模式生成 `persona_source_<slug>` 和可选的 `persona_<slug>`。
+- 原始来源文件名遵循 `backend/docs/data/muse_reading_data_design.md` 中针对书籍的模式：
   - `book_<title_slug>__source_<source_type>__v001.json`
-- Source manifests are stored under `backend/assets/data/manifests/` and batch registry files are grouped by mode:
+- 来源清单存储在 `backend/assets/data/manifests/` 下，批量注册表文件按模式分组：
   - `manifest__books__<book_id>__v001.json`
   - `manifest__persona_sources__<source_id>__v001.json`
   - `source_registry__books__v001.json`
   - `source_registry__persona_sources__v001.json`
 
-## 2. Hierarchical dataset builder
+## 2. 层级化数据集构建器
 
-Use this when a normalized book raw record already exists and only the layered processed artifacts are needed.
+当归一化的书籍原始记录已存在，只需要层级化处理产物时使用此入口。
 
-### Supported inputs
+### 支持的输入
 
-- plain `.txt`
-- `raw_text` style `.json` with `content`
-- serialized `BookRecord` `.json`
+- 纯 `.txt`
+- 包含 `content` 的 `raw_text` 风格 `.json`
+- 序列化的 `BookRecord` `.json`
 
-### Run
+### 运行
 
 ```bash
 python backend/scripts/hierarchical_dataset_builder.py backend/scripts/demo_book.txt --output-dir backend/scripts/build_output/demo_run
 ```
 
-### Outputs
+### 输出
 
 - `raw_record.json`
 - `hierarchical_chunks.jsonl`
@@ -134,11 +134,11 @@ python backend/scripts/hierarchical_dataset_builder.py backend/scripts/demo_book
 - `graph/sagas.jsonl`
 - `manifest.json`
 
-## 3. Notes
+## 3. 说明
 
-- L1 uses paragraph windows for retrieval-friendly chunks.
-- L2 is a chapter-structure summary scaffold.
-- L3 is a single global routing/index chunk.
-- L4 is a quote/stance placeholder layer for downstream persona or commentary workers.
-- Graph exports are produced from the L0 paragraph view so they remain spoiler-aware and position-aligned.
-- The new registry script is the recommended entrypoint when the source still needs provenance registration.
+- L1 使用段落窗口生成适合检索的 chunk。
+- L2 是章节结构摘要骨架。
+- L3 是单个全局路由/索引 chunk。
+- L4 是引用/立场占位层，供下游角色或评论工作器使用。
+- 图谱导出基于 L0 段落视图生成，因此保持防剧透感知和位置对齐。
+- 当来源仍需要来源登记时，新的注册表脚本是推荐入口点。

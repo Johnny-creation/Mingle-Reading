@@ -1,54 +1,54 @@
-# Roadmap
+# 路线图
 
-## Current MVP
+## 当前 MVP
 
-The repository already covers a runnable reading loop:
+仓库已覆盖可运行的阅读闭环：
 
-- upload a text file
-- parse chapters and paragraphs into chunks
-- render a static reading interface
-- ask highlight-grounded questions
-- generate chapter summaries
-- apply basic persona styling
-- apply basic anti-spoiler constraints
-- build temporal graph artifacts for uploaded texts
-- run lightweight evaluation scripts
+- 上传文本文件
+- 解析章节和段落为 chunk
+- 渲染静态阅读界面
+- 提出基于高亮的问答
+- 生成章节摘要
+- 应用基础角色风格
+- 应用基础防剧透约束
+- 为上传文本构建时间图产物
+- 运行轻量级评测脚本
 
-## Near-Term Priorities
+## 近期优先事项
 
-1. Strengthen evaluation coverage
-   - retrieval evaluation
-   - persona consistency evaluation
-   - richer anti-spoiler evaluation
+1. 加强评测覆盖
+   - 检索评测
+   - 角色一致性评测
+   - 更丰富的防剧透评测
 
-2. Improve text-to-graph quality
-   - better entity extraction
-   - cleaner relation typing
-   - stronger chapter-level progression signals
+2. 改进文本到图谱的质量
+   - 更好的实体抽取
+   - 更清晰的关系类型化
+   - 更强的章节级推进信号
 
-3. Harden open-source packaging
-   - expand setup documentation
-   - add more public demo assets
-   - formalize source registry validation
+3. 巩固开源打包
+   - 扩展环境搭建文档
+   - 增加更多公开演示资产
+   - 规范来源注册表校验
 
-## Planned Data Work
+## 计划中的数据工作
 
-- expand public-domain or redistributable demo texts
-- refine persona source catalogs
-- convert source catalogs into graph-ready evidence shards
-- improve release manifests for open-source safe data packaging
+- 扩展公版或可再分发的演示文本
+- 细化角色来源目录
+- 将来源目录转化为图谱就绪的证据片段
+- 改进面向开源安全数据打包的发布清单
 
-## Planned Product Work
+## 计划中的产品工作
 
-- richer reading interactions
-- better progress-aware retrieval orchestration
-- more controllable Chinese lead-reader personas
-- tighter frontend integration for graph-backed QA and summaries
+- 更丰富的阅读交互
+- 更好的进度感知检索编排
+- 更可控的中文领读角色
+- 为图谱支持的问答和摘要提供更紧密的前端集成
 
-## Out of Scope for This MVP
+## 本 MVP 范围外
 
-- production deployment infrastructure
-- multi-user authentication
-- external vector database hosting
-- large-scale training pipelines
-- complex CI/CD workflows
+- 生产部署基础设施
+- 多用户认证
+- 外部向量数据库托管
+- 大规模训练流水线
+- 复杂 CI/CD 工作流

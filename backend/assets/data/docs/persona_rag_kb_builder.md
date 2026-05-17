@@ -1,73 +1,73 @@
-# Persona RAG KB Builder
+# 角色 RAG 知识库构建器
 
-This document describes the local builder that converts the three lead-reader persona catalogs and persona packs into a retrieval-ready knowledge-base skeleton for traditional RAG.
+本文档描述了将三位领读角色目录和角色包转换为可检索的传统 RAG 知识库骨架的本地构建器。
 
-## Goal
+## 目标
 
-The builder prepares persona assets for prompt injection and lightweight retrieval without putting persona nodes into the temporal graph database.
+构建器将角色资产准备为可用于 prompt 注入和轻量级检索的格式，而无需将角色节点放入时间图数据库。
 
-Current supported personas:
+当前支持的角色：
 
 - `persona_lu_xun`
 - `persona_mark_twain`
 - `persona_zhang_ailing`
 
-## Inputs
+## 输入
 
-The builder reads two existing asset types:
+构建器读取两类现有资产：
 
 - `backend/assets/data/raw/persona_sources/catalog_<persona>__v001.json`
-  - source inventory split into:
-    - `works`
-    - `voice_sources`
-    - `biography_and_critical`
+  - 来源清单，分为：
+    - `works`（作品）
+    - `voice_sources`（声音来源）
+    - `biography_and_critical`（传记与评论）
 - `backend/assets/data/processed/personas/persona_<name>__v*.json`
-  - schema-conformant persona pack with:
-    - `fact_layer`
-    - `style_layer`
-    - `stance_layer`
-    - `source_layer`
-    - `constraints`
+  - 符合 schema 的角色包，包含：
+    - `fact_layer`（事实层）
+    - `style_layer`（风格层）
+    - `stance_layer`（立场层）
+    - `source_layer`（来源层）
+    - `constraints`（约束）
 
-## Outputs
+## 输出
 
-For each persona, the builder writes a directory under `backend/assets/data/processed/personas/persona_kb/<persona_id>/`:
+对于每个角色，构建器在 `backend/assets/data/processed/personas/persona_kb/<persona_id>/` 下写入一个目录：
 
 - `documents.jsonl`
-  - one `persona_profile` document
-  - one `source_document` per catalog entry
+  - 一条 `persona_profile` 文档
+  - 每个目录条目一条 `source_document`
 - `retrieval_snippets.jsonl`
-  - persona-pack snippets for style, stance, themes, and boundary
-  - one `source_overview` snippet per catalog entry
+  - 用于风格、立场、主题和边界的角色包片段
+  - 每个目录条目一条 `source_overview` 片段
 - `manifest.json`
-  - input references
-  - output file references
-  - category counts
-  - retrieval notes
+  - 输入引用
+  - 输出文件引用
+  - 分类计数
+  - 检索说明
 
-## Retrieval usage
+## 检索用法
 
-Recommended retrieval order:
+推荐检索顺序：
 
-1. Use the current reader-visible book context from the book-side RAG or temporal graph.
-2. Retrieve persona snippets from `persona_pack` when the task needs voice, stance, or style control.
-3. Retrieve `voice_sources` first when the task is "how would this persona comment on the passage?"
-4. Use `works` and `biography_and_critical` as supporting evidence for background and recurring motifs.
+1. 从书籍侧 RAG 或时间图中获取当前阅读器可见的书籍上下文。
+2. 当任务需要声音、立场或风格控制时，从 `persona_pack` 中检索角色片段。
+3. 当任务是"此角色会如何评论这段落？"时，优先检索 `voice_sources`。
+4. 将 `works` 和 `biography_and_critical` 用作背景和反复出现的主题的支撑证据。
 
-## Run
+## 运行
 
 ```bash
 python backend/scripts/persona_rag_kb_builder.py
 ```
 
-Build a single persona:
+构建单个角色：
 
 ```bash
 python backend/scripts/persona_rag_kb_builder.py --persona-id persona_lu_xun
 ```
 
-## Notes
+## 备注
 
-- The builder does not use or store API keys.
-- The KB is intentionally summary-based; it does not attempt to ship full copyrighted text.
-- `voice_sources` is the highest-value bucket for lead-reader prompting because it captures tone, reasoning rhythm, and self-positioning.
+- 构建器不使用也不存储 API key。
+- 知识库有意以摘要为基础；不尝试发布完整的受版权保护文本。
+- `voice_sources` 是领读角色 prompting 最高价值的桶，因为它捕捉了语调、推理节奏和自我定位。

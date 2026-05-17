@@ -1,28 +1,28 @@
 ---
-name: Feature request
-about: Suggest an improvement that fits the current Muse Reading direction
+name: 功能请求
+about: 提出一个符合当前 Muse Reading 方向的改进建议
 title: "[Feature] "
 labels: enhancement
 assignees: ''
 ---
 
-## Problem
+## 问题
 
-What reader, dataset, or developer problem are you trying to solve?
+你试图解决什么读者、数据集或开发者方面的问题？
 
-## Proposed Change
+## 提议的变更
 
-Describe the smallest useful version of the change.
+描述该变更的最小可用版本。
 
-## Affected Area
+## 影响区域
 
 - [ ] API
-- [ ] Frontend
-- [ ] Data pipeline
-- [ ] Persona layer
-- [ ] Evaluation
-- [ ] Documentation
+- [ ] 前端
+- [ ] 数据流水线
+- [ ] 角色层
+- [ ] 评测
+- [ ] 文档
 
-## Notes
+## 备注
 
-Share any constraints, references, or example behavior.
+分享任何约束、参考或示例行为。

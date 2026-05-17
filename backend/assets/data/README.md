@@ -1,34 +1,34 @@
-# Data Skeleton
+# 数据骨架
 
-This directory is the minimal project-aligned data skeleton for Muse Reading.
+此目录是面向 Muse Reading 的最小化项目对齐数据骨架。
 
-## Layout
+## 布局
 
-- `raw/books/`: original book-level assets after provenance registration.
-- `raw/persona_sources/`: original author, character, biography, and criticism sources.
-- `processed/books/`: normalized book text, paragraph map, and retrieval chunks.
-- `processed/personas/`: structured persona packs consumed by prompts or RAG.
-- `annotations/highlight_qa/`: highlight-centered interaction gold data.
-- `annotations/chapter_evolution/`: chapter summary and understanding-evolution annotations.
-- `eval/retrieval/`: retrieval benchmarks and query-doc relevance labels.
-- `eval/persona_consistency/`: persona fidelity evaluation sets.
-- `eval/anti_spoiler/`: SANQA/ERE/CME-oriented adversarial evaluation sets.
-- `manifests/`: license, source, split, and release manifests.
+- `raw/books/`：经过来源登记的原始书籍级资产。
+- `raw/persona_sources/`：原始作者、角色、传记和评论来源。
+- `processed/books/`：归一化的书籍文本、段落映射和检索 chunk。
+- `processed/personas/`：供 prompt 或 RAG 使用的结构化角色包。
+- `annotations/highlight_qa/`：以高亮为中心的交互金标数据。
+- `annotations/chapter_evolution/`：章节摘要和理解演化标注。
+- `eval/retrieval/`：检索基准测试和查询-文档相关性标签。
+- `eval/persona_consistency/`：角色一致性评测集。
+- `eval/anti_spoiler/`：面向 SANQA/ERE/CME 的对抗式评测集。
+- `manifests/`：许可、来源、划分和发布清单。
 
-## What belongs here
+## 应放在此处的内容
 
-- metadata manifests
-- normalized JSON / JSONL
-- annotation exports
-- evaluation packages
+- 元数据清单
+- 归一化的 JSON / JSONL
+- 标注导出
+- 评测包
 
-## What should stay out
+## 不应放在此处的内容
 
-- code
-- notebooks unrelated to data packaging
-- model checkpoints
-- vector database runtime files
+- 代码
+- 与数据打包无关的 notebook
+- 模型检查点
+- 向量数据库运行时文件
 
-## Release note
+## 发布说明
 
-If a book is not public-domain or explicitly licensed for redistribution, store only metadata manifests here in open releases.
+如果书籍不属于公版或未获得明确的再分发许可，在公开发布中仅在此处存储元数据清单。

@@ -1,15 +1,15 @@
-## Summary
+## 概要
 
-- what changed:
-- why it changed:
+- 变更了什么：
+- 为什么变更：
 
-## Verification
+## 验证
 
 - [ ] `pytest -q`
 - [ ] `python backend/eval/run_eval.py`
-- [ ] manual smoke check if UI or API behavior changed
+- [ ] 如有 UI 或 API 行为变更，手动冒烟检查
 
-## Notes
+## 备注
 
-- risks:
-- follow-up work:
+- 风险：
+- 后续工作：

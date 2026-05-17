@@ -1,35 +1,35 @@
 ---
-name: Bug report
-about: Report a reproducible problem in the current MVP
+name: 问题报告
+about: 报告当前 MVP 中可复现的问题
 title: "[Bug] "
 labels: bug
 assignees: ''
 ---
 
-## Summary
+## 概要
 
-Describe the problem clearly.
+清晰描述问题。
 
-## Steps to Reproduce
+## 复现步骤
 
 1.
 2.
 3.
 
-## Expected Behavior
+## 预期行为
 
-What should have happened?
+应该发生什么？
 
-## Actual Behavior
+## 实际行为
 
-What happened instead?
+实际发生了什么？
 
-## Environment
+## 环境
 
-- OS:
-- Python version:
-- Command used:
+- 操作系统：
+- Python 版本：
+- 使用的命令：
 
-## Extra Context
+## 补充信息
 
-Logs, screenshots, or sample files if relevant.
+相关的日志、截图或示例文件。
