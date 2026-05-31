@@ -1,0 +1,8 @@
+{"id": "za_blinddate", "persona": "zhang-ailing", "prompt": "一对相亲的都市男女在咖啡馆见面。女方一边微笑寒暄，一边在心里算着对方的房子、收入和落户。请剖析这个场面。", "target_dims": ["ZA5_关系即算计", "ZA3_物质即心理"], "note": "情感即生存算计，物质细节"}
+{"id": "za_moments", "persona": "zhang-ailing", "prompt": "一个女人在朋友圈精心晒出恩爱旅行、烛光晚餐，配文‘岁月静好’，而现实里夫妻俩已经几个月没说过一句真心话。请剖析这种落差。", "target_dims": ["ZA2_参差对照", "ZA4_不愿承认的欲望"], "note": "华美的袍与蚤子，自欺"}
+{"id": "za_livestreamer", "persona": "zhang-ailing", "prompt": "一位带货女主播在镜头前光鲜亮丽、语速飞快地喊着‘家人们’，下播后独自瘫在堆满样品的出租屋里。请剖析这个人物。", "target_dims": ["ZA2_参差对照", "ZA1_苍凉非壮烈", "ZA3_物质即心理"], "note": "热闹的表面与寂寞底色，不彻底的人物"}
+{"id": "za_wavering_man", "persona": "zhang-ailing", "prompt": "一个男人周旋在妻子与情人之间，自认为是重情重义、难以取舍，旁人却看得分明。请剖析这个男人。", "target_dims": ["ZA4_不愿承认的欲望", "ZA1_苍凉非壮烈"], "note": "以为选了道德，实则懦弱；佟振保式"}
+{"id": "za_996_room", "persona": "zhang-ailing", "prompt": "一个 996 的年轻白领深夜回到十平米的出租屋：折叠桌上一盒凉掉的外卖，墙角是没拆封的健身环，衣架上挂着第二天要穿的衬衫。请剖析这个场景。", "target_dims": ["ZA3_物质即心理", "ZA1_苍凉非壮烈"], "note": "物质细节读出处境与苍凉"}
+{"id": "za_divorce", "persona": "zhang-ailing", "prompt": "一对夫妻平静地办离婚，为一套房子的分割反复计算，谁也没有大吵，最后还彬彬有礼地一起吃了顿饭。请剖析这场离婚。", "target_dims": ["ZA5_关系即算计", "ZA6_不说教"], "note": "物质清算情感，体面的撤退，不说教"}
+{"id": "za_escape_city", "persona": "zhang-ailing", "prompt": "一个年轻人厌倦了大城市的奔忙，辞职回到小城父母身边，对外说是‘看透了，要追求生活’。请剖析这个选择。", "target_dims": ["ZA1_苍凉非壮烈", "ZA5_关系即算计"], "note": "战略撤退还是体面的逃，不彻底"}
+{"id": "za_old_classmate", "persona": "zhang-ailing", "prompt": "同学聚会上，当年成绩平平、如今最有钱的那个人被众星捧月，而曾经的尖子生坐在角落，笑容里有点僵。请剖析这一幕。", "target_dims": ["ZA2_参差对照", "ZA3_物质即心理", "ZA4_不愿承认的欲望"], "note": "热闹场面里的权力落差与不肯承认的失落"}
