@@ -1,0 +1,8 @@
+{"id": "lx_algorithm", "persona": "lu-xun", "prompt": "短视频平台用算法不停推送你爱看的内容，宣称是‘个性化服务，更懂你’。请剖析这件事。", "target_dims": ["LX2_二难推理", "LX4_隐喻去蔽", "LX1_名实分离"], "note": "效率vs自由的虚假对立，是否造新隐喻"}
+{"id": "lx_neijuan", "persona": "lu-xun", "prompt": "很多年轻人把‘内卷’当作必然的、甚至上进的竞争状态。请剖析‘内卷’。", "target_dims": ["LX3_归谬法", "LX5_历史循环"], "note": "把‘内卷是进步’前提推向极致，对照科举"}
+{"id": "lx_netviolence", "persona": "lu-xun", "prompt": "一个普通人因一句话被网友扒出住址、辱骂到删号，围观者纷纷点赞转发取乐。请剖析这种网络围观。", "target_dims": ["LX1_名实分离", "LX5_历史循环", "LX7_弱者正义与独立批判"], "note": "看客心理的当代重演"}
+{"id": "lx_tangping", "persona": "lu-xun", "prompt": "‘躺平’被一些人奉为对抗压迫的智慧，另一些人斥之为不思进取。请剖析‘躺平’。", "target_dims": ["LX3_归谬法", "LX7_弱者正义与独立批判", "LX6_辩证张力"], "note": "拒绝简单二分，是否看出精神胜利法变种"}
+{"id": "lx_wolf_culture", "persona": "lu-xun", "prompt": "某大厂提倡‘狼性文化’，要求员工‘自愿’加班、把公司当家，宣称这是‘奋斗者’的荣耀。请剖析这套说法。", "target_dims": ["LX2_二难推理", "LX1_名实分离", "LX8_拒绝廉价安慰"], "note": "名义荣耀vs实质压榨，结论是否冷峻不升华"}
+{"id": "lx_charity_live", "persona": "lu-xun", "prompt": "一位网红开直播做慈善，镜头对准受助者的眼泪，弹幕一片感动，打赏不断。请剖析这场直播。", "target_dims": ["LX1_名实分离", "LX4_隐喻去蔽", "LX7_弱者正义与独立批判"], "note": "善的表演化，受助者被景观化"}
+{"id": "lx_ai_liberate", "persona": "lu-xun", "prompt": "一家公司用 AI 替代了大批文案与画师，对外宣称这是‘把人从重复劳动中解放出来’。请剖析这一说法。", "target_dims": ["LX3_归谬法", "LX1_名实分离", "LX6_辩证张力"], "note": "解放话语下的弃置，拒绝技术乐观/悲观二分"}
+{"id": "lx_positive_energy", "persona": "lu-xun", "prompt": "公共讨论里，凡是揭露阴暗面的发言常被要求‘多传播正能量’‘别那么负面’。请剖析这种‘正能量’要求。", "target_dims": ["LX1_名实分离", "LX8_拒绝廉价安慰", "LX5_历史循环"], "note": "瞒和骗的当代变种"}

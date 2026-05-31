@@ -1,0 +1,674 @@
+{
+  "IT000": {
+    "persona": "lu-xun",
+    "probe_id": "lx_algorithm",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 5.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 3.0,
+      "LX4_隐喻去蔽": 5.0,
+      "LX5_历史循环": 4.5,
+      "LX6_辩证张力": 2.0,
+      "LX7_弱者正义与独立批判": 4.0,
+      "LX8_拒绝廉价安慰": 5.0
+    }
+  },
+  "IT001": {
+    "persona": "lu-xun",
+    "probe_id": "lx_algorithm",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 3.0,
+      "LX4_隐喻去蔽": 4.0,
+      "LX5_历史循环": 2.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 3.0,
+      "LX8_拒绝廉价安慰": 3.0
+    }
+  },
+  "IT002": {
+    "persona": "lu-xun",
+    "probe_id": "lx_algorithm",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 1.0,
+      "LX4_隐喻去蔽": 2.0,
+      "LX5_历史循环": 1.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 3.0,
+      "LX8_拒绝廉价安慰": 2.0
+    }
+  },
+  "IT003": {
+    "persona": "lu-xun",
+    "probe_id": "lx_neijuan",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 5.0,
+      "LX2_二难推理": 5.0,
+      "LX3_归谬法": 4.0,
+      "LX4_隐喻去蔽": 5.0,
+      "LX5_历史循环": 5.0,
+      "LX6_辩证张力": 4.0,
+      "LX7_弱者正义与独立批判": 5.0,
+      "LX8_拒绝廉价安慰": 5.0
+    }
+  },
+  "IT004": {
+    "persona": "lu-xun",
+    "probe_id": "lx_neijuan",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 3.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 1.5,
+      "LX4_隐喻去蔽": 1.0,
+      "LX5_历史循环": 1.0,
+      "LX6_辩证张力": 2.0,
+      "LX7_弱者正义与独立批判": 3.0,
+      "LX8_拒绝廉价安慰": 2.0
+    }
+  },
+  "IT005": {
+    "persona": "lu-xun",
+    "probe_id": "lx_neijuan",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 3.0,
+      "LX2_二难推理": 1.0,
+      "LX3_归谬法": 1.5,
+      "LX4_隐喻去蔽": 1.0,
+      "LX5_历史循环": 1.0,
+      "LX6_辩证张力": 2.0,
+      "LX7_弱者正义与独立批判": 3.0,
+      "LX8_拒绝廉价安慰": 2.0
+    }
+  },
+  "IT006": {
+    "persona": "lu-xun",
+    "probe_id": "lx_netviolence",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 1.0,
+      "LX4_隐喻去蔽": 4.0,
+      "LX5_历史循环": 5.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 4.0,
+      "LX8_拒绝廉价安慰": 5.0
+    }
+  },
+  "IT007": {
+    "persona": "lu-xun",
+    "probe_id": "lx_netviolence",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 1.0,
+      "LX4_隐喻去蔽": 3.0,
+      "LX5_历史循环": 3.0,
+      "LX6_辩证张力": 2.0,
+      "LX7_弱者正义与独立批判": 4.0,
+      "LX8_拒绝廉价安慰": 3.5
+    }
+  },
+  "IT008": {
+    "persona": "lu-xun",
+    "probe_id": "lx_netviolence",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 3.0,
+      "LX2_二难推理": 1.0,
+      "LX3_归谬法": 1.0,
+      "LX4_隐喻去蔽": 2.0,
+      "LX5_历史循环": 2.0,
+      "LX6_辩证张力": 2.0,
+      "LX7_弱者正义与独立批判": 3.0,
+      "LX8_拒绝廉价安慰": 2.0
+    }
+  },
+  "IT009": {
+    "persona": "lu-xun",
+    "probe_id": "lx_tangping",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 1.5,
+      "LX4_隐喻去蔽": 3.0,
+      "LX5_历史循环": 4.0,
+      "LX6_辩证张力": 2.0,
+      "LX7_弱者正义与独立批判": 3.0,
+      "LX8_拒绝廉价安慰": 4.5
+    }
+  },
+  "IT010": {
+    "persona": "lu-xun",
+    "probe_id": "lx_tangping",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 2.0,
+      "LX2_二难推理": 1.0,
+      "LX3_归谬法": 1.0,
+      "LX4_隐喻去蔽": 2.0,
+      "LX5_历史循环": 1.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 2.0,
+      "LX8_拒绝廉价安慰": 1.0
+    }
+  },
+  "IT011": {
+    "persona": "lu-xun",
+    "probe_id": "lx_tangping",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 2.0,
+      "LX2_二难推理": 1.0,
+      "LX3_归谬法": 1.0,
+      "LX4_隐喻去蔽": 1.0,
+      "LX5_历史循环": 1.5,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 2.5,
+      "LX8_拒绝廉价安慰": 2.0
+    }
+  },
+  "IT012": {
+    "persona": "lu-xun",
+    "probe_id": "lx_wolf_culture",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 5.0,
+      "LX2_二难推理": 2.5,
+      "LX3_归谬法": 4.0,
+      "LX4_隐喻去蔽": 5.0,
+      "LX5_历史循环": 5.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 5.0,
+      "LX8_拒绝廉价安慰": 5.0
+    }
+  },
+  "IT013": {
+    "persona": "lu-xun",
+    "probe_id": "lx_wolf_culture",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 2.5,
+      "LX4_隐喻去蔽": 3.0,
+      "LX5_历史循环": 1.0,
+      "LX6_辩证张力": 2.0,
+      "LX7_弱者正义与独立批判": 4.0,
+      "LX8_拒绝廉价安慰": 4.0
+    }
+  },
+  "IT014": {
+    "persona": "lu-xun",
+    "probe_id": "lx_wolf_culture",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 1.0,
+      "LX4_隐喻去蔽": 2.0,
+      "LX5_历史循环": 1.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 4.0,
+      "LX8_拒绝廉价安慰": 2.0
+    }
+  },
+  "IT015": {
+    "persona": "lu-xun",
+    "probe_id": "lx_charity_live",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 5.0,
+      "LX2_二难推理": 3.0,
+      "LX3_归谬法": 4.0,
+      "LX4_隐喻去蔽": 5.0,
+      "LX5_历史循环": 5.0,
+      "LX6_辩证张力": 4.0,
+      "LX7_弱者正义与独立批判": 5.0,
+      "LX8_拒绝廉价安慰": 5.0
+    }
+  },
+  "IT016": {
+    "persona": "lu-xun",
+    "probe_id": "lx_charity_live",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 2.0,
+      "LX4_隐喻去蔽": 1.5,
+      "LX5_历史循环": 1.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 3.0,
+      "LX8_拒绝廉价安慰": 4.0
+    }
+  },
+  "IT017": {
+    "persona": "lu-xun",
+    "probe_id": "lx_charity_live",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 1.5,
+      "LX4_隐喻去蔽": 2.5,
+      "LX5_历史循环": 1.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 4.0,
+      "LX8_拒绝廉价安慰": 3.5
+    }
+  },
+  "IT018": {
+    "persona": "lu-xun",
+    "probe_id": "lx_ai_liberate",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 5.0,
+      "LX2_二难推理": 3.0,
+      "LX3_归谬法": 4.0,
+      "LX4_隐喻去蔽": 4.0,
+      "LX5_历史循环": 5.0,
+      "LX6_辩证张力": 2.0,
+      "LX7_弱者正义与独立批判": 5.0,
+      "LX8_拒绝廉价安慰": 5.0
+    }
+  },
+  "IT019": {
+    "persona": "lu-xun",
+    "probe_id": "lx_ai_liberate",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 2.0,
+      "LX4_隐喻去蔽": 1.0,
+      "LX5_历史循环": 3.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 4.0,
+      "LX8_拒绝廉价安慰": 2.0
+    }
+  },
+  "IT020": {
+    "persona": "lu-xun",
+    "probe_id": "lx_ai_liberate",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 2.0,
+      "LX4_隐喻去蔽": 1.5,
+      "LX5_历史循环": 1.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 4.0,
+      "LX8_拒绝廉价安慰": 4.0
+    }
+  },
+  "IT021": {
+    "persona": "lu-xun",
+    "probe_id": "lx_positive_energy",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 5.0,
+      "LX2_二难推理": 5.0,
+      "LX3_归谬法": 3.5,
+      "LX4_隐喻去蔽": 5.0,
+      "LX5_历史循环": 5.0,
+      "LX6_辩证张力": 4.0,
+      "LX7_弱者正义与独立批判": 5.0,
+      "LX8_拒绝廉价安慰": 5.0
+    }
+  },
+  "IT022": {
+    "persona": "lu-xun",
+    "probe_id": "lx_positive_energy",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 4.0,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 3.0,
+      "LX4_隐喻去蔽": 3.0,
+      "LX5_历史循环": 2.0,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 4.0,
+      "LX8_拒绝廉价安慰": 3.0
+    }
+  },
+  "IT023": {
+    "persona": "lu-xun",
+    "probe_id": "lx_positive_energy",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "LX1_名实分离": 3.5,
+      "LX2_二难推理": 2.0,
+      "LX3_归谬法": 2.5,
+      "LX4_隐喻去蔽": 1.0,
+      "LX5_历史循环": 1.5,
+      "LX6_辩证张力": 3.0,
+      "LX7_弱者正义与独立批判": 3.0,
+      "LX8_拒绝廉价安慰": 4.0
+    }
+  },
+  "IT024": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_blinddate",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 4.0,
+      "ZA2_参差对照": 4.0,
+      "ZA3_物质即心理": 4.0,
+      "ZA4_不愿承认的欲望": 3.0,
+      "ZA5_关系即算计": 5.0,
+      "ZA6_不说教": 3.0
+    }
+  },
+  "IT025": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_blinddate",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 3.0,
+      "ZA2_参差对照": 4.0,
+      "ZA3_物质即心理": 5.0,
+      "ZA4_不愿承认的欲望": 4.0,
+      "ZA5_关系即算计": 5.0,
+      "ZA6_不说教": 3.0
+    }
+  },
+  "IT026": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_blinddate",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 2.0,
+      "ZA2_参差对照": 2.0,
+      "ZA3_物质即心理": 1.0,
+      "ZA4_不愿承认的欲望": 2.0,
+      "ZA5_关系即算计": 3.5,
+      "ZA6_不说教": 2.5
+    }
+  },
+  "IT027": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_moments",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 4.0,
+      "ZA2_参差对照": 5.0,
+      "ZA3_物质即心理": 5.0,
+      "ZA4_不愿承认的欲望": 4.5,
+      "ZA5_关系即算计": 5.0,
+      "ZA6_不说教": 3.5
+    }
+  },
+  "IT028": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_moments",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 4.0,
+      "ZA2_参差对照": 5.0,
+      "ZA3_物质即心理": 4.0,
+      "ZA4_不愿承认的欲望": 4.5,
+      "ZA5_关系即算计": 3.5,
+      "ZA6_不说教": 4.5
+    }
+  },
+  "IT029": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_moments",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 2.0,
+      "ZA2_参差对照": 3.0,
+      "ZA3_物质即心理": 2.0,
+      "ZA4_不愿承认的欲望": 3.0,
+      "ZA5_关系即算计": 3.0,
+      "ZA6_不说教": 1.5
+    }
+  },
+  "IT030": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_livestreamer",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 5.0,
+      "ZA2_参差对照": 5.0,
+      "ZA3_物质即心理": 5.0,
+      "ZA4_不愿承认的欲望": 5.0,
+      "ZA5_关系即算计": 5.0,
+      "ZA6_不说教": 5.0
+    }
+  },
+  "IT031": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_livestreamer",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 3.5,
+      "ZA2_参差对照": 4.0,
+      "ZA3_物质即心理": 4.5,
+      "ZA4_不愿承认的欲望": 2.5,
+      "ZA5_关系即算计": 3.5,
+      "ZA6_不说教": 2.0
+    }
+  },
+  "IT032": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_livestreamer",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 2.0,
+      "ZA2_参差对照": 2.0,
+      "ZA3_物质即心理": 3.0,
+      "ZA4_不愿承认的欲望": 1.0,
+      "ZA5_关系即算计": 2.0,
+      "ZA6_不说教": 1.0
+    }
+  },
+  "IT033": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_wavering_man",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 4.0,
+      "ZA2_参差对照": 3.0,
+      "ZA3_物质即心理": 2.0,
+      "ZA4_不愿承认的欲望": 5.0,
+      "ZA5_关系即算计": 4.0,
+      "ZA6_不说教": 3.5
+    }
+  },
+  "IT034": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_wavering_man",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 3.0,
+      "ZA2_参差对照": 2.0,
+      "ZA3_物质即心理": 1.0,
+      "ZA4_不愿承认的欲望": 4.0,
+      "ZA5_关系即算计": 3.0,
+      "ZA6_不说教": 2.0
+    }
+  },
+  "IT035": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_wavering_man",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 2.0,
+      "ZA2_参差对照": 1.0,
+      "ZA3_物质即心理": 1.0,
+      "ZA4_不愿承认的欲望": 3.0,
+      "ZA5_关系即算计": 4.0,
+      "ZA6_不说教": 1.0
+    }
+  },
+  "IT036": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_996_room",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 4.0,
+      "ZA2_参差对照": 5.0,
+      "ZA3_物质即心理": 5.0,
+      "ZA4_不愿承认的欲望": 3.0,
+      "ZA5_关系即算计": 1.0,
+      "ZA6_不说教": 4.5
+    }
+  },
+  "IT037": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_996_room",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 4.0,
+      "ZA2_参差对照": 4.5,
+      "ZA3_物质即心理": 5.0,
+      "ZA4_不愿承认的欲望": 3.0,
+      "ZA5_关系即算计": 1.0,
+      "ZA6_不说教": 5.0
+    }
+  },
+  "IT038": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_996_room",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 3.0,
+      "ZA2_参差对照": 2.0,
+      "ZA3_物质即心理": 4.0,
+      "ZA4_不愿承认的欲望": 2.0,
+      "ZA5_关系即算计": 1.0,
+      "ZA6_不说教": 3.0
+    }
+  },
+  "IT039": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_divorce",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 5.0,
+      "ZA2_参差对照": 4.0,
+      "ZA3_物质即心理": 4.0,
+      "ZA4_不愿承认的欲望": 5.0,
+      "ZA5_关系即算计": 5.0,
+      "ZA6_不说教": 4.5
+    }
+  },
+  "IT040": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_divorce",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 4.0,
+      "ZA2_参差对照": 4.0,
+      "ZA3_物质即心理": 5.0,
+      "ZA4_不愿承认的欲望": 3.0,
+      "ZA5_关系即算计": 5.0,
+      "ZA6_不说教": 4.5
+    }
+  },
+  "IT041": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_divorce",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 3.0,
+      "ZA2_参差对照": 2.0,
+      "ZA3_物质即心理": 3.0,
+      "ZA4_不愿承认的欲望": 3.0,
+      "ZA5_关系即算计": 4.0,
+      "ZA6_不说教": 2.5
+    }
+  },
+  "IT042": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_escape_city",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 4.0,
+      "ZA2_参差对照": 5.0,
+      "ZA3_物质即心理": 5.0,
+      "ZA4_不愿承认的欲望": 5.0,
+      "ZA5_关系即算计": 3.0,
+      "ZA6_不说教": 5.0
+    }
+  },
+  "IT043": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_escape_city",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 3.5,
+      "ZA2_参差对照": 4.0,
+      "ZA3_物质即心理": 3.0,
+      "ZA4_不愿承认的欲望": 4.0,
+      "ZA5_关系即算计": 1.5,
+      "ZA6_不说教": 4.0
+    }
+  },
+  "IT044": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_escape_city",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 2.0,
+      "ZA2_参差对照": 1.0,
+      "ZA3_物质即心理": 1.0,
+      "ZA4_不愿承认的欲望": 3.0,
+      "ZA5_关系即算计": 1.0,
+      "ZA6_不说教": 2.0
+    }
+  },
+  "IT045": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_old_classmate",
+    "condition": "full",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 5.0,
+      "ZA2_参差对照": 5.0,
+      "ZA3_物质即心理": 5.0,
+      "ZA4_不愿承认的欲望": 5.0,
+      "ZA5_关系即算计": 5.0,
+      "ZA6_不说教": 5.0
+    }
+  },
+  "IT046": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_old_classmate",
+    "condition": "style_only",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 3.0,
+      "ZA2_参差对照": 4.0,
+      "ZA3_物质即心理": 4.0,
+      "ZA4_不愿承认的欲望": 2.0,
+      "ZA5_关系即算计": 3.0,
+      "ZA6_不说教": 2.0
+    }
+  },
+  "IT047": {
+    "persona": "zhang-ailing",
+    "probe_id": "za_old_classmate",
+    "condition": "neutral",
+    "deepseek_dim_scores": {
+      "ZA1_苍凉非壮烈": 2.0,
+      "ZA2_参差对照": 2.0,
+      "ZA3_物质即心理": 1.0,
+      "ZA4_不愿承认的欲望": 2.0,
+      "ZA5_关系即算计": 3.0,
+      "ZA6_不说教": 1.0
+    }
+  }
+}
