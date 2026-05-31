@@ -59,6 +59,21 @@ class RetrievedContext(BaseModel):
     text: str
 
 
+class AnswerCitation(BaseModel):
+    chunk_id: str
+    chapter_index: int
+    paragraph_index: int = 0
+    source_type: Literal["book_text", "graph", "memory"] = "book_text"
+    quote: str = ""
+    score: float = 0.0
+
+
+class AnswerClaim(BaseModel):
+    text: str
+    supported: bool = True
+    citation_chunk_ids: list[str] = Field(default_factory=list)
+
+
 class QuestionResponse(BaseModel):
     answer: str
     persona_id: str
@@ -66,6 +81,11 @@ class QuestionResponse(BaseModel):
     reason: str
     contexts: list[RetrievedContext]
     model_name: str = ""
+    citations: list[AnswerCitation] = Field(default_factory=list)
+    claims: list[AnswerClaim] = Field(default_factory=list)
+    confidence: float = 0.0
+    unsupported_claim_count: int = 0
+    retrieval_trace_id: str = ""
 
 
 class SummaryRequest(BaseModel):
@@ -115,6 +135,10 @@ class CharacterProfile(BaseModel):
     evidence_chunk_ids: list[str] = Field(default_factory=list)
     current_scope: str = ""
     model_name: str = ""
+    entity_id: str = ""
+    arc_summary: str = ""
+    visible_relationship_count: int = 0
+    evidence_count: int = 0
 
 
 class CharacterChatRequest(BaseModel):
@@ -152,6 +176,10 @@ class InlineBubble(BaseModel):
     label: str
     comment: str
     emphasis: Literal["theme", "emotion", "relation", "foreshadow", "detail"] = "detail"
+    bubble_type: Literal["detail", "emotion", "relation", "theme", "question", "character_inner_voice"] = "detail"
+    source_entity_ids: list[str] = Field(default_factory=list)
+    citation_chunk_ids: list[str] = Field(default_factory=list)
+    trigger_reason: str = ""
 
 
 class PersonaProfile(BaseModel):

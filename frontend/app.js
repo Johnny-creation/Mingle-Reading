@@ -123,9 +123,13 @@ const state = {
   pendingWorkflow: null,
   graphViewVisible: false,
   graphViewScope: "chapter",
+  graphRelationMode: "people",
+  graphExpanded: false,
   graphViewData: null,
   graphViewLoading: false,
   graphViewError: "",
+  memoryStatus: null,
+  bubbleTimer: null,
   chapterEnteredAt: Date.now(),
   readingProgress: {
     book_id: "",
@@ -141,6 +145,8 @@ const state = {
     book_id: "",
     selection_id: "",
     selected_text: "",
+    context_text: "",
+    selection_source: "passage",
     left_context: "",
     right_context: "",
     anchor: {
@@ -152,6 +158,11 @@ const state = {
 };
 
 const LAST_OPENED_BOOK_KEY = "mingle-reading:last-opened-book";
+
+let threeRuntimePromise = null;
+let graph3DInstance = null;
+let graphRenderSerial = 0;
+let bubbleHoverSticky = false;
 
 async function fetchJSON(url, options = {}) {
   const controller = new AbortController();
@@ -188,8 +199,53 @@ function escapeHtml(text = "") {
     .replaceAll("'", "&#39;");
 }
 
-function previewText(text, fallback = "Nothing is selected yet.") {
-  return text && text.trim() ? text.trim() : fallback;
+function compactInlineText(text) {
+  return String(text || "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function previewText(text, fallback = "Nothing is selected yet.", maxLength = 150) {
+  const compact = compactInlineText(text);
+  if (!compact) {
+    return fallback;
+  }
+  return compact.length > maxLength ? `${compact.slice(0, maxLength).trim()}...` : compact;
+}
+
+function getQuestionContextText() {
+  const manualSelection = compactInlineText(state.selectionContext.selected_text);
+  if (manualSelection) {
+    return manualSelection;
+  }
+  return compactInlineText(state.selectionContext.context_text);
+}
+
+function formatPersonaType(sourceType = "") {
+  const labels = {
+    literary_master: "文学导师",
+    book_character: "书中角色",
+    neutral: "中性导读",
+  };
+  return labels[sourceType] || sourceType || "导读";
+}
+
+function formatPersonaCitation(persona) {
+  const citation = compactInlineText(persona?.citation || "");
+  const lowerCitation = citation.toLowerCase();
+  const hasInternalPath =
+    lowerCitation.includes("backend/") ||
+    lowerCitation.includes("frontend/") ||
+    lowerCitation.includes("assets/") ||
+    lowerCitation.includes(".md") ||
+    lowerCitation.includes(".json");
+  if (!citation || hasInternalPath) {
+    if (persona?.source_type === "neutral") {
+      return "中性导读模式：不套用作家声腔，优先依据当前已读正文回答。";
+    }
+    return `基于本地${persona?.name || "文学导师"}风格资料包；回答仍以当前已读正文为准。`;
+  }
+  return citation;
 }
 
 function setButtonLoading(buttonId, isLoading, loadingText = "") {
@@ -291,9 +347,9 @@ function currentConversation() {
   return state.assistantMode === "persona" ? state.personaConversation : state.characterConversation;
 }
 
-function pushConversation(role, content) {
+function pushConversation(role, content, meta = {}) {
   const target = state.assistantMode === "persona" ? state.personaConversation : state.characterConversation;
-  target.push({ role, content });
+  target.push({ role, content, ...meta });
 }
 
 function renderPendingWorkflow() {
@@ -331,7 +387,7 @@ function renderPendingWorkflow() {
   caption.textContent = state.pendingWorkflow.caption || "Waiting for the next update.";
 }
 
-function setPendingState(active, label = "running", title = "Processing", description = "The task is starting.") {
+function setPendingState(active, label = "running", title = "Processing", description = "The task is starting.", percent = 12) {
   if (!active) {
     state.pendingWorkflow = null;
     renderPendingWorkflow();
@@ -341,9 +397,9 @@ function setPendingState(active, label = "running", title = "Processing", descri
     label,
     title,
     description,
-    percent: 12,
+    percent,
     caption: "Preparing the task pipeline.",
-    indeterminate: true,
+    indeterminate: percent <= 12,
   };
   renderPendingWorkflow();
 }
@@ -483,6 +539,8 @@ function resetSelection() {
     book_id: state.activeBook || "",
     selection_id: "",
     selected_text: "",
+    context_text: "",
+    selection_source: "passage",
     left_context: "",
     right_context: "",
     anchor: {
@@ -508,13 +566,16 @@ function updateProgressFromPassage(passage) {
   };
 }
 
-function buildSelectionFromPassage(passage, index, passages) {
+function buildSelectionFromPassage(passage, index, passages, selectedText = "") {
   const previous = passages[index - 1];
   const next = passages[index + 1];
+  const manualSelection = compactInlineText(selectedText);
   state.selectionContext = {
     book_id: state.activeBook || "",
-    selection_id: `sel_${passage.chunk_id || index + 1}`,
-    selected_text: passage.text || "",
+    selection_id: `${manualSelection ? "text" : "passage"}_${passage.chunk_id || index + 1}`,
+    selected_text: manualSelection,
+    context_text: passage.text || "",
+    selection_source: manualSelection ? "text" : "passage",
     left_context: previous ? previous.text || "" : "",
     right_context: next ? next.text || "" : "",
     anchor: {
@@ -530,9 +591,9 @@ function renderPersonaDetails() {
   if (!persona) {
     return;
   }
-  document.getElementById("persona-type-badge").textContent = persona.source_type;
+  document.getElementById("persona-type-badge").textContent = formatPersonaType(persona.source_type);
   document.getElementById("persona-name").textContent = persona.name;
-  document.getElementById("persona-citation").textContent = persona.citation || "";
+  document.getElementById("persona-citation").textContent = formatPersonaCitation(persona);
   const traits = document.getElementById("persona-traits");
   traits.innerHTML = "";
   [...(persona.style_traits || []), ...(persona.reasoning_style || [])].slice(0, 6).forEach((item) => {
@@ -544,22 +605,76 @@ function renderPersonaDetails() {
 }
 
 function renderCharacterCandidates() {
-  const select = document.getElementById("character-select");
-  select.innerHTML = "";
-  const empty = document.createElement("option");
-  empty.value = "";
-  empty.textContent = state.characterCandidates.length ? "Choose a character candidate" : "No character candidates available";
-  select.appendChild(empty);
+  const selects = [
+    document.getElementById("character-select"),
+    document.getElementById("assistant-character-select"),
+  ].filter(Boolean);
 
-  state.characterCandidates.forEach((candidate) => {
-    const option = document.createElement("option");
-    option.value = candidate.character_name;
-    option.textContent = `${candidate.character_name} (${candidate.mention_count})`;
-    select.appendChild(option);
+  selects.forEach((select) => {
+    const isAssistantSelect = select.id === "assistant-character-select";
+    select.innerHTML = "";
+    const empty = document.createElement("option");
+    empty.value = "";
+    empty.textContent = state.characterCandidates.length ? "选择当前书中的人物" : "当前章节暂无人物候选";
+    select.appendChild(empty);
+
+    state.characterCandidates.forEach((candidate) => {
+      const option = document.createElement("option");
+      option.value = candidate.character_name;
+      option.textContent = isAssistantSelect
+        ? candidate.character_name
+        : `${candidate.character_name} · ${candidate.mention_count || 0} 次`;
+      option.title = candidate.preview || "";
+      select.appendChild(option);
+    });
+
+    if (state.activeCharacterName) {
+      const hasActiveOption = Array.from(select.options).some((option) => option.value === state.activeCharacterName);
+      if (!hasActiveOption) {
+        const custom = document.createElement("option");
+        custom.value = state.activeCharacterName;
+        custom.textContent = isAssistantSelect ? state.activeCharacterName : `${state.activeCharacterName} · 手动`;
+        select.appendChild(custom);
+      }
+      select.value = state.activeCharacterName;
+    }
   });
+}
 
-  if (state.activeCharacterName) {
-    select.value = state.activeCharacterName;
+function syncCharacterSelectElement(select, characterName) {
+  if (!select) {
+    return;
+  }
+  const name = compactInlineText(characterName);
+  const hasOption = Array.from(select.options).some((option) => option.value === name);
+  if (name && !hasOption) {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = select.id === "assistant-character-select" ? name : `${name} · 手动`;
+    select.appendChild(option);
+  }
+  select.value = name;
+}
+
+function setSelectedCharacter(characterName, options = {}) {
+  const name = compactInlineText(characterName);
+  const changed = name !== state.activeCharacterName;
+  state.activeCharacterName = name;
+  if (changed && !options.keepProfile) {
+    state.activeCharacterProfile = null;
+  }
+
+  const input = document.getElementById("character-input");
+  if (input) {
+    input.value = name;
+  }
+  syncCharacterSelectElement(document.getElementById("character-select"), name);
+  syncCharacterSelectElement(document.getElementById("assistant-character-select"), name);
+
+  if (!options.skipRender) {
+    renderCharacterProfile();
+    renderAssistantStatus();
+    renderChatHistory();
   }
 }
 
@@ -569,7 +684,7 @@ function renderCharacterProfile() {
     return;
   }
   if (!state.activeCharacterProfile) {
-    container.innerHTML = `<p class="muted">Choose a candidate or enter a character name to build a character profile.</p>`;
+    container.innerHTML = `<p class="muted">选择候选人物，或手动输入人物名后生成角色画像。</p>`;
     return;
   }
 
@@ -584,13 +699,18 @@ function renderCharacterProfile() {
   container.innerHTML = `
     <h4 class="character-name">${escapeHtml(profile.character_name)}</h4>
     <p class="muted">${escapeHtml(profile.summary || "")}</p>
+    ${
+      profile.arc_summary
+        ? `<p class="label">Memory arc</p><p class="muted">${escapeHtml(profile.arc_summary)}</p>`
+        : ""
+    }
     <div class="pill-row">${traits}</div>
     <p class="label">Current visible scope</p>
     <p class="muted">${escapeHtml(profile.current_scope || "No visible scope note available.")}</p>
     <p class="label">Signature tension</p>
     <p class="signature-tension">${escapeHtml(profile.signature_tension || "No signature tension note available.")}</p>
     <p class="label">Model</p>
-    <p class="muted">${escapeHtml(profile.model_name || "")}</p>
+    <p class="muted">${escapeHtml(profile.model_name || "")} · ${profile.evidence_count || 0} evidence · ${profile.visible_relationship_count || 0} relations</p>
     ${
       relationships
         ? `<p class="label">Relationships</p><ul class="plain-list relationship-list">${relationships}</ul>`
@@ -614,7 +734,10 @@ function renderBooks() {
       <span class="book-title">${escapeHtml(book.title)}</span>
       <span class="book-meta">${escapeHtml(book.book_id)}</span>
     `;
-    button.addEventListener("click", () => openBook(book.book_id));
+    button.addEventListener("click", () => {
+      closeDrawers();
+      openBook(book.book_id);
+    });
     item.appendChild(button);
     list.appendChild(item);
   });
@@ -629,17 +752,22 @@ function renderReaderHeader() {
     document.getElementById("hero-chapter").textContent = "-";
     document.getElementById("hero-paragraph").textContent = "-";
     document.getElementById("hero-dwell").textContent = "0s";
+    document.getElementById("reader-progress-fill").style.width = "0%";
     return;
   }
 
   const pages = getCurrentPages();
+  const chapterCount = Math.max(1, state.activeBookDetail.chapter_count || 1);
+  const pageRatio = pages.length ? (state.activePageIndex + 1) / pages.length : 0;
+  const progressPercent = Math.min(100, Math.max(0, ((state.activeChapter - 1 + pageRatio) / chapterCount) * 100));
   document.getElementById("book-title").textContent = state.activeBookDetail.title;
-  document.getElementById("book-subtitle").textContent = `book_id: ${state.activeBookDetail.book_id} - ${state.activeBookDetail.chapter_count} chapters`;
-  document.getElementById("progress-text").textContent = `Current position: chapter ${state.readingProgress.chapter_id}, page ${state.activePageIndex + 1}/${pages.length || 0}, paragraph ${state.readingProgress.paragraph_id || "-"}`;
+  document.getElementById("book-subtitle").textContent = `${state.activeBookDetail.chapter_count} chapters · ${state.activeBookDetail.book_id}`;
+  document.getElementById("progress-text").textContent = `Chapter ${state.readingProgress.chapter_id} · page ${state.activePageIndex + 1}/${pages.length || 0} · paragraph ${state.readingProgress.paragraph_id || "-"}`;
   document.getElementById("hero-chapter").textContent = getChapterDisplayLabel(state.activeChapter);
   document.getElementById("hero-paragraph").textContent =
     state.activeParagraphIndex === null ? "-" : `P${state.activeParagraphIndex}`;
   document.getElementById("hero-dwell").textContent = `${state.readingProgress.dwell_seconds || 0}s`;
+  document.getElementById("reader-progress-fill").style.width = `${progressPercent.toFixed(1)}%`;
 }
 
 function renderChapterNav() {
@@ -695,10 +823,16 @@ function renderChapterSelects() {
 }
 
 function renderSelectionPreview() {
-  document.getElementById("highlight-preview").textContent = previewText(
-    state.selectionContext.selected_text,
-    "Click a paragraph to preview the selected text and nearby context here."
-  );
+  const label = document.getElementById("highlight-preview-label");
+  const preview = document.getElementById("highlight-preview");
+  const isManualSelection = Boolean(compactInlineText(state.selectionContext.selected_text));
+  const text = isManualSelection ? state.selectionContext.selected_text : state.selectionContext.context_text;
+  if (label) {
+    label.textContent = isManualSelection ? "选中文字" : "当前段落";
+  }
+  if (preview) {
+    preview.textContent = previewText(text, "尚未定位段落。");
+  }
 }
 
 function renderAssistantStatus() {
@@ -709,24 +843,26 @@ function renderAssistantStatus() {
   if (state.assistantMode === "persona") {
     const persona = getPersonaById(state.personaId);
     node.textContent = persona
-      ? `Current mode: literary agent - ${persona.name}`
-      : "Current mode: literary agent";
+      ? `文学导师模式：${persona.name}`
+      : "文学导师模式";
     return;
   }
   if (state.activeCharacterProfile) {
-    node.textContent = `Current mode: character agent - ${state.activeCharacterProfile.character_name}`;
+    node.textContent = `书中人物模式：${state.activeCharacterProfile.character_name}`;
     return;
   }
   if (state.activeCharacterName) {
-    node.textContent = `Current mode: character agent - ${state.activeCharacterName}`;
+    node.textContent = `书中人物模式：${state.activeCharacterName}`;
     return;
   }
-  node.textContent = "Current mode: character agent. Choose or enter a character name to continue.";
+  node.textContent = "书中人物模式：请先选择当前书中的人物。";
 }
 
 function renderAssistantMode() {
   document.getElementById("persona-mode-btn").classList.toggle("mode-chip-active", state.assistantMode === "persona");
   document.getElementById("character-mode-btn").classList.toggle("mode-chip-active", state.assistantMode === "character");
+  document.getElementById("persona-select")?.classList.toggle("is-hidden", state.assistantMode !== "persona");
+  document.getElementById("assistant-character-select")?.classList.toggle("is-hidden", state.assistantMode !== "character");
   renderAssistantStatus();
   renderChatHistory();
 }
@@ -751,9 +887,27 @@ function renderChatHistory() {
           ? getPersonaById(state.personaId)?.name || "Literary Agent"
           : state.activeCharacterProfile?.character_name || state.activeCharacterName || "Character Agent";
 
+    const citations = Array.isArray(turn.citations) ? turn.citations : [];
+    const citationMarkup = citations.length
+      ? `<details class="evidence-details"><summary>Evidence · ${citations.length}</summary>${citations
+          .map(
+            (citation) => `
+              <blockquote>
+                <strong>ch${escapeHtml(citation.chapter_index)} · p${escapeHtml(citation.paragraph_index || "-")}</strong>
+                ${escapeHtml(citation.quote || citation.chunk_id || "").replace(/\n/g, "<br />")}
+              </blockquote>
+            `
+          )
+          .join("")}</details>`
+      : "";
+    const confidenceMarkup =
+      typeof turn.confidence === "number"
+        ? `<p class="answer-confidence">Confidence ${(turn.confidence * 100).toFixed(0)}% · unsupported ${turn.unsupported_claim_count || 0}</p>`
+        : "";
     article.innerHTML = `
       <div class="chat-role">${escapeHtml(roleLabel)}</div>
       <div class="chat-content">${escapeHtml(turn.content || "").replace(/\n/g, "<br />")}</div>
+      ${turn.role === "assistant" ? confidenceMarkup + citationMarkup : ""}
     `;
     historyNode.appendChild(article);
   });
@@ -770,11 +924,124 @@ function updatePageIndicator() {
   document.getElementById("next-page-btn").disabled = total === 0 || current >= total;
 }
 
-function graphNodeColor(type) {
-  if (type === "character") return "#1f6a73";
-  if (type === "location") return "#546c44";
-  if (type === "theme" || type === "concept") return "#8f5a3c";
+function graphNodeColor(type = "") {
+  if (isCharacterNode({ type })) return "#1f6a73";
+  if (type === "location") return "#5f7a48";
+  if (type === "theme" || type === "concept") return "#a57b2d";
+  if (type === "artifact" || type === "object") return "#8f5a3c";
   return "#7b6d59";
+}
+
+function isCharacterNode(node) {
+  const type = String(node?.type || "").toLowerCase();
+  return ["character", "person", "persona", "人物", "角色"].includes(type);
+}
+
+function relationCategory(edge) {
+  const raw = `${edge?.relation_category || ""} ${edge?.state_family || ""} ${edge?.label || ""} ${edge?.fact || ""}`.toLowerCase();
+  if (/family|parent|child|sibling|spouse|married|kin|mother|father|son|daughter|brother|sister|亲|父|母|子|女|兄|弟|姐|妹|夫|妻/.test(raw)) {
+    return "family";
+  }
+  if (/conflict|enemy|oppose|fight|threat|kill|hate|rival|betray|冲突|敌|杀|恨|威胁|对抗|背叛/.test(raw)) {
+    return "conflict";
+  }
+  if (/love|friend|ally|trust|help|protect|care|mentor|情|友|爱|信任|帮助|保护|师/.test(raw)) {
+    return "affinity";
+  }
+  if (/speak|talk|meet|interact|see|ask|answer|spoke|交谈|相遇|看见|问|答/.test(raw)) {
+    return "interaction";
+  }
+  if (/located|location|place|live|arrive|leave|位于|地点|居住|来到|离开/.test(raw)) {
+    return "location";
+  }
+  if (/theme|symbol|concept|metaphor|主题|象征|隐喻/.test(raw)) {
+    return "theme";
+  }
+  return "other";
+}
+
+function relationStyle(edge) {
+  const styles = {
+    family: { color: "#a85f38", label: "亲属/身份", dash: false },
+    conflict: { color: "#b0413e", label: "冲突", dash: true },
+    affinity: { color: "#1f6a73", label: "亲近/信任", dash: false },
+    interaction: { color: "#7d6fb2", label: "互动", dash: false },
+    location: { color: "#5f7a48", label: "地点", dash: true },
+    theme: { color: "#a57b2d", label: "主题", dash: true },
+    other: { color: "#7b6d59", label: "其他", dash: false },
+  };
+  const style = styles[relationCategory(edge)] || styles.other;
+  return edge?.status && edge.status !== "active" ? { ...style, dash: true, color: "#9a8f86" } : style;
+}
+
+function formatRelationLabel(label = "") {
+  const labels = {
+    FAMILY_OF: "亲属",
+    PARENT_OF: "父母",
+    CHILD_OF: "子女",
+    SPOUSE_OF: "伴侣",
+    FRIEND_OF: "朋友",
+    ALLY_OF: "同盟",
+    CONFLICT_WITH: "冲突",
+    LOVES: "情感",
+    TRUSTS: "信任",
+    HELPS: "帮助",
+    PROTECTS: "保护",
+    SPOKE_WITH: "交谈",
+    MET_WITH: "相遇",
+    LOCATED_IN: "位于",
+    SYMBOLIZES: "象征",
+  };
+  return labels[label] || String(label || "关系").replaceAll("_", " ").toLowerCase();
+}
+
+function formatEntityType(type = "") {
+  const labels = {
+    character: "人物",
+    person: "人物",
+    location: "地点",
+    theme: "主题",
+    concept: "概念",
+    artifact: "物件",
+    object: "物件",
+  };
+  return labels[type] || type || "实体";
+}
+
+function graphNodeById(data) {
+  return Object.fromEntries((data?.nodes || []).map((node) => [node.id, node]));
+}
+
+function getRenderableGraphData(data) {
+  const nodeById = graphNodeById(data);
+  const rawEdges = (data?.edges || []).filter((edge) => nodeById[edge.source] && nodeById[edge.target]);
+  let edges = rawEdges;
+
+  if (state.graphRelationMode === "people") {
+    edges = rawEdges.filter((edge) => isCharacterNode(nodeById[edge.source]) && isCharacterNode(nodeById[edge.target]));
+  }
+
+  const visibleIds = new Set();
+  edges.forEach((edge) => {
+    visibleIds.add(edge.source);
+    visibleIds.add(edge.target);
+  });
+
+  let nodes = (data?.nodes || []).filter((node) => visibleIds.has(node.id));
+  if (!nodes.length && state.graphRelationMode === "people") {
+    nodes = (data?.nodes || []).filter(isCharacterNode);
+  }
+  if (state.graphRelationMode === "all" && !nodes.length) {
+    nodes = data?.nodes || [];
+  }
+
+  return { nodes, edges, nodeById };
+}
+
+function graphCaptionText(data, renderable) {
+  const scopeText = state.graphViewScope === "chapter" ? "当前章节" : "当前段落";
+  const modeText = state.graphRelationMode === "people" ? "人物关系" : "全部实体";
+  return `${scopeText} · ${modeText} · ${renderable.nodes.length} 个节点 / ${renderable.edges.length} 条关系`;
 }
 
 function renderGraphPanel() {
@@ -784,157 +1051,467 @@ function renderGraphPanel() {
   const badge = document.getElementById("graph-stats-badge");
   const caption = document.getElementById("graph-caption");
   const toggleButton = document.getElementById("graph-toggle-btn");
+  const passageScopeButton = document.getElementById("graph-scope-passage-btn");
   const chapterScopeButton = document.getElementById("graph-scope-chapter-btn");
-  const bookScopeButton = document.getElementById("graph-scope-book-btn");
+  const peopleModeButton = document.getElementById("graph-mode-people-btn");
+  const allModeButton = document.getElementById("graph-mode-all-btn");
+  const expandButton = document.getElementById("graph-expand-btn");
+  const insightDrawer = document.getElementById("insight-drawer");
+  const isFullscreen = state.graphExpanded && state.graphViewVisible;
 
+  passageScopeButton.classList.toggle("is-active", state.graphViewScope === "passage");
   chapterScopeButton.classList.toggle("is-active", state.graphViewScope === "chapter");
-  bookScopeButton.classList.toggle("is-active", state.graphViewScope === "book");
+  peopleModeButton.classList.toggle("is-active", state.graphRelationMode === "people");
+  allModeButton.classList.toggle("is-active", state.graphRelationMode === "all");
   panel.classList.toggle("is-hidden", !state.graphViewVisible);
-  toggleButton.textContent = state.graphViewVisible ? "Hide Knowledge Graph" : "Show Knowledge Graph";
+  panel.classList.toggle("is-expanded", isFullscreen);
+  insightDrawer?.classList.toggle("is-graph-fullscreen", isFullscreen);
+  document.body.classList.toggle("graph-fullscreen-active", isFullscreen);
+  toggleButton.textContent = state.graphViewVisible ? "Hide Map" : "Load Map";
+  expandButton.textContent = isFullscreen ? "退出全屏" : "全屏";
+  expandButton.setAttribute("aria-label", isFullscreen ? "退出图谱全屏" : "进入图谱全屏");
 
   if (!state.graphViewVisible) {
+    disposeGraph3D();
     return;
   }
 
   if (state.graphViewLoading) {
+    disposeGraph3D();
     badge.textContent = "loading";
-    canvas.innerHTML = `<p class="muted">Loading graph view...</p>`;
-    detail.textContent = "The graph panel is waiting for the backend to return visible nodes and relations.";
+    canvas.innerHTML = `<div class="graph-empty-state">正在加载关系图...</div>`;
+    detail.textContent = "正在读取当前已读范围内的实体和关系。";
     return;
   }
 
   if (state.graphViewError) {
+    disposeGraph3D();
     badge.textContent = "error";
-    canvas.innerHTML = `<p class="muted">${escapeHtml(state.graphViewError)}</p>`;
-    detail.textContent = "The graph request failed. Please refresh the graph or verify that the current book has finished graph construction.";
+    canvas.innerHTML = `<div class="graph-empty-state">${escapeHtml(state.graphViewError)}</div>`;
+    detail.textContent = "图谱请求失败，请确认当前书籍已经完成 memory rebuild。";
     return;
   }
 
   const data = state.graphViewData;
-  const scopeLabel = state.graphViewScope === "book" ? "whole-book graph" : "current chapter graph";
   if (!data || !Array.isArray(data.nodes) || !data.nodes.length) {
+    disposeGraph3D();
     badge.textContent = "0 nodes";
-    canvas.innerHTML = `<p class="muted">No clear graph nodes are available in the ${scopeLabel} yet.</p>`;
-    detail.textContent =
-      state.graphViewScope === "book"
-        ? "The book graph exists, but there are not enough visible nodes or relations to display at the current reading boundary."
-        : "The current chapter is sparse. Switch to the whole-book graph if you want a broader view.";
+    canvas.innerHTML = `<div class="graph-empty-state">当前范围还没有可展示的关系节点。</div>`;
+    detail.textContent = "可以切到当前章节，或先重建 memory 后再查看。";
     return;
   }
 
-  badge.textContent = `${data.stats.node_count} nodes / ${data.stats.edge_count} edges`;
-  caption.textContent =
-    state.graphViewScope === "book"
-      ? `Showing the whole-book graph inside the current visible reading scope. Nodes: ${data.stats.node_count}, edges: ${data.stats.edge_count}.`
-      : `Showing the current chapter graph for chapter ${data.chapter_index}. Nodes: ${data.stats.node_count}, edges: ${data.stats.edge_count}.`;
+  const renderable = getRenderableGraphData(data);
+  badge.textContent = `${renderable.nodes.length} nodes / ${renderable.edges.length} edges`;
+  caption.textContent = graphCaptionText(data, renderable);
 
-  const width = 760;
-  const height = 420;
-  const centerX = width / 2;
-  const centerY = height / 2;
-  const radius = Math.max(120, Math.min(170, 42 + data.nodes.length * 10));
-  const positions = {};
+  if (!renderable.nodes.length) {
+    disposeGraph3D();
+    canvas.innerHTML = `<div class="graph-empty-state">当前范围还没有明确的人物关系。切到“全部实体”可以查看地点、主题和概念线索。</div>`;
+    detail.textContent = "人物关系模式只显示人物和人物之间的关系，避免地点/主题把图谱搅乱。";
+    return;
+  }
 
-  data.nodes.forEach((node, index) => {
-    const angle = (Math.PI * 2 * index) / Math.max(1, data.nodes.length);
-    positions[node.id] = {
-      x: centerX + Math.cos(angle) * radius,
-      y: centerY + Math.sin(angle) * Math.min(radius, 130),
-    };
+  canvas.innerHTML = `
+    <div class="graph-viewport-shell">
+      <div id="graph-3d-view" class="graph-3d-view" role="img" aria-label="3D memory relationship map"></div>
+      <div class="graph-legend">${renderGraphLegend(renderable.edges)}</div>
+    </div>
+  `;
+  detail.textContent = "点击人物或关系查看出现位置、关系类型和证据线索。";
+  renderGraph3D(renderable).catch((error) => {
+    console.error(error);
+    renderGraphFallback(renderable, String(error.message || error));
+  });
+}
+
+function renderGraphLegend(edges) {
+  const seen = new Set();
+  const items = [];
+  (edges || []).forEach((edge) => {
+    const category = relationCategory(edge);
+    if (seen.has(category)) {
+      return;
+    }
+    seen.add(category);
+    const style = relationStyle(edge);
+    items.push(`<span><i style="--legend-color: ${style.color}"></i>${escapeHtml(style.label)}</span>`);
+  });
+  if (!items.length) {
+    items.push(`<span><i style="--legend-color: #1f6a73"></i>人物</span>`);
+  }
+  return items.join("");
+}
+
+function disposeGraph3D() {
+  if (!graph3DInstance) {
+    return;
+  }
+  if (graph3DInstance.animationFrame) {
+    cancelAnimationFrame(graph3DInstance.animationFrame);
+  }
+  graph3DInstance.resizeObserver?.disconnect();
+  graph3DInstance.controls?.dispose?.();
+  graph3DInstance.scene?.traverse?.((object) => {
+    object.geometry?.dispose?.();
+    if (Array.isArray(object.material)) {
+      object.material.forEach((material) => material.dispose?.());
+    } else {
+      object.material?.dispose?.();
+    }
+    object.material?.map?.dispose?.();
+  });
+  graph3DInstance.renderer?.dispose?.();
+  graph3DInstance = null;
+}
+
+async function loadThreeRuntime() {
+  if (!threeRuntimePromise) {
+    threeRuntimePromise = Promise.all([
+      import("three"),
+      import("three/addons/controls/OrbitControls.js"),
+    ]).then(([THREE, controls]) => ({ THREE, OrbitControls: controls.OrbitControls }));
+  }
+  return threeRuntimePromise;
+}
+
+function graphLayout(nodes) {
+  const radius = Math.max(72, Math.min(210, 54 + nodes.length * 16));
+  const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+  const characterCount = nodes.filter(isCharacterNode).length;
+  return Object.fromEntries(
+    nodes.map((node, index) => {
+      const total = Math.max(nodes.length, 2);
+      const y = nodes.length === 1 ? 0 : (1 - (index / (total - 1)) * 2) * radius * 0.52;
+      const ring = Math.sqrt(Math.max(0.12, 1 - (y / radius) ** 2)) * radius;
+      const angle = index * goldenAngle;
+      const characterPull = isCharacterNode(node) ? 0.72 : 1.08;
+      const personOffset = isCharacterNode(node) && characterCount > 1 ? (index - characterCount / 2) * 6 : 0;
+      return [
+        node.id,
+        {
+          x: Math.cos(angle) * ring * characterPull,
+          y: y + personOffset,
+          z: Math.sin(angle) * ring * characterPull,
+        },
+      ];
+    })
+  );
+}
+
+function makeTextSprite(THREE, text, options = {}) {
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  const fontSize = options.fontSize || 30;
+  const paddingX = 20;
+  const paddingY = 10;
+  context.font = `700 ${fontSize}px "PingFang SC", "SF Pro Display", sans-serif`;
+  const width = Math.min(640, Math.max(180, Math.ceil(context.measureText(text).width + paddingX * 2)));
+  const height = fontSize + paddingY * 2;
+  canvas.width = width * 2;
+  canvas.height = height * 2;
+  context.scale(2, 2);
+  context.font = `700 ${fontSize}px "PingFang SC", "SF Pro Display", sans-serif`;
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.fillStyle = options.background || "rgba(255,255,255,0.78)";
+  roundRect(context, 0, 0, width, height, 14);
+  context.fill();
+  context.fillStyle = options.color || "#2a261f";
+  context.fillText(text, width / 2, height / 2 + 1);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.needsUpdate = true;
+  const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false });
+  const sprite = new THREE.Sprite(material);
+  sprite.scale.set(width * (options.scale || 0.34), height * (options.scale || 0.34), 1);
+  return sprite;
+}
+
+function roundRect(context, x, y, width, height, radius) {
+  context.beginPath();
+  context.moveTo(x + radius, y);
+  context.arcTo(x + width, y, x + width, y + height, radius);
+  context.arcTo(x + width, y + height, x, y + height, radius);
+  context.arcTo(x, y + height, x, y, radius);
+  context.arcTo(x, y, x + width, y, radius);
+  context.closePath();
+}
+
+function createCylinderBetween(THREE, start, end, radius, material, userData = {}) {
+  const startVector = new THREE.Vector3(start.x, start.y, start.z);
+  const endVector = new THREE.Vector3(end.x, end.y, end.z);
+  const direction = new THREE.Vector3().subVectors(endVector, startVector);
+  const length = direction.length();
+  const geometry = new THREE.CylinderGeometry(radius, radius, length, 12, 1);
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.copy(startVector).add(endVector).multiplyScalar(0.5);
+  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
+  mesh.userData = userData;
+  return mesh;
+}
+
+function addEdgeToScene(THREE, sceneGroup, pickables, edge, start, end) {
+  const style = relationStyle(edge);
+  const material = new THREE.MeshStandardMaterial({
+    color: style.color,
+    roughness: 0.62,
+    metalness: 0.08,
+    transparent: true,
+    opacity: edge.status && edge.status !== "active" ? 0.48 : 0.78,
+  });
+  const weight = Math.max(1.3, Math.min(4.2, Number(edge.weight || 1) * 0.72));
+  const startVector = new THREE.Vector3(start.x, start.y, start.z);
+  const endVector = new THREE.Vector3(end.x, end.y, end.z);
+  const direction = new THREE.Vector3().subVectors(endVector, startVector);
+  const edgeObjects = [];
+
+  if (style.dash) {
+    const segments = 7;
+    for (let index = 0; index < segments; index += 2) {
+      const a = startVector.clone().add(direction.clone().multiplyScalar(index / segments));
+      const b = startVector.clone().add(direction.clone().multiplyScalar(Math.min(index + 1, segments) / segments));
+      edgeObjects.push(createCylinderBetween(THREE, a, b, weight, material.clone(), { type: "edge", edge }));
+    }
+  } else {
+    edgeObjects.push(createCylinderBetween(THREE, start, end, weight, material, { type: "edge", edge }));
+  }
+
+  edgeObjects.forEach((object) => {
+    sceneGroup.add(object);
+    pickables.push(object);
   });
 
-  const edgeMarkup = (data.edges || [])
+  if (edgeObjects.length && sceneGroup.children.length < 120) {
+    const label = makeTextSprite(THREE, formatRelationLabel(edge.label), {
+      fontSize: 22,
+      color: style.color,
+      background: "rgba(255,255,255,0.72)",
+      scale: 0.23,
+    });
+    label.position.copy(startVector).add(endVector).multiplyScalar(0.5);
+    label.position.y += 10;
+    sceneGroup.add(label);
+  }
+}
+
+async function renderGraph3D(renderable) {
+  const serial = ++graphRenderSerial;
+  disposeGraph3D();
+  const container = document.getElementById("graph-3d-view");
+  const detail = document.getElementById("graph-detail");
+  if (!container) {
+    return;
+  }
+  const { THREE, OrbitControls } = await loadThreeRuntime();
+  if (serial !== graphRenderSerial) {
+    return;
+  }
+
+  const bounds = container.getBoundingClientRect();
+  const width = Math.max(320, Math.floor(bounds.width || 420));
+  const height = Math.max(320, Math.floor(bounds.height || 420));
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0xf8f7f2, 420, 980);
+  const camera = new THREE.PerspectiveCamera(42, width / height, 1, 1800);
+  camera.position.set(0, 120, 430);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(width, height);
+  container.innerHTML = "";
+  container.appendChild(renderer.domElement);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.enablePan = true;
+  controls.enableZoom = true;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 0.55;
+  controls.minDistance = 110;
+  controls.maxDistance = 760;
+
+  scene.add(new THREE.AmbientLight(0xffffff, 1.15));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
+  keyLight.position.set(180, 260, 240);
+  scene.add(keyLight);
+  const fillLight = new THREE.PointLight(0x1f6a73, 1.3, 900);
+  fillLight.position.set(-220, -80, 240);
+  scene.add(fillLight);
+
+  const group = new THREE.Group();
+  scene.add(group);
+  const pickables = [];
+  const layout = graphLayout(renderable.nodes);
+  const nodeById = Object.fromEntries(renderable.nodes.map((node) => [node.id, node]));
+
+  renderable.edges.forEach((edge) => {
+    if (!layout[edge.source] || !layout[edge.target]) {
+      return;
+    }
+    addEdgeToScene(THREE, group, pickables, edge, layout[edge.source], layout[edge.target]);
+  });
+
+  renderable.nodes.forEach((node) => {
+    const position = layout[node.id];
+    const size = Math.max(11, Math.min(26, 11 + Math.sqrt(Number(node.mention_count || 1)) * 3.2));
+    const material = new THREE.MeshStandardMaterial({
+      color: graphNodeColor(node.type),
+      roughness: 0.42,
+      metalness: isCharacterNode(node) ? 0.22 : 0.05,
+      emissive: graphNodeColor(node.type),
+      emissiveIntensity: isCharacterNode(node) ? 0.08 : 0.03,
+    });
+    const sphere = new THREE.Mesh(new THREE.SphereGeometry(size, 32, 24), material);
+    sphere.position.set(position.x, position.y, position.z);
+    sphere.userData = { type: "node", node };
+    group.add(sphere);
+    pickables.push(sphere);
+
+    if (isCharacterNode(node)) {
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(size + 4, 1.1, 8, 48),
+        new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.66 })
+      );
+      ring.position.copy(sphere.position);
+      ring.lookAt(camera.position);
+      group.add(ring);
+    }
+
+    const label = makeTextSprite(THREE, node.label, {
+      fontSize: isCharacterNode(node) ? 28 : 22,
+      color: isCharacterNode(node) ? "#1f393d" : "#514a42",
+      scale: isCharacterNode(node) ? 0.32 : 0.25,
+    });
+    label.position.set(position.x, position.y + size + 18, position.z);
+    group.add(label);
+  });
+
+  const raycaster = new THREE.Raycaster();
+  const pointer = new THREE.Vector2();
+  renderer.domElement.addEventListener("pointerdown", () => {
+    controls.autoRotate = false;
+  });
+  renderer.domElement.addEventListener("click", (event) => {
+    const rect = renderer.domElement.getBoundingClientRect();
+    pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    const hit = raycaster.intersectObjects(pickables, false)[0];
+    if (!hit) {
+      return;
+    }
+    if (hit.object.userData.type === "node") {
+      showGraphNodeDetail(hit.object.userData.node);
+    }
+    if (hit.object.userData.type === "edge") {
+      showGraphEdgeDetail(hit.object.userData.edge, nodeById);
+    }
+  });
+
+  const resizeObserver = new ResizeObserver(() => {
+    const nextBounds = container.getBoundingClientRect();
+    const nextWidth = Math.max(320, Math.floor(nextBounds.width || 420));
+    const nextHeight = Math.max(320, Math.floor(nextBounds.height || 420));
+    camera.aspect = nextWidth / nextHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(nextWidth, nextHeight);
+  });
+  resizeObserver.observe(container);
+
+  graph3DInstance = { THREE, scene, camera, renderer, controls, group, resizeObserver, animationFrame: null };
+  function animate() {
+    if (!graph3DInstance || graph3DInstance.renderer !== renderer) {
+      return;
+    }
+    controls.update();
+    renderer.render(scene, camera);
+    graph3DInstance.animationFrame = requestAnimationFrame(animate);
+  }
+  animate();
+
+  if (detail) {
+    detail.textContent = "拖拽旋转图谱，滚轮缩放；点击人物或关系查看细节。";
+  }
+}
+
+function renderGraphFallback(renderable, errorMessage) {
+  disposeGraph3D();
+  const canvas = document.getElementById("graph-canvas");
+  if (!canvas) {
+    return;
+  }
+  const nodes = renderable.nodes;
+  const nodeById = Object.fromEntries(nodes.map((node) => [node.id, node]));
+  const width = 680;
+  const height = 420;
+  const radius = Math.max(110, Math.min(180, 40 + nodes.length * 12));
+  const positions = {};
+  nodes.forEach((node, index) => {
+    const angle = (Math.PI * 2 * index) / Math.max(1, nodes.length);
+    positions[node.id] = {
+      x: width / 2 + Math.cos(angle) * radius,
+      y: height / 2 + Math.sin(angle) * Math.min(radius, 140),
+    };
+  });
+  const edgeMarkup = renderable.edges
     .map((edge) => {
       const source = positions[edge.source];
       const target = positions[edge.target];
-      if (!source || !target) {
-        return "";
-      }
-      const midX = (source.x + target.x) / 2;
-      const midY = (source.y + target.y) / 2;
-      return `
-        <g class="graph-edge-group" data-edge-id="${escapeHtml(edge.id)}">
-          <line
-            class="graph-edge ${edge.status !== "active" ? "is-invalidated" : ""}"
-            x1="${source.x}"
-            y1="${source.y}"
-            x2="${target.x}"
-            y2="${target.y}"
-            data-edge-id="${escapeHtml(edge.id)}"
-          ></line>
-          <text class="graph-edge-label" x="${midX}" y="${midY - 6}">${escapeHtml(edge.label)}</text>
-        </g>
-      `;
+      if (!source || !target) return "";
+      const style = relationStyle(edge);
+      return `<line class="graph-edge" stroke="${style.color}" stroke-width="${Math.max(1.5, edge.weight || 1)}" x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" data-edge-id="${escapeHtml(edge.id)}"></line>`;
     })
     .join("");
-
-  const nodeMarkup = data.nodes
+  const nodeMarkup = nodes
     .map((node) => {
       const position = positions[node.id];
-      const size = Math.max(18, Math.min(34, 14 + Math.round((node.mention_count || 0) / 2)));
-      return `
-        <g class="graph-node" data-node-id="${escapeHtml(node.id)}">
-          <circle
-            class="graph-node-circle type-${escapeHtml(node.type || "unknown")}"
-            cx="${position.x}"
-            cy="${position.y}"
-            r="${size}"
-            fill="${graphNodeColor(node.type)}"
-            data-node-id="${escapeHtml(node.id)}"
-          ></circle>
-          <text class="graph-node-label" x="${position.x}" y="${position.y + size + 14}">${escapeHtml(node.label)}</text>
-        </g>
-      `;
+      const size = isCharacterNode(node) ? 22 : 15;
+      return `<g class="graph-node" data-node-id="${escapeHtml(node.id)}"><circle class="graph-node-circle" cx="${position.x}" cy="${position.y}" r="${size}" fill="${graphNodeColor(node.type)}"></circle><text class="graph-node-label" x="${position.x}" y="${position.y + size + 14}">${escapeHtml(node.label)}</text></g>`;
     })
     .join("");
-
-  const communityMarkup = Array.isArray(data.communities) && data.communities.length
-    ? `<div class="graph-community-summary"><strong>Communities:</strong> ${data.communities
-        .map((community) => `${escapeHtml(community.label)} (${community.entity_count})`)
-        .join(" / ")}</div>`
-    : "";
-
-  canvas.innerHTML = `
-    <svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="knowledge graph view">
-      ${edgeMarkup}
-      ${nodeMarkup}
-    </svg>
-    ${communityMarkup}
-  `;
-
-  detail.textContent = "Click a node to inspect the entity summary, or click an edge to inspect the relation.";
-
+  canvas.innerHTML = `<svg class="graph-svg" viewBox="0 0 ${width} ${height}">${edgeMarkup}${nodeMarkup}</svg><p class="muted">3D 渲染加载失败，已切换到 2D 视图：${escapeHtml(errorMessage)}</p>`;
   canvas.querySelectorAll("[data-node-id]").forEach((nodeElement) => {
     nodeElement.addEventListener("click", (event) => {
-      const nodeId = event.currentTarget.dataset.nodeId;
-      const node = data.nodes.find((item) => item.id === nodeId);
-      if (!node) {
-        return;
-      }
-      detail.innerHTML = `
-        <strong>${escapeHtml(node.label)}</strong> · ${escapeHtml(node.type || "entity")}<br />
-        Mentions: ${node.mention_count || 0}<br />
-        First seen: chapter ${node.first_seen_chapter || "-"}, paragraph ${node.first_seen_paragraph || "-"}<br />
-        ${escapeHtml(node.summary || "No summary available for this node.")}
-      `;
+      showGraphNodeDetail(nodeById[event.currentTarget.dataset.nodeId]);
     });
   });
-
   canvas.querySelectorAll("[data-edge-id]").forEach((edgeElement) => {
     edgeElement.addEventListener("click", (event) => {
-      const edgeId = event.currentTarget.dataset.edgeId;
-      const edge = data.edges.find((item) => item.id === edgeId);
-      if (!edge) {
-        return;
-      }
-      detail.innerHTML = `
-        <strong>${escapeHtml(edge.label)}</strong> · ${escapeHtml(edge.state_family || "relation")}<br />
-        Valid at: chapter ${edge.valid_at_chapter || "-"}, paragraph ${edge.valid_at_paragraph || "-"}<br />
-        Status: ${escapeHtml(edge.status || "unknown")}<br />
-        ${escapeHtml(edge.fact || "No fact string is available for this relation.")}
-      `;
+      const edge = renderable.edges.find((item) => item.id === event.currentTarget.dataset.edgeId);
+      showGraphEdgeDetail(edge, nodeById);
     });
   });
+}
+
+function showGraphNodeDetail(node) {
+  const detail = document.getElementById("graph-detail");
+  if (!detail || !node) {
+    return;
+  }
+  detail.innerHTML = `
+    <strong>${escapeHtml(node.label)}</strong> · ${escapeHtml(formatEntityType(node.type))}<br />
+    提及：${node.mention_count || 0} 次<br />
+    首次出现：第 ${(node.first_seen && node.first_seen.chapter) || "-"} 章，第 ${(node.first_seen && node.first_seen.paragraph) || "-"} 段<br />
+    ${escapeHtml(node.summary || "暂无实体摘要。")}
+  `;
+}
+
+function showGraphEdgeDetail(edge, nodeById = {}) {
+  const detail = document.getElementById("graph-detail");
+  if (!detail || !edge) {
+    return;
+  }
+  const source = nodeById[edge.source]?.label || edge.source;
+  const target = nodeById[edge.target]?.label || edge.target;
+  const style = relationStyle(edge);
+  detail.innerHTML = `
+    <strong>${escapeHtml(source)} -> ${escapeHtml(target)}</strong><br />
+    关系：<span style="color:${style.color}">${escapeHtml(formatRelationLabel(edge.label))}</span> · ${escapeHtml(style.label)}<br />
+    位置：第 ${edge.valid_at_chapter || "-"} 章，第 ${edge.valid_at_paragraph || "-"} 段<br />
+    证据：${(edge.citation_chunk_ids || []).slice(0, 4).map(escapeHtml).join(" / ") || "暂无证据 id"}<br />
+    ${escapeHtml(edge.fact || "暂无关系事实描述。")}
+  `;
 }
 
 async function refreshKnowledgeGraph() {
@@ -948,10 +1525,10 @@ async function refreshKnowledgeGraph() {
     const query = new URLSearchParams({
       chapter: String(state.activeChapter),
       paragraph: String(state.activeParagraphIndex || 0),
-      limit: "18",
+      limit: state.graphRelationMode === "people" ? "48" : "36",
       scope: state.graphViewScope,
     });
-    state.graphViewData = await fetchJSON(`/api/books/${encodeURIComponent(state.activeBook)}/graph/view?${query.toString()}`);
+    state.graphViewData = await fetchJSON(`/api/books/${encodeURIComponent(state.activeBook)}/memory/map?${query.toString()}`);
   } catch (error) {
     state.graphViewError = error.message;
   } finally {
@@ -962,6 +1539,9 @@ async function refreshKnowledgeGraph() {
 
 async function toggleKnowledgeGraph() {
   state.graphViewVisible = !state.graphViewVisible;
+  if (!state.graphViewVisible) {
+    exitGraphFullscreen();
+  }
   renderGraphPanel();
   if (state.graphViewVisible) {
     await refreshKnowledgeGraph();
@@ -969,7 +1549,7 @@ async function toggleKnowledgeGraph() {
 }
 
 async function setKnowledgeGraphScope(scope) {
-  if (scope !== "chapter" && scope !== "book") {
+  if (scope !== "passage" && scope !== "chapter") {
     return;
   }
   state.graphViewScope = scope;
@@ -979,60 +1559,201 @@ async function setKnowledgeGraphScope(scope) {
   }
 }
 
-function createInlineBubbleMarkup(text, chunkId) {
-  const bubbles = (state.inlineBubblesByChunk[chunkId] || [])
-    .map((bubble) => ({ ...bubble, index: text.indexOf(bubble.anchor_text) }))
-    .filter((bubble) => bubble.index >= 0)
-    .sort((a, b) => a.index - b.index);
+async function setGraphRelationMode(mode) {
+  if (mode !== "people" && mode !== "all") {
+    return;
+  }
+  state.graphRelationMode = mode;
+  if (state.graphViewVisible && state.graphViewData) {
+    renderGraphPanel();
+    return;
+  }
+  renderGraphPanel();
+}
 
+function zoomGraph3D(direction) {
+  if (!graph3DInstance) {
+    return;
+  }
+  const factor = direction > 0 ? 0.82 : 1.18;
+  graph3DInstance.camera.position.multiplyScalar(factor);
+  graph3DInstance.controls?.update?.();
+}
+
+function resetGraph3DView() {
+  if (!graph3DInstance) {
+    return;
+  }
+  graph3DInstance.camera.position.set(0, 120, 430);
+  graph3DInstance.controls.target.set(0, 0, 0);
+  graph3DInstance.controls.autoRotate = true;
+  graph3DInstance.controls.update();
+}
+
+function exitGraphFullscreen() {
+  state.graphExpanded = false;
+  document.getElementById("insight-drawer")?.classList.remove("is-graph-fullscreen");
+  document.getElementById("graph-panel")?.classList.remove("is-expanded");
+  document.body.classList.remove("graph-fullscreen-active");
+  const expandButton = document.getElementById("graph-expand-btn");
+  if (expandButton) {
+    expandButton.textContent = "全屏";
+    expandButton.setAttribute("aria-label", "进入图谱全屏");
+  }
+}
+
+function toggleGraphExpanded() {
+  state.graphExpanded = !state.graphExpanded;
+  if (state.graphExpanded) {
+    setDrawer("insight-drawer", true);
+    setInsightTab("map");
+  }
+  renderGraphPanel();
+}
+
+function bubblesForChunk(chunkId) {
+  return (state.inlineBubblesByChunk[chunkId] || []).slice(0, 2);
+}
+
+function bubbleClassToken(value) {
+  const token = String(value || "detail").toLowerCase();
+  return /^[a-z0-9_-]+$/.test(token) ? token : "detail";
+}
+
+function createInlineBubbleMarkup(text, chunkId) {
+  const source = String(text || "");
+  const bubbles = bubblesForChunk(chunkId);
   if (!bubbles.length) {
-    return escapeHtml(text);
+    return escapeHtml(source);
   }
 
-  let cursor = 0;
-  let markup = "";
-  bubbles.forEach((bubble) => {
-    const start = text.indexOf(bubble.anchor_text, cursor);
-    if (start < cursor || start < 0) {
+  const ranges = [];
+  bubbles.forEach((bubble, index) => {
+    const anchor = String(bubble.anchor_text || "").trim();
+    if (!anchor) {
       return;
     }
-    const end = start + bubble.anchor_text.length;
-    markup += escapeHtml(text.slice(cursor, start));
-    markup += `
-      <span class="inline-bubble" data-bubble-id="${escapeHtml(bubble.bubble_id)}">
-        <button
-          class="inline-bubble-anchor"
-          type="button"
-          data-bubble-id="${escapeHtml(bubble.bubble_id)}"
-          aria-label="${escapeHtml(bubble.label)}"
-        >${escapeHtml(bubble.anchor_text)}</button>
-        <span class="inline-bubble-tip" data-bubble-id="${escapeHtml(bubble.bubble_id)}">
-          <strong>${escapeHtml(bubble.label)}</strong>${escapeHtml(bubble.comment)}
-        </span>
-      </span>
-    `;
+    const start = source.indexOf(anchor);
+    if (start < 0) {
+      return;
+    }
+    const end = start + anchor.length;
+    const overlaps = ranges.some((range) => start < range.end && end > range.start);
+    if (!overlaps) {
+      ranges.push({ start, end, bubble, index });
+    }
+  });
+
+  if (!ranges.length) {
+    return escapeHtml(source);
+  }
+
+  ranges.sort((a, b) => a.start - b.start);
+  let html = "";
+  let cursor = 0;
+  ranges.forEach(({ start, end, bubble, index }) => {
+    const bubbleType = bubbleClassToken(bubble.bubble_type || bubble.emphasis || "detail");
+    html += escapeHtml(source.slice(cursor, start));
+    html += `<span
+      class="inline-bubble-highlight inline-bubble-${bubbleType}"
+      tabindex="0"
+      data-bubble-id="${escapeHtml(bubble.bubble_id || `${chunkId}-${index}`)}"
+      data-bubble-label="${escapeHtml(bubble.label || "旁注")}"
+      data-bubble-comment="${escapeHtml(bubble.comment || "")}"
+      data-bubble-type="${escapeHtml(bubbleType)}"
+    >${escapeHtml(source.slice(start, end))}</span>`;
     cursor = end;
   });
-  markup += escapeHtml(text.slice(cursor));
-  return markup;
+  html += escapeHtml(source.slice(cursor));
+  return html;
 }
 
 function wireInlineBubbleToggles() {
-  document.querySelectorAll(".inline-bubble-anchor").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const bubbleId = event.currentTarget.dataset.bubbleId;
-      document.querySelectorAll(".inline-bubble-tip.is-open").forEach((tip) => {
-        if (tip.dataset.bubbleId !== bubbleId) {
-          tip.classList.remove("is-open");
-        }
-      });
-      const target = document.querySelector(`.inline-bubble-tip[data-bubble-id="${bubbleId}"]`);
-      if (target) {
-        target.classList.toggle("is-open");
+  document.querySelectorAll(".inline-bubble-highlight").forEach((highlight) => {
+    highlight.addEventListener("mouseenter", (event) => {
+      bubbleHoverSticky = false;
+      showBubbleHoverCard(event.currentTarget);
+    });
+    highlight.addEventListener("focus", (event) => {
+      bubbleHoverSticky = false;
+      showBubbleHoverCard(event.currentTarget);
+    });
+    highlight.addEventListener("mouseleave", () => {
+      if (!bubbleHoverSticky) {
+        closeInlineBubbleNotes();
+      }
+    });
+    highlight.addEventListener("blur", () => {
+      if (!bubbleHoverSticky) {
+        closeInlineBubbleNotes();
+      }
+    });
+    highlight.addEventListener("click", (event) => {
+      const target = event.currentTarget;
+      const card = document.getElementById("bubble-hover-card");
+      const isSameOpen = card?.classList.contains("is-open") && card.dataset.bubbleId === target.dataset.bubbleId;
+      if (isSameOpen && bubbleHoverSticky) {
+        closeInlineBubbleNotes();
+      } else {
+        bubbleHoverSticky = true;
+        showBubbleHoverCard(target);
       }
       event.stopPropagation();
     });
   });
+}
+
+function ensureBubbleHoverCard() {
+  let card = document.getElementById("bubble-hover-card");
+  if (!card) {
+    card = document.createElement("div");
+    card.id = "bubble-hover-card";
+    card.className = "bubble-hover-card";
+    document.body.appendChild(card);
+  }
+  return card;
+}
+
+function showBubbleHoverCard(anchor) {
+  if (!anchor) {
+    return;
+  }
+  const card = ensureBubbleHoverCard();
+  card.dataset.bubbleId = anchor.dataset.bubbleId || "";
+  card.innerHTML = `
+    <strong>${escapeHtml(anchor.dataset.bubbleLabel || "旁注")}</strong>
+    <span>${escapeHtml(anchor.dataset.bubbleComment || "")}</span>
+  `;
+  document.querySelectorAll(".inline-bubble-highlight.is-active").forEach((item) => item.classList.remove("is-active"));
+  anchor.classList.add("is-active");
+  card.classList.add("is-open");
+
+  const rect = anchor.getBoundingClientRect();
+  const margin = 12;
+  const cardWidth = Math.min(300, Math.max(220, window.innerWidth - margin * 2));
+  card.style.width = `${cardWidth}px`;
+  card.style.left = "0px";
+  card.style.top = "0px";
+  const cardRect = card.getBoundingClientRect();
+  let left = rect.left + rect.width / 2 - cardWidth / 2;
+  left = Math.min(window.innerWidth - cardWidth - margin, Math.max(margin, left));
+  let top = rect.bottom + 8;
+  if (top + cardRect.height > window.innerHeight - margin) {
+    top = rect.top - cardRect.height - 8;
+  }
+  top = Math.min(window.innerHeight - cardRect.height - margin, Math.max(margin, top));
+  card.style.left = `${left}px`;
+  card.style.top = `${top}px`;
+}
+
+function closeInlineBubbleNotes() {
+  bubbleHoverSticky = false;
+  const card = document.getElementById("bubble-hover-card");
+  if (card) {
+    card.classList.remove("is-open");
+    card.removeAttribute("data-bubble-id");
+  }
+  document.querySelectorAll(".inline-bubble-highlight.is-active").forEach((highlight) => highlight.classList.remove("is-active"));
 }
 
 function renderPassages() {
@@ -1064,7 +1785,10 @@ function renderPassages() {
       <span class="paragraph-marker">${paragraphIndex}</span>
       <div class="reading-paragraph-text">${createInlineBubbleMarkup(passage.text || "", passage.chunk_id)}</div>
     `;
-    wrapper.addEventListener("click", () => selectPassage(passage, index, pageItems));
+    wrapper.addEventListener("click", () => {
+      const selectedText = getSelectedTextWithin(wrapper);
+      selectPassage(passage, index, pageItems, { selectedText });
+    });
     page.appendChild(wrapper);
   });
 
@@ -1072,14 +1796,32 @@ function renderPassages() {
   wireInlineBubbleToggles();
 }
 
-function selectPassage(passage, index, passages) {
+function getSelectedTextWithin(node) {
+  const selection = window.getSelection();
+  if (!selection || selection.isCollapsed) {
+    return "";
+  }
+  const selectedText = compactInlineText(selection.toString());
+  if (!selectedText) {
+    return "";
+  }
+  const anchorNode = selection.anchorNode;
+  const focusNode = selection.focusNode;
+  if ((anchorNode && node.contains(anchorNode)) || (focusNode && node.contains(focusNode))) {
+    return selectedText;
+  }
+  return "";
+}
+
+function selectPassage(passage, index, passages, options = {}) {
   state.activeParagraphIndex = passage.paragraph_index ?? passage._index + 1;
   state.activeChunkId = passage.chunk_id || null;
   updateProgressFromPassage(passage);
-  buildSelectionFromPassage(passage, index, passages);
+  buildSelectionFromPassage(passage, index, passages, options.selectedText || "");
   renderSelectionPreview();
   renderReaderHeader();
   renderPassages();
+  fetchInlineBubbles({ selectedOnly: true }).catch((error) => console.error(error));
   if (state.graphViewVisible) {
     refreshKnowledgeGraph().catch((error) => console.error(error));
   }
@@ -1097,25 +1839,45 @@ function setPage(pageIndex) {
   const firstVisible = pageItems[0];
   if (firstVisible) {
     state.activeParagraphIndex = firstVisible.paragraph_index ?? firstVisible._index + 1;
+    state.activeChunkId = firstVisible.chunk_id || null;
     updateProgressFromPassage(firstVisible);
+    buildSelectionFromPassage(firstVisible, 0, pageItems);
   }
   renderReaderHeader();
+  renderSelectionPreview();
   renderPassages();
-  fetchInlineBubbles().catch((error) => console.error(error));
+  scheduleDwellBubbles();
 }
 
-async function fetchInlineBubbles() {
+function scheduleDwellBubbles() {
+  if (state.bubbleTimer) {
+    window.clearTimeout(state.bubbleTimer);
+    state.bubbleTimer = null;
+  }
+  if (!state.activeBook || !getCurrentPageItems().length) {
+    return;
+  }
+  state.bubbleTimer = window.setTimeout(() => {
+    fetchInlineBubbles().catch((error) => console.error(error));
+  }, 12000);
+}
+
+async function fetchInlineBubbles(options = {}) {
   if (!state.activeBook) {
     return;
   }
-  const pageItems = getCurrentPageItems();
+  const selectedOnly = options.selectedOnly === true;
+  const pageItems =
+    selectedOnly && state.activeChunkId
+      ? getCurrentPageItems().filter((item) => item.chunk_id === state.activeChunkId)
+      : getCurrentPageItems();
   if (!pageItems.length) {
     state.inlineBubblesByChunk = {};
     renderPassages();
     return;
   }
   try {
-    const bubbles = await fetchJSON(`/api/books/${encodeURIComponent(state.activeBook)}/inline-bubbles`, {
+    const bubbles = await fetchJSON(`/api/books/${encodeURIComponent(state.activeBook)}/bubbles/candidates`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -1125,7 +1887,7 @@ async function fetchInlineBubbles() {
         persona_id: state.personaId,
         assistant_mode: state.assistantMode,
         character_name: state.activeCharacterName,
-        max_bubbles: 3,
+        max_bubbles: selectedOnly ? 2 : 1,
       }),
     });
     const map = {};
@@ -1149,7 +1911,7 @@ async function loadCharacterCandidates() {
     return;
   }
 
-  setButtonLoading("character-generate-btn", true, "Loading candidates...");
+  setButtonLoading("character-generate-btn", true, "加载人物...");
   try {
     state.characterCandidates = await fetchJSON(
       `/api/books/${encodeURIComponent(state.activeBook)}/characters?current_chapter=${state.activeChapter}&limit=200`
@@ -1172,17 +1934,20 @@ async function generateCharacterProfile() {
   }
 
   const typedName = document.getElementById("character-input").value.trim();
-  const selectedName = document.getElementById("character-select").value.trim();
+  const selectedName =
+    document.getElementById("character-select")?.value.trim() ||
+    document.getElementById("assistant-character-select")?.value.trim() ||
+    state.activeCharacterName;
   const characterName = typedName || selectedName;
   if (!characterName) {
     document.getElementById("character-profile-card").innerHTML =
-      `<p class="muted">Choose a candidate or enter a character name before building a character profile.</p>`;
+      `<p class="muted">请先选择当前书中的人物，或手动输入人物名。</p>`;
     return;
   }
 
-  state.activeCharacterName = characterName;
+  setSelectedCharacter(characterName);
   renderAssistantStatus();
-  setButtonLoading("character-generate-btn", true, "Building profile...");
+  setButtonLoading("character-generate-btn", true, "生成中...");
   startPendingWorkflow("characterProfile", "building-profile");
 
   try {
@@ -1196,11 +1961,11 @@ async function generateCharacterProfile() {
       }),
     });
     state.activeCharacterProfile = profile;
-    document.getElementById("character-input").value = profile.character_name;
+    setSelectedCharacter(profile.character_name, { keepProfile: true, skipRender: true });
     renderCharacterProfile();
     renderAssistantStatus();
     if (state.assistantMode === "character") {
-      await fetchInlineBubbles();
+      await fetchInlineBubbles({ selectedOnly: true });
     }
     finishPendingWorkflow("done", "Character profile ready", "The character profile has been built from the currently visible reading scope.");
   } catch (error) {
@@ -1227,6 +1992,7 @@ async function setActiveChapter(chapter) {
   const passages = getCurrentPassages();
   const first = passages[0] || null;
   state.activeParagraphIndex = first ? first.paragraph_index ?? 1 : null;
+  state.activeChunkId = first?.chunk_id || null;
   state.readingProgress = {
     book_id: state.activeBook || "",
     chapter_id: state.activeChapter,
@@ -1237,6 +2003,10 @@ async function setActiveChapter(chapter) {
     dwell_seconds: 0,
     updated_at: new Date().toISOString(),
   };
+  if (first) {
+    const pageItems = getCurrentPageItems();
+    buildSelectionFromPassage(first, 0, pageItems.length ? pageItems : passages);
+  }
 
   renderChapterNav();
   renderChapterSelects();
@@ -1245,7 +2015,7 @@ async function setActiveChapter(chapter) {
   renderPassages();
   renderCharacterProfile();
   await loadCharacterCandidates();
-  await fetchInlineBubbles();
+  scheduleDwellBubbles();
   if (state.graphViewVisible) {
     await refreshKnowledgeGraph();
   }
@@ -1274,7 +2044,7 @@ async function loadPersonas() {
     renderPersonaDetails();
     renderAssistantStatus();
     if (state.assistantMode === "persona") {
-      await fetchInlineBubbles();
+      scheduleDwellBubbles();
     }
   });
 
@@ -1284,6 +2054,114 @@ async function loadPersonas() {
 async function loadBooks() {
   state.books = await fetchJSON("/api/books");
   renderBooks();
+}
+
+function renderMemoryStatus() {
+  const badge = document.getElementById("memory-status-badge");
+  const text = document.getElementById("memory-status-text");
+  const callout = document.getElementById("memory-callout");
+  const calloutText = document.getElementById("memory-callout-text");
+  if (!badge || !text) {
+    return;
+  }
+  if (!state.activeBook) {
+    badge.textContent = "unknown";
+    text.textContent = "Open a book to inspect memory status.";
+    callout?.classList.add("is-hidden");
+    return;
+  }
+  if (!state.memoryStatus) {
+    badge.textContent = "loading";
+    text.textContent = "Checking memory status...";
+    callout?.classList.add("is-hidden");
+    return;
+  }
+  const reasons = state.memoryStatus.degraded_reasons || [];
+  const entityCount = state.memoryStatus.entity_count || 0;
+  const memoryCount = state.memoryStatus.memory_count || 0;
+  const vectorOnlyIssue =
+    state.memoryStatus.status === "degraded" &&
+    entityCount > 0 &&
+    reasons.length > 0 &&
+    reasons.every((reason) => /embedding|embeddings|vector/i.test(reason));
+  badge.textContent = vectorOnlyIssue ? "graph ready" : state.memoryStatus.status || "unknown";
+  text.textContent = vectorOnlyIssue
+    ? `${entityCount} entities · ${memoryCount} memories ready. Vector search is skipped; keyword and graph retrieval are active.`
+    : reasons.length
+      ? `${entityCount} entities · ${reasons.join(" / ")}`
+      : `${entityCount} entities · ${memoryCount} memories ready.`;
+  const shouldShowCallout =
+    !vectorOnlyIssue &&
+    (state.memoryStatus.status === "missing" ||
+      state.memoryStatus.status === "failed" ||
+      !state.memoryStatus.index_ready ||
+      !state.memoryStatus.graph_ready);
+  callout?.classList.toggle("is-hidden", !shouldShowCallout);
+  if (calloutText) {
+    calloutText.textContent = shouldShowCallout
+      ? "Memory map and evidence-aware answers need a rebuild for this book."
+      : "";
+  }
+}
+
+async function loadMemoryStatus() {
+  if (!state.activeBook) {
+    return;
+  }
+  state.memoryStatus = null;
+  renderMemoryStatus();
+  try {
+    state.memoryStatus = await fetchJSON(`/api/books/${encodeURIComponent(state.activeBook)}/memory/status`);
+  } catch (error) {
+    state.memoryStatus = { status: "failed", degraded_reasons: [error.message] };
+  }
+  renderMemoryStatus();
+}
+
+async function rebuildMemory() {
+  if (!state.activeBook) {
+    return;
+  }
+  setButtonLoading("memory-rebuild-btn", true, "Rebuilding...");
+  setPendingState(true, "memory-rebuild", "Rebuilding memory", "Rebuilding entity registry, graph memory, and retrieval index.");
+  try {
+    const job = await fetchJSON(`/api/books/${encodeURIComponent(state.activeBook)}/memory/rebuild-jobs`, {
+      method: "POST",
+    });
+    let current = job;
+    for (;;) {
+      setPendingState(
+        current.status !== "completed" && current.status !== "failed",
+        current.stage || "memory-rebuild",
+        current.title || "Rebuilding memory",
+        current.message || "Memory rebuild is running.",
+        current.percent || 0
+      );
+      if (current.status === "completed") {
+        break;
+      }
+      if (current.status === "failed") {
+        throw new Error(current.error || current.message || "Memory rebuild failed.");
+      }
+      await new Promise((resolve) => window.setTimeout(resolve, 1200));
+      current = await fetchJSON(`/api/books/${encodeURIComponent(state.activeBook)}/memory/rebuild-jobs/${current.job_id}`);
+    }
+    await loadMemoryStatus();
+    state.graphViewData = null;
+    if (state.graphViewVisible) {
+      await refreshKnowledgeGraph();
+    }
+    finishPendingWorkflow("done", "Memory ready", "Entity registry, layered memory, and map data are ready.");
+  } catch (error) {
+    setPendingState(false);
+    pushConversation("assistant", `Memory rebuild failed: ${error.message}`);
+    renderChatHistory();
+  } finally {
+    setButtonLoading("memory-rebuild-btn", false);
+    if (state.pendingWorkflow) {
+      releasePendingState();
+    }
+  }
 }
 
 async function openBook(bookId) {
@@ -1303,6 +2181,7 @@ async function openBook(bookId) {
   renderBooks();
   renderChatHistory();
   renderGraphPanel();
+  await loadMemoryStatus();
   await setActiveChapter(getFirstReadableChapter());
 }
 
@@ -1367,6 +2246,7 @@ async function askAssistant() {
 
   try {
     let answer = "";
+    let answerMeta = {};
     if (state.assistantMode === "persona") {
       const response = await fetchJSON("/api/qa", {
         method: "POST",
@@ -1374,13 +2254,18 @@ async function askAssistant() {
         body: JSON.stringify({
           book_id: state.activeBook,
           question,
-          highlight_text: state.selectionContext.selected_text,
+          highlight_text: getQuestionContextText(),
           current_chapter: state.activeChapter,
           persona_id: state.personaId,
           conversation_history: history,
         }),
       });
       answer = response.answer;
+      answerMeta = {
+        citations: response.citations || [],
+        confidence: response.confidence,
+        unsupported_claim_count: response.unsupported_claim_count,
+      };
     } else {
       if (!state.activeCharacterName) {
         throw new Error("Choose or build a character profile before asking the character agent.");
@@ -1398,9 +2283,14 @@ async function askAssistant() {
       });
       answer = response.answer;
       state.activeCharacterProfile = response.profile;
+      answerMeta = {
+        citations: response.citations || [],
+        confidence: response.confidence,
+        unsupported_claim_count: response.unsupported_claim_count,
+      };
       renderCharacterProfile();
     }
-    pushConversation("assistant", answer);
+    pushConversation("assistant", answer, answerMeta);
     renderChatHistory();
     finishPendingWorkflow(
       "done",
@@ -1467,7 +2357,61 @@ function clearConversation() {
 function setAssistantMode(mode) {
   state.assistantMode = mode;
   renderAssistantMode();
-  fetchInlineBubbles().catch((error) => console.error(error));
+  scheduleDwellBubbles();
+}
+
+function setDrawer(drawerId, isOpen) {
+  const drawer = document.getElementById(drawerId);
+  const backdrop = document.getElementById("drawer-backdrop");
+  if (!drawer || !backdrop) {
+    return;
+  }
+  if (!isOpen && drawerId === "insight-drawer") {
+    state.graphExpanded = false;
+    drawer.classList.remove("is-graph-fullscreen");
+    document.body.classList.remove("graph-fullscreen-active");
+  }
+  drawer.classList.toggle("is-open", isOpen);
+  const anyOpen = Array.from(document.querySelectorAll(".drawer")).some((item) =>
+    item.classList.contains("is-open")
+  );
+  backdrop.classList.toggle("is-open", anyOpen);
+  if (!isOpen && drawerId === "insight-drawer") {
+    renderGraphPanel();
+  }
+}
+
+function closeDrawers() {
+  state.graphExpanded = false;
+  document.querySelectorAll(".drawer").forEach((drawer) => drawer.classList.remove("is-open"));
+  document.getElementById("insight-drawer")?.classList.remove("is-graph-fullscreen");
+  document.body.classList.remove("graph-fullscreen-active");
+  document.getElementById("drawer-backdrop")?.classList.remove("is-open");
+  renderGraphPanel();
+}
+
+function setInsightTab(tab) {
+  document.querySelectorAll(".insight-tab").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.tab === tab);
+  });
+  document.querySelectorAll(".insight-pane").forEach((pane) => {
+    pane.classList.toggle("is-active", pane.dataset.pane === tab);
+  });
+  document.getElementById("insight-drawer")?.classList.toggle("is-map-mode", tab === "map");
+  if (tab === "map" && state.graphViewVisible) {
+    refreshKnowledgeGraph().catch((error) => console.error(error));
+  }
+}
+
+function toggleAssistantPanel(forceOpen = null) {
+  const panel = document.getElementById("assistant-panel");
+  const stage = document.getElementById("reading-stage");
+  if (!panel) {
+    return;
+  }
+  const shouldOpen = forceOpen === null ? panel.classList.contains("is-collapsed") : forceOpen;
+  panel.classList.toggle("is-collapsed", !shouldOpen);
+  stage?.classList.toggle("assistant-collapsed", !shouldOpen);
 }
 
 function wireEvents() {
@@ -1480,21 +2424,57 @@ function wireEvents() {
   document.getElementById("graph-refresh-btn").addEventListener("click", () => {
     refreshKnowledgeGraph().catch((error) => console.error(error));
   });
+  document.getElementById("graph-scope-passage-btn").addEventListener("click", () => {
+    setKnowledgeGraphScope("passage").catch((error) => console.error(error));
+  });
   document.getElementById("graph-scope-chapter-btn").addEventListener("click", () => {
     setKnowledgeGraphScope("chapter").catch((error) => console.error(error));
   });
-  document.getElementById("graph-scope-book-btn").addEventListener("click", () => {
-    setKnowledgeGraphScope("book").catch((error) => console.error(error));
+  document.getElementById("graph-mode-people-btn").addEventListener("click", () => {
+    setGraphRelationMode("people").catch((error) => console.error(error));
   });
+  document.getElementById("graph-mode-all-btn").addEventListener("click", () => {
+    setGraphRelationMode("all").catch((error) => console.error(error));
+  });
+  document.getElementById("graph-zoom-out-btn").addEventListener("click", () => zoomGraph3D(-1));
+  document.getElementById("graph-zoom-in-btn").addEventListener("click", () => zoomGraph3D(1));
+  document.getElementById("graph-reset-btn").addEventListener("click", resetGraph3DView);
+  document.getElementById("graph-expand-btn").addEventListener("click", toggleGraphExpanded);
   document.getElementById("clear-chat-btn").addEventListener("click", clearConversation);
   document.getElementById("persona-mode-btn").addEventListener("click", () => setAssistantMode("persona"));
   document.getElementById("character-mode-btn").addEventListener("click", () => setAssistantMode("character"));
   document.getElementById("character-select").addEventListener("change", (event) => {
-    state.activeCharacterName = event.target.value.trim();
-    document.getElementById("character-input").value = state.activeCharacterName;
-    renderAssistantStatus();
+    setSelectedCharacter(event.target.value);
+    if (event.target.value.trim()) {
+      setAssistantMode("character");
+    }
+  });
+  document.getElementById("assistant-character-select").addEventListener("change", (event) => {
+    setSelectedCharacter(event.target.value);
+    if (event.target.value.trim()) {
+      setAssistantMode("character");
+    }
   });
   document.getElementById("character-generate-btn").addEventListener("click", generateCharacterProfile);
+  document.getElementById("library-open-btn").addEventListener("click", () => setDrawer("library-drawer", true));
+  document.getElementById("mobile-library-btn").addEventListener("click", () => setDrawer("library-drawer", true));
+  document.getElementById("library-close-btn").addEventListener("click", () => setDrawer("library-drawer", false));
+  document.getElementById("insight-open-btn").addEventListener("click", () => setDrawer("insight-drawer", true));
+  document.getElementById("mobile-insight-btn").addEventListener("click", () => setDrawer("insight-drawer", true));
+  document.getElementById("insight-close-btn").addEventListener("click", () => setDrawer("insight-drawer", false));
+  document.getElementById("drawer-backdrop").addEventListener("click", closeDrawers);
+  document.getElementById("assistant-toggle-btn").addEventListener("click", () => toggleAssistantPanel());
+  document.getElementById("mobile-assistant-btn").addEventListener("click", () => toggleAssistantPanel(true));
+  document.getElementById("assistant-close-btn").addEventListener("click", () => toggleAssistantPanel(false));
+  document.getElementById("memory-rebuild-btn").addEventListener("click", () => {
+    rebuildMemory().catch((error) => console.error(error));
+  });
+  document.getElementById("memory-callout-rebuild-btn").addEventListener("click", () => {
+    rebuildMemory().catch((error) => console.error(error));
+  });
+  document.querySelectorAll(".insight-tab").forEach((button) => {
+    button.addEventListener("click", () => setInsightTab(button.dataset.tab));
+  });
   document.getElementById("chapter-select").addEventListener("change", async (event) => {
     await setActiveChapter(Number(event.target.value));
   });
@@ -1518,8 +2498,16 @@ function wireEvents() {
   document.getElementById("prev-page-btn").addEventListener("click", () => setPage(state.activePageIndex - 1));
   document.getElementById("next-page-btn").addEventListener("click", () => setPage(state.activePageIndex + 1));
   document.addEventListener("click", (event) => {
-    if (!event.target.closest(".inline-bubble")) {
-      document.querySelectorAll(".inline-bubble-tip.is-open").forEach((tip) => tip.classList.remove("is-open"));
+    if (!event.target.closest(".inline-bubble-highlight")) {
+      closeInlineBubbleNotes();
+    }
+  });
+  document.addEventListener("keydown", (event) => {
+    const drawerIsFullscreen = document.getElementById("insight-drawer")?.classList.contains("is-graph-fullscreen");
+    if (event.key === "Escape" && (state.graphExpanded || drawerIsFullscreen)) {
+      exitGraphFullscreen();
+      renderGraphPanel();
+      event.preventDefault();
     }
   });
 }
@@ -1553,6 +2541,16 @@ async function bootstrap() {
 
 bootstrap().catch((error) => {
   console.error(error);
+  const message = error?.message || "Unknown startup error";
+  setPendingState(true, "startup-error", "App could not finish loading", message, 100);
+  const passageList = document.getElementById("passage-list");
+  if (passageList) {
+    passageList.innerHTML = `
+      <div class="startup-error">
+        <strong>应用没有完整加载</strong>
+        <p>${escapeHtml(message)}</p>
+        <p class="muted">请确认后端服务正在运行，然后刷新页面。</p>
+      </div>
+    `;
+  }
 });
-
-
