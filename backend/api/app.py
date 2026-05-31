@@ -43,6 +43,17 @@ from backend.knowledge_graph.retrieval import TemporalGraphRetriever
 from backend.knowledge_graph.storage import load_graph, load_graph_metadata, save_graph
 from backend.agents.celebrity.answering import build_answer
 from backend.knowledge_graph.orchestration.service import OrchestrationService
+from backend.memory.service import (
+    build_memory_index,
+    entity_detail,
+    ensure_memory_index,
+    list_entities,
+    memory_job_registry,
+    memory_map,
+    memory_status,
+    rebuild_memory_from_book,
+    save_memory_index,
+)
 from backend.agents.celebrity.persona_service import (
     PersonaAgentConfigurationError,
     PersonaAgentInvocationError,
@@ -180,6 +191,7 @@ def _process_upload_job(job_id: str, *, original_name: str, suffix: str, raw_byt
             },
         )
         save_graph(graph)
+        save_memory_index(build_memory_index(record, graph))
 
         _update_upload_job(
             job_id,
@@ -288,6 +300,45 @@ def get_or_build_graph(book_id: str):
         graph = build_temporal_graph(book)
         save_graph(graph)
         return graph
+
+
+def _process_memory_rebuild_job(job_id: str, book_id: str) -> None:
+    try:
+        book = get_or_build_book(book_id)
+
+        def graph_progress(payload: dict) -> None:
+            stage = str(payload.get("stage", "graph-rebuild"))
+            processed = int(payload.get("processed_snippets", 0) or 0)
+            total = int(payload.get("total_snippets", 0) or 0)
+            percent = 25
+            if total:
+                percent = min(70, 20 + int(processed / total * 50))
+            memory_job_registry.update(
+                job_id,
+                status="running",
+                stage=stage,
+                title=str(payload.get("title", "Rebuilding graph")),
+                message=str(payload.get("message", "Rebuilding memory graph from book text.")),
+                percent=percent,
+                details=dict(payload.get("details", {})),
+            )
+
+        graph_builder = TemporalGraphBuilder(
+            progress_callback=graph_progress,
+            strict_llm_extraction=False,
+            build_logger=GraphBuildLogger(book_id=book.book_id, title=book.title),
+        )
+        rebuild_memory_from_book(book, graph_builder=graph_builder, job_id=job_id)
+    except Exception as exc:
+        memory_job_registry.update(
+            job_id,
+            status="failed",
+            stage="failed",
+            title="Memory rebuild failed",
+            message=str(exc),
+            percent=100,
+            error=str(exc),
+        )
 
 
 @app.on_event("startup")
@@ -674,6 +725,93 @@ def graph_query(book_id: str, query: GraphQuery):
     return result.model_dump()
 
 
+@app.post("/api/books/{book_id}/memory/rebuild-jobs")
+def create_memory_rebuild_job(book_id: str):
+    try:
+        get_or_build_book(book_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="book_not_found") from exc
+    job = memory_job_registry.create(book_id)
+    Thread(target=_process_memory_rebuild_job, args=(job.job_id, book_id), daemon=True).start()
+    return job.to_dict()
+
+
+@app.get("/api/books/{book_id}/memory/rebuild-jobs/{job_id}")
+def memory_rebuild_job_status(book_id: str, job_id: str):
+    job = memory_job_registry.get(job_id)
+    if job is None or job.book_id != book_id:
+        raise HTTPException(status_code=404, detail="memory_job_not_found")
+    return job.to_dict()
+
+
+@app.get("/api/books/{book_id}/memory/status")
+def book_memory_status(book_id: str):
+    try:
+        book = get_or_build_book(book_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="book_not_found") from exc
+    return memory_status(book)
+
+
+@app.get("/api/books/{book_id}/memory/entities")
+def book_memory_entities(book_id: str, type: str = "", chapter: int = 0, query: str = ""):
+    try:
+        book = get_or_build_book(book_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="book_not_found") from exc
+    return list_entities(book, entity_type=type, chapter=chapter, query=query)
+
+
+@app.get("/api/books/{book_id}/memory/entities/{entity_id}")
+def book_memory_entity_detail(book_id: str, entity_id: str):
+    try:
+        book = get_or_build_book(book_id)
+        return entity_detail(book, entity_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="book_not_found") from exc
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="entity_not_found") from exc
+
+
+@app.get("/api/books/{book_id}/memory/map")
+def book_memory_map(
+    book_id: str,
+    scope: str = "passage",
+    chapter: int = 1,
+    paragraph: int = 0,
+    entity_id: str = "",
+    limit: int = 18,
+):
+    if scope not in {"passage", "chapter", "character"}:
+        raise HTTPException(status_code=400, detail="invalid_memory_map_scope")
+    try:
+        book = get_or_build_book(book_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="book_not_found") from exc
+    return memory_map(book, scope=scope, chapter=chapter, paragraph=paragraph, entity_id=entity_id, limit=limit)
+
+
+@app.post("/api/books/{book_id}/bubbles/candidates")
+def bubble_candidates(book_id: str, request: InlineBubbleRequest):
+    try:
+        book = get_or_build_book(book_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="book_not_found") from exc
+    try:
+        bubbles = generate_inline_bubbles(
+            book,
+            current_chapter=request.current_chapter,
+            visible_chunk_ids=request.visible_chunk_ids,
+            persona_id=request.persona_id,
+            assistant_mode=request.assistant_mode,
+            character_name=request.character_name,
+            max_bubbles=request.max_bubbles,
+        )
+        return [item.model_dump() for item in bubbles]
+    except (PersonaAgentConfigurationError, PersonaAgentInvocationError) as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
 @app.post("/api/upload", response_model=UploadResponse)
 async def upload_book(file: UploadFile = File(...)) -> UploadResponse:
     original_name = file.filename or "uploaded.txt"
@@ -707,6 +845,7 @@ async def upload_book(file: UploadFile = File(...)) -> UploadResponse:
     ).build(record)
     save_book(record)
     save_graph(graph)
+    save_memory_index(build_memory_index(record, graph))
     return UploadResponse(
         book_id=record.book_id,
         title=record.title,
@@ -788,4 +927,3 @@ def chapter_summary(request: SummaryRequest):
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     except PersonaAgentInvocationError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
-

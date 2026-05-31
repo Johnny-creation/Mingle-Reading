@@ -496,10 +496,28 @@ def _build_research_documents(asset: CelebritySkillAsset) -> tuple[list[dict[str
     return documents, snippets, manifest
 
 
+def _profile_citation_label(config: PersonaAgentConfig, manifest: dict[str, Any]) -> str:
+    counts = manifest.get("document_counts", {})
+    total_documents = int(counts.get("total_documents", 0) or 0)
+    categories = {
+        "style_profile": "风格画像",
+        "voice_sources": "语言材料",
+        "research_note": "研究笔记",
+    }
+    category_labels = [
+        label
+        for key, label in categories.items()
+        if int(counts.get(key, 0) or 0) > 0
+    ]
+    basis = "、".join(category_labels) if category_labels else "本地资料包"
+    if config.agent_id == "neutral":
+        return "中性导读模式：不套用作家声腔，优先依据当前已读正文回答。"
+    if total_documents:
+        return f"基于本地{config.display_name}风格资料包（{basis}，{total_documents} 份资料）；回答仍以当前已读正文为准。"
+    return f"基于本地{config.display_name}风格资料包；回答仍以当前已读正文为准。"
+
+
 def _profile_from_skill_bundle(config: PersonaAgentConfig, manifest: dict[str, Any]) -> PersonaProfile:
-    source_docs = manifest.get("documents", [])
-    citations = [item.get("path", "") for item in source_docs[:4] if item.get("path")]
-    citation = " | ".join(citations) if citations else "Celebrity-skill local bundle"
     persona_type = "neutral" if config.agent_id == "neutral" else "literary_master"
     return PersonaProfile(
         persona_id=config.persona_id,
@@ -507,7 +525,7 @@ def _profile_from_skill_bundle(config: PersonaAgentConfig, manifest: dict[str, A
         source_type=persona_type,
         style_traits=config.prompt_traits.tone_keywords,
         reasoning_style=config.prompt_traits.reasoning_steps,
-        citation=citation,
+        citation=_profile_citation_label(config, manifest),
         prompt_scaffold=config.prompt_traits.response_policies,
     )
 

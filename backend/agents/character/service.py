@@ -247,6 +247,10 @@ def generate_character_profile(book, character_name: str, current_chapter: int) 
         evidence_chunk_ids=[chunk.chunk_id for chunk in evidence_chunks],
         current_scope=str(payload.get("current_scope", "")).strip(),
         model_name=model_name,
+        entity_id=network.entity_id if network is not None else "",
+        arc_summary=network.summary if network is not None else "",
+        visible_relationship_count=len(network.relations) if network is not None else 0,
+        evidence_count=len(evidence_chunks),
     )
     _CHARACTER_PROFILE_CACHE[cache_key] = profile
     return profile
@@ -351,6 +355,8 @@ def generate_inline_bubbles(
     visible_chunks = [chunk for chunk in book.chunks if chunk.chunk_id in set(visible_chunk_ids)]
     if not visible_chunks:
         return []
+    max_policy_bubbles = 2 if len(visible_chunks) == 1 else 1
+    max_bubbles = max(1, min(max_bubbles, max_policy_bubbles))
 
     evidence_block = "\n\n".join(f"[{chunk.chunk_id}]\n{chunk.text}" for chunk in visible_chunks[:8])
     if assistant_mode == "character" and character_name:
@@ -362,8 +368,9 @@ def generate_inline_bubbles(
 
     system_prompt = (
         "你是一个为阅读器生成行内批注气泡的助手。"
-        "请输出 JSON 数组，每项包含 chunk_id, anchor_text, label, comment, emphasis。"
-        "anchor_text 必须直接出现在对应 chunk 的正文中。label 最多 8 个字，comment 最多 40 个字。"
+        "请输出 JSON 数组，每项包含 chunk_id, anchor_text, label, comment, emphasis, bubble_type。"
+        "anchor_text 必须直接出现在对应 chunk 的正文中。label 最多 8 个字，comment 最多 60 个字。"
+        "bubble_type 只能是 detail, emotion, relation, theme, question, character_inner_voice。"
     )
     user_prompt = (
         f"书名: {book.title}\n"
@@ -386,11 +393,14 @@ def generate_inline_bubbles(
             chunk_id = str(item.get("chunk_id", "")).strip()
             anchor_text = str(item.get("anchor_text", "")).strip()
             label = str(item.get("label", "")).strip()[:8]
-            comment = str(item.get("comment", "")).strip()[:40]
+            comment = str(item.get("comment", "")).strip()[:60]
             emphasis = str(item.get("emphasis", "detail")).strip()
+            bubble_type = str(item.get("bubble_type", emphasis or "detail")).strip()
             chunk = chunk_map.get(chunk_id)
             if not chunk or not anchor_text or anchor_text not in chunk.text or not comment:
                 continue
+            if bubble_type not in {"detail", "emotion", "relation", "theme", "question", "character_inner_voice"}:
+                bubble_type = "detail"
             bubbles.append(
                 InlineBubble(
                     bubble_id=f"bubble-{chunk_id}-{index}",
@@ -399,6 +409,9 @@ def generate_inline_bubbles(
                     label=label or "细读",
                     comment=comment,
                     emphasis=emphasis if emphasis in {"theme", "emotion", "relation", "foreshadow", "detail"} else "detail",
+                    bubble_type=bubble_type,
+                    citation_chunk_ids=[chunk_id],
+                    trigger_reason="selected-passage" if len(visible_chunks) == 1 else "page-salience-policy",
                 )
             )
     _INLINE_BUBBLE_CACHE[cache_key] = bubbles

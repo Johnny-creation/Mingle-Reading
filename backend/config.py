@@ -13,6 +13,8 @@ BOOKS_DIR = RUNTIME_DIR / "books"
 UPLOADS_DIR = RUNTIME_DIR / "uploads"
 GRAPHS_DIR = RUNTIME_DIR / "graphs"
 LOGS_DIR = RUNTIME_DIR / "logs"
+INDEXES_DIR = RUNTIME_DIR / "indexes"
+ARCHIVE_DIR = RUNTIME_DIR / "archive"
 PERSONA_KB_DIR = DATA_ASSETS_DIR / "processed" / "personas" / "persona_kb"
 ENV_FILE = ROOT_DIR / ".env"
 
@@ -44,6 +46,8 @@ for directory in (
     UPLOADS_DIR,
     GRAPHS_DIR,
     LOGS_DIR,
+    INDEXES_DIR,
+    ARCHIVE_DIR,
     PERSONA_KB_DIR,
 ):
     directory.mkdir(parents=True, exist_ok=True)
