@@ -1,0 +1,26 @@
+{
+  "book_id": "百年孤独-根据马尔克斯指定版本翻译-未做任何增删-加西亚-马尔克斯-范晔-z-lib-org-rebuild-20260520-005151",
+  "book_title": "百年孤独-根据马尔克斯指定版本翻译-未做任何增删-加西亚-马尔克斯-范晔-z-lib-org [rebuilt 20260520-005151]",
+  "highlight_qa": {
+    "sample_count": 4,
+    "passed": 4,
+    "failed": 0,
+    "failures": []
+  },
+  "anti_spoiler": {
+    "sample_count": 6,
+    "passed": 6,
+    "failed": 0,
+    "failures": []
+  },
+  "chapter_summary": {
+    "sample_count": 3,
+    "passed": 3,
+    "failed": 0,
+    "failures": []
+  },
+  "overall": {
+    "passed": 13,
+    "failed": 0
+  }
+}

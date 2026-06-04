@@ -16,7 +16,7 @@ from backend.data_pipeline.ingest.parser import build_book_record
 from backend.agents.celebrity.answering import build_answer
 from backend.agents.celebrity.chapter_summary import summarize_chapter
 
-BENCHMARKS_DIR = ROOT / "backend" / "benchmarks"
+BENCHMARKS_DIR = ROOT / "backend" / "eval" / "benchmarks"
 
 
 def ensure_demo_book():

@@ -60,3 +60,9 @@ image.png
 .upload-staging/
 .upload-clean/
 Mingle-Reading-upload.zip
+
+# persona thinking eval cache
+backend/eval/persona_thinking/_cache/
+
+# binary/docx artifacts
+*.docx
