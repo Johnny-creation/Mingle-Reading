@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+from pathlib import Path
 from typing import Any
 
 from backend.api.schemas import (
@@ -24,6 +25,87 @@ from backend.knowledge_graph.orchestration.service import OrchestrationService
 from backend.knowledge_graph.storage import graph_exists, load_graph
 from backend.safety.anti_spoiler import is_spoiler_question
 
+# ── Bubble tone injection from celebrity SKILL.md ──
+
+_SKILL_ROOT = Path(__file__).resolve().parents[2] / "assets" / "Celebrity-skill" / "Celebrity-skill"
+
+_PERSONA_SKILL_MAP = {
+    "persona_lu_xun":       _SKILL_ROOT / "LuXun-skill-main" / "SKILL.md",
+    "persona_zhang_ailing": _SKILL_ROOT / "ZhangAiLing-skill-main" / "SKILL.md",
+    "persona_mark_twain":   _SKILL_ROOT / "MarkTwain-skill-main" / "SKILL.md",
+}
+
+# Hand-curated bubble tone snippets extracted from each SKILL.md 表达DNA section.
+# These are concise so bubble generation stays fast — full thinking framework is
+# for long-form answers, not 60-character marginalia.
+_BUBBLE_TONE: dict[str, str] = {}
+
+def _load_bubble_tone(persona_id: str) -> str:
+    """Extract the language-style portion of SKILL.md for bubble tone injection."""
+    if persona_id in _BUBBLE_TONE:
+        return _BUBBLE_TONE[persona_id]
+
+    skill_path = _PERSONA_SKILL_MAP.get(persona_id)
+    if skill_path is None or not skill_path.exists():
+        _BUBBLE_TONE[persona_id] = ""
+        return ""
+
+    text = skill_path.read_text(encoding="utf-8")
+    # Strip YAML frontmatter
+    if text.startswith("---"):
+        parts = text.split("---", 2)
+        if len(parts) >= 3:
+            text = parts[2]
+
+    # Extract language-style sections only — skip thinking methodology
+    markers = [
+        "语言风格", "表达DNA", "交流风格", "句式特征", "修辞策略",
+        "节奏控制", "绝对禁止的温暖表达", "绝对禁令", "句式要求",
+        "反指标", "不说教",
+    ]
+    lines: list[str] = []
+    in_target = False
+    for line in text.splitlines():
+        stripped = line.strip()
+        if any(m in stripped for m in markers):
+            in_target = True
+            lines.append(stripped)
+            continue
+        if in_target:
+            if stripped.startswith("###") or stripped.startswith("## "):
+                # Section boundary — keep going if it's still style-related
+                if any(m in stripped for m in ["表达", "风格", "交流", "句式", "修辞", "节奏", "禁令", "指标"]):
+                    lines.append(stripped)
+                    continue
+                else:
+                    in_target = False
+                    continue
+            if stripped and not stripped.startswith("---"):
+                lines.append(stripped)
+
+    tone = "\n".join(lines[:60])
+
+    # For bubbles, use ultra-short hand-crafted tone (~150 chars max).
+    # Long SKILL.md excerpts cause 10-15s latency and confuse JSON output.
+    _SHORT_TONE = {
+        "persona_lu_xun": (
+            "用鲁迅风格写批注：文白夹杂、冷峻锋利、短句如刀。"
+            "可用「倘若…然而…」「大约…的确…」句式和破折号。"
+            "拒绝温暖词汇和感叹号，批判即目的。"
+        ),
+        "persona_zhang_ailing": (
+            "用张爱玲风格写批注：华丽克制、从物质细节切入。"
+            "用「因为…所以…」制造宿命感，参差对照华美与苍凉。"
+            "中英文可自然混杂，绝不说教。"
+        ),
+        "persona_mark_twain": (
+            "用马克吐温风格写批注：口语化、扑克脸、轻描淡写。"
+            "用最平实的词说最重的话，假谦虚包裹锋利观察。"
+        ),
+    }
+    _BUBBLE_TONE[persona_id] = _SHORT_TONE.get(persona_id, tone)
+    return _BUBBLE_TONE[persona_id]
+
 
 _CHARACTER_PROFILE_CACHE: dict[tuple[str, str, int], CharacterProfile] = {}
 _CHARACTER_CANDIDATE_CACHE: dict[tuple[str, int], list[CharacterCandidate]] = {}
@@ -43,7 +125,16 @@ def _extract_json_payload(text: str) -> Any:
     end = max(text.rfind("}"), text.rfind("]"))
     if end <= start:
         raise ValueError("model response did not contain a complete JSON payload")
-    return json.loads(text[start : end + 1])
+    candidate = text[start : end + 1]
+    try:
+        return json.loads(candidate)
+    except json.JSONDecodeError:
+        # Model sometimes produces subtly broken JSON (missing commas, trailing text).
+        # Try common repairs before giving up.
+        repaired = re.sub(r'"\s*\n\s*"', '",\n"', candidate)  # missing comma between fields
+        repaired = re.sub(r'}\s*\n\s*{', '},\n{', repaired)     # missing comma between objects
+        repaired = re.sub(r']\s*\n\s*{', '],\n{', repaired)     # missing comma array→object
+        return json.loads(repaired)
 
 
 def _character_slug(name: str) -> str:
@@ -355,22 +446,46 @@ def generate_inline_bubbles(
     visible_chunks = [chunk for chunk in book.chunks if chunk.chunk_id in set(visible_chunk_ids)]
     if not visible_chunks:
         return []
-    max_policy_bubbles = 2 if len(visible_chunks) == 1 else 1
+    max_policy_bubbles = 5 if len(visible_chunks) == 1 else 3
     max_bubbles = max(1, min(max_bubbles, max_policy_bubbles))
 
-    evidence_block = "\n\n".join(f"[{chunk.chunk_id}]\n{chunk.text}" for chunk in visible_chunks[:8])
+    evidence_block = "\n\n".join(f"[{chunk.chunk_id}]\n{chunk.text}" for chunk in visible_chunks[:16])
     if assistant_mode == "character" and character_name:
         runtime_persona = "neutral"
         instruction = f"请以 {character_name} 的视角生成贴在文段旁边的短评气泡。"
+        tone_block = ""
     else:
         runtime_persona = persona_id
         instruction = "请生成面向读者的短评气泡。"
+        # Inject celebrity language-style DNA from SKILL.md
+        tone_block = _load_bubble_tone(persona_id)
+        if tone_block:
+            tone_block = (
+                "你必须用以下名家的语言风格来写气泡批注——不是写长文，"
+                "而是像这个名家在书页边缘随手批注：\n"
+                + tone_block
+                + "\n\n"
+            )
+
+    # Map of short IDs → full IDs so the model can use either
+    short_to_full: dict[str, str] = {}
+    for chunk in visible_chunks[:16]:
+        parts = chunk.chunk_id.rsplit("-c0", 1)
+        if len(parts) == 2:
+            short_to_full["-c0" + parts[1]] = chunk.chunk_id
+        parts = chunk.chunk_id.rsplit("-p", 1)
+        if len(parts) == 2:
+            short_to_full["p" + parts[1]] = chunk.chunk_id
 
     system_prompt = (
-        "你是一个为阅读器生成行内批注气泡的助手。"
-        "请输出 JSON 数组，每项包含 chunk_id, anchor_text, label, comment, emphasis, bubble_type。"
-        "anchor_text 必须直接出现在对应 chunk 的正文中。label 最多 8 个字，comment 最多 60 个字。"
-        "bubble_type 只能是 detail, emotion, relation, theme, question, character_inner_voice。"
+        tone_block
+        + "你是一个为阅读器生成行内批注气泡的助手。"
+        "请输出 JSON 数组，每项包含 chunk_id, anchor_text, label, comment, bubble_type。"
+        "【重要】chunk_id 必须使用下方正文中 [方括号] 内的完整 ID，原样复制。"
+        "anchor_text 必须直接出现在对应 chunk 的正文中，一字不差。"
+        "comment 最多 60 个字，label 最多 6 个字。"
+        "bubble_type 可选 detail, emotion, relation, theme, question, character_inner_voice。"
+        "只输出 JSON 数组，不要任何其他文字。"
     )
     user_prompt = (
         f"书名: {book.title}\n"
@@ -382,10 +497,18 @@ def generate_inline_bubbles(
     answer, _ = _invoke_runtime(
         runtime_persona,
         _build_model_messages(system_prompt, user_prompt),
-        max_tokens=700,
-        temperature=0.25,
+        max_tokens=500,
+        temperature=0.4,
     )
-    payload = _extract_json_payload(answer)
+    try:
+        payload = _extract_json_payload(answer)
+    except (ValueError, json.JSONDecodeError) as exc:
+        # Model JSON is sometimes unrepairable — return empty rather than 500
+        _INLINE_BUBBLE_CACHE[cache_key] = []
+        return []
+    # Accept both {"bubbles": [...]} wrapper and bare [...]
+    if isinstance(payload, dict):
+        payload = payload.get("bubbles", payload.get("items", []))
     chunk_map = {chunk.chunk_id: chunk for chunk in visible_chunks}
     bubbles: list[InlineBubble] = []
     if isinstance(payload, list):
@@ -397,6 +520,12 @@ def generate_inline_bubbles(
             emphasis = str(item.get("emphasis", "detail")).strip()
             bubble_type = str(item.get("bubble_type", emphasis or "detail")).strip()
             chunk = chunk_map.get(chunk_id)
+            # Fallback: the model may have truncated the chunk_id (e.g. "c001-p001")
+            if not chunk and chunk_id and chunk_id not in chunk_map:
+                for full_id in chunk_map:
+                    if full_id.endswith(chunk_id) or full_id.endswith("-" + chunk_id):
+                        chunk = chunk_map[full_id]
+                        break
             if not chunk or not anchor_text or anchor_text not in chunk.text or not comment:
                 continue
             if bubble_type not in {"detail", "emotion", "relation", "theme", "question", "character_inner_voice"}:

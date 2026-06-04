@@ -1,3 +1,0 @@
-{"sample_id":"100years_summary_001","book_id":"百年孤独-根据马尔克斯指定版本翻译-未做任何增删-加西亚-马尔克斯-范晔-z-lib-org-rebuild-20260520-005151","current_chapter_index":1,"persona_id":"neutral","expected_phrases":["冰块","梅尔基亚德斯","吉卜赛人","何塞","马孔多"],"forbidden_phrases":["奥雷里亚诺第二","香蕉公司","三千","猪尾巴"]}
-{"sample_id":"100years_summary_002","book_id":"百年孤独-根据马尔克斯指定版本翻译-未做任何增删-加西亚-马尔克斯-范晔-z-lib-org-rebuild-20260520-005151","current_chapter_index":3,"persona_id":"neutral","expected_phrases":["丽贝卡","奥雷里亚诺","马孔多"],"forbidden_phrases":["战争","行刑队","香蕉公司","猪尾巴"]}
-{"sample_id":"100years_summary_003","book_id":"百年孤独-根据马尔克斯指定版本翻译-未做任何增删-加西亚-马尔克斯-范晔-z-lib-org-rebuild-20260520-005151","current_chapter_index":7,"persona_id":"neutral","expected_phrases":["奥雷里亚诺","上校","战争"],"forbidden_phrases":["香蕉公司","猪尾巴","羊皮卷"]}

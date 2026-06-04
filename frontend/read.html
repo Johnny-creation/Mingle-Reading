@@ -371,6 +371,14 @@
       font-size: 14px;
     }
 
+    .bubble-hover-card em {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-style: normal;
+    }
+
     .bubble-hover-card span {
       color: var(--muted);
     }
@@ -1087,6 +1095,12 @@
       <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
     </button>
 
+    <div class="bubble-source-bar" style="display:flex;align-items:center;gap:8px;padding:8px 16px;font-size:13px;border-bottom:1px solid var(--line);color:var(--muted)">
+      <span>💬 批注风格</span>
+      <button class="graph-button is-active" type="button" data-bubble-source="celebrity" style="font-size:12px">名家</button>
+      <button class="graph-button" type="button" data-bubble-source="character" style="font-size:12px">人物</button>
+    </div>
+
     <main class="reading-main">
       <section class="reading-area" aria-label="Reading text" data-reading-area>
         <p class="status">Loading reading text...</p>
@@ -1249,7 +1263,10 @@
       conversation: [],
       pendingQuoteText: "",
       quotedText: "",
-      inlineBubblesByChunk: {},
+      inlineBubblesByChunk: {},       /* deprecated — kept for compat, use celebrityBubbles */
+      celebrityBubbles: {},           /* { chunkId: [bubbles] } — 名家批注 */
+      characterBubbles: {},           /* { chunkId: [bubbles] } — 选中人物的批注 */
+      bubbleSource: "celebrity",      /* "celebrity" | "character" — 当前显示哪个 */
       bubbleTimer: null,
       characterCandidates: [],
       activeCharacterName: "",
@@ -1537,8 +1554,21 @@
       `;
     }
 
+    function activeBubbleCache() {
+      const cache = state.bubbleSource === "character"
+        ? state.characterBubbles
+        : state.celebrityBubbles;
+      console.log("[bubble] source=" + state.bubbleSource
+        + " celebKeys=" + Object.keys(state.celebrityBubbles).length
+        + " charKeys=" + Object.keys(state.characterBubbles).length
+        + " activeHas=" + Object.keys(cache).length);
+      return cache;
+    }
+
     function bubblesForChunk(chunkId) {
-      return (state.inlineBubblesByChunk[chunkId] || []).slice(0, 2);
+      const bubs = (activeBubbleCache()[chunkId] || []).slice(0, 2);
+      bubs.forEach(function(b) { console.log("[bubble] render " + b._speaker + ": " + b.comment?.slice(0,40)); });
+      return bubs;
     }
 
     function bubbleClassToken(value) {
@@ -1580,7 +1610,7 @@
           bubble.bubble_id || `${chunkId}-${index}`
         )}" data-bubble-label="${escapeHtml(bubble.label || "旁注")}" data-bubble-comment="${escapeHtml(
           bubble.comment || ""
-        )}" data-bubble-type="${escapeHtml(bubbleType)}">${escapeHtml(source.slice(start, end))}</span>`;
+        )}" data-bubble-speaker="${escapeHtml(bubble._speaker || "")}" data-bubble-type="${escapeHtml(bubbleType)}">${escapeHtml(source.slice(start, end))}</span>`;
         cursor = end;
       });
       html += escapeHtml(source.slice(cursor));
@@ -1602,8 +1632,10 @@
       if (!anchor) return;
       const card = ensureBubbleHoverCard();
       card.dataset.bubbleId = anchor.dataset.bubbleId || "";
+      const speaker = anchor.dataset.bubbleSpeaker || "";
       card.innerHTML = `
         <strong>${escapeHtml(anchor.dataset.bubbleLabel || "旁注")}</strong>
+        ${speaker ? `<em>— ${escapeHtml(speaker)}</em>` : ""}
         <span>${escapeHtml(anchor.dataset.bubbleComment || "")}</span>
       `;
       document.querySelectorAll(".inline-bubble-highlight.is-active").forEach((item) => item.classList.remove("is-active"));
@@ -1693,27 +1725,89 @@
       return state.book?.chapters?.[state.chapter] || state.book?.chapters?.[String(state.chapter)] || [];
     }
 
+    async function prefetchChapterBubbles(chapter, mode, charName) {
+      if (!state.bookId) return;
+      var chunks = bookChunks().filter(function(c) { return c.chapter_index === chapter; });
+      if (!chunks.length) return;
+      var chunkIds = chunks.map(function(c) { return c.chunk_id; });
+      var cache = mode === "character" ? state.characterBubbles : state.celebrityBubbles;
+      // Skip if this chapter already has at least one bubble cached
+      if (chunkIds.some(function(id) { return cache[id] && cache[id].length; })) return;
+      try {
+        var bubbles = await fetchJSON("/api/books/" + encodeURIComponent(state.bookId) + "/bubbles/candidates", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            book_id: state.bookId,
+            current_chapter: chapter,
+            visible_chunk_ids: chunkIds,
+            persona_id: state.personaId,
+            assistant_mode: mode,
+            character_name: charName || "",
+            max_bubbles: 3,
+          }),
+        });
+        bubbles.forEach(function(b) { b._speaker = charName || (ROLE_META[state.personaId] || {}).name || "伴读"; });
+        bubbles.forEach(function(b) {
+          if (!cache[b.chunk_id]) cache[b.chunk_id] = [];
+          cache[b.chunk_id].push(b);
+        });
+      } catch (_) { /* preload errors are silent */ }
+    }
+
     function scheduleDwellBubbles() {
       if (state.bubbleTimer) {
         window.clearTimeout(state.bubbleTimer);
         state.bubbleTimer = null;
       }
-      if (!state.bookId || !currentChapterChunks().length) {
-        return;
-      }
-      state.bubbleTimer = window.setTimeout(() => {
-        fetchInlineBubbles().catch((error) => console.error(error));
-      }, 4200);
+      if (!state.bookId || !currentChapterChunks().length) return;
+
+      state.bubbleTimer = window.setTimeout(function() {
+        if (state.bubbleSource === "character" && !state.activeCharacterName) {
+          state.bubbleSource = "celebrity";
+          syncBubbleSourceUI();
+        }
+        var activeMode = state.bubbleSource;
+        var otherMode = activeMode === "character" ? "celebrity" : "character";
+        var otherCache = otherMode === "character" ? state.characterBubbles : state.celebrityBubbles;
+
+        // 1) Current page — active mode
+        fetchInlineBubbles().catch(function(e) { console.error(e); });
+
+        // 2) Current page — other mode (if character selected)
+        if (state.activeCharacterName && !Object.keys(otherCache).length) {
+          fetchInlineBubbles({ forceMode: otherMode }).catch(function() {});
+        }
+
+        // 3) Preload upcoming chapters like video buffering
+        var chapters = chapterNumbers();
+        var start = chapters.indexOf(Number(state.chapter));
+        var charName = state.activeCharacterName;
+        [activeMode, otherMode].forEach(function(mode, mi) {
+          [1, 2, 3].forEach(function(offset, oi) {
+            var ch = chapters[start + offset];
+            if (!ch) return;
+            var delay = 4000 + mi * 6000 + oi * 4000;
+            window.setTimeout(function() {
+              prefetchChapterBubbles(ch, mode, mode === "character" ? charName : "");
+            }, delay);
+          });
+        });
+      }, 2500);
     }
 
     async function fetchInlineBubbles(options = {}) {
       if (!state.bookId) return;
       const selectedOnly = options.selectedOnly === true;
+      const forceMode = options.forceMode || null;
       const chunks = currentChapterChunks();
       const targetChunks = selectedOnly
         ? chunks.filter((chunk, index) => String(chunk.paragraph_index || index + 1) === String(state.activeParagraphIndex))
         : chunks;
       if (!targetChunks.length) return;
+
+      const requestMode = forceMode || (state.activeCharacterName ? "character" : "celebrity");
+      const requestCharName = requestMode === "character" ? state.activeCharacterName : "";
 
       try {
         const bubbles = await fetchJSON(`/api/books/${encodeURIComponent(state.bookId)}/bubbles/candidates`, {
@@ -1724,23 +1818,37 @@
             current_chapter: state.chapter,
             visible_chunk_ids: targetChunks.map((chunk) => chunk.chunk_id),
             persona_id: state.personaId,
-            assistant_mode: "persona",
-            character_name: state.activeCharacterName,
-            max_bubbles: selectedOnly ? 2 : 1,
+            assistant_mode: requestMode,
+            character_name: requestCharName,
+            max_bubbles: selectedOnly ? 5 : 3,
           }),
         });
 
-        const nextMap = selectedOnly ? { ...state.inlineBubblesByChunk } : {};
+        const cacheKey = requestMode === "character" ? "characterBubbles" : "celebrityBubbles";
+        const existing = state[cacheKey] || {};
+        const nextMap = selectedOnly ? { ...existing } : {};
+        const speaker = requestMode === "character"
+          ? (state.activeCharacterName || "书中人物")
+          : (ROLE_META[state.personaId]?.name || "伴读");
         bubbles.forEach((bubble) => {
+          bubble._speaker = speaker;
           if (!nextMap[bubble.chunk_id]) {
             nextMap[bubble.chunk_id] = [];
           }
           nextMap[bubble.chunk_id].push(bubble);
         });
-        state.inlineBubblesByChunk = nextMap;
-        renderReading({ preserveScroll: true });
+        state[cacheKey] = nextMap;
+        // If this cache is the active source, re-render immediately
+        if (state.bubbleSource === requestMode) {
+          renderReading({ preserveScroll: true });
+        }
       } catch (error) {
         console.error("Inline bubble generation failed", error);
+        // On failure, revert source so the toggle doesn't show a dead state
+        if (options.forceMode) {
+          state.bubbleSource = options.forceMode === "character" ? "celebrity" : "character";
+          syncBubbleSourceUI();
+        }
       }
     }
 
@@ -1816,6 +1924,19 @@
       state.activeCharacterName = characterName;
       if (changed) {
         state.characterConversation = [];
+        if (characterName) {
+          state.bubbleSource = "character";
+          syncBubbleSourceUI();
+          if (!Object.keys(state.characterBubbles).length) {
+            fetchInlineBubbles({ forceMode: "character" }).catch((error) => console.error(error));
+          } else {
+            renderReading({ preserveScroll: true });
+          }
+        } else {
+          state.bubbleSource = "celebrity";
+          syncBubbleSourceUI();
+          renderReading({ preserveScroll: true });
+        }
       }
       document.querySelector("[data-character-input]").value = characterName;
       renderCharacterCandidates();
@@ -2316,6 +2437,11 @@
       state.activeCharacterProfile = null;
       state.characterConversation = [];
       state.inlineBubblesByChunk = {};
+      // Clear both bubble caches so old chapter data doesn't linger.
+      // Dwell will re-fetch and the prefetch pipeline will preload ahead.
+      state.celebrityBubbles = {};
+      state.characterBubbles = {};
+      state.bubbleTimer && window.clearTimeout(state.bubbleTimer);
       renderChapterSelect();
       renderReading();
       renderCharacterProfile();
@@ -2484,6 +2610,33 @@
     });
 
     preloadAvatarImages();
+
+    /* bubble source toggle — switch between celebrity / character annotations */
+    function syncBubbleSourceUI() {
+      document.querySelectorAll("[data-bubble-source]").forEach((btn) => {
+        btn.classList.toggle("is-active", btn.dataset.bubbleSource === state.bubbleSource);
+      });
+    }
+    document.querySelectorAll("[data-bubble-source]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const source = button.dataset.bubbleSource;
+        if (!source || source === state.bubbleSource) return;
+        // Character bubbles need an active character selection
+        if (source === "character" && !state.activeCharacterName) {
+          document.querySelector("[data-character-select]")?.focus();
+          return;
+        }
+        state.bubbleSource = source;
+        syncBubbleSourceUI();
+        // lazy-fetch if target cache is empty
+        const cache = source === "character" ? state.characterBubbles : state.celebrityBubbles;
+        if (!Object.keys(cache).length) {
+          fetchInlineBubbles({ forceMode: source }).catch((error) => console.error(error));
+        } else {
+          renderReading({ preserveScroll: true });
+        }
+      });
+    });
 
     loadBook().catch((error) => {
       document.querySelector("[data-reading-area]").innerHTML = `<p class="status">${escapeHtml(error.message)}</p>`;

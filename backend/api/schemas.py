@@ -164,7 +164,7 @@ class InlineBubbleRequest(BaseModel):
     current_chapter: int
     visible_chunk_ids: list[str] = Field(default_factory=list)
     persona_id: str = "persona_lu_xun"
-    assistant_mode: Literal["persona", "character"] = "persona"
+    assistant_mode: Literal["persona", "character", "celebrity"] = "celebrity"
     character_name: str = ""
     max_bubbles: int = 3
 
