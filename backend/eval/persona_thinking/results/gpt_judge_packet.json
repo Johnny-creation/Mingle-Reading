@@ -1,6 +1,6 @@
 {
   "source_result": "result_20260531_162758.json",
-  "instructions": "你是跨族裁判（Claude）。对每个 item，依据其 persona 的 rubric 维度和该作家真实原文锚点，对'去风格后的文本'在每个思维维度打 1-5 整数分。只看思维方式（认知动作/价值透镜/框定），不看文采。输出格式：{\"item_id\": {\"维度ID\": 整数分, ...}, ...}，覆盖所有 items。",
+  "instructions": "You are a cross-family judge (GPT). For each item, score the style-stripped Chinese text on each thinking dimension from the rubric (1–5 integer). Use the real author excerpts as ground truth for what the author's thinking looks like. Judge ONLY cognitive moves, value lens, and framing — NOT writing style or eloquence (style has already been removed). Output strict JSON: {\"item_id\": {\"dim_id\": score, ...}, ...} covering ALL items. Return ONLY the JSON object, no explanation.",
   "output_format": "Save your scores as results/claude_scores.json (Claude) or results/gpt_scores.json (GPT). Format: {\"IT000\": {\"dim_id\": 1-5, ...}, \"IT001\": {...}, ...}",
   "rubrics": {
     "lu-xun": {

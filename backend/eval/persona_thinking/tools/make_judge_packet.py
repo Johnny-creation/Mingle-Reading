@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
-"""Build a BLIND judging packet from the latest full result, for a cross-family
-judge (Claude, acting in-conversation) to score independently.
+"""Build BLIND judging packets from the latest full result for cross-family judges.
 
 Outputs (in results/):
-  - claude_judge_packet.json : shuffled items {item_id, persona, persona_name,
-        scenario, stripped_text} + each persona's rubric + corpus anchors.
-        Contains NO condition label, so the judge cannot infer full/style/neutral.
-  - claude_judge_mapping.json : item_id -> {persona, probe_id, condition} and
-        the DeepSeek per-dim scores for the same item (for later agreement calc).
-        The judge must NOT read this until after scoring.
+  claude_judge_packet.json  — for Claude (in-conversation scoring)
+  gpt_judge_packet.json     — for ChatGPT/Codex (paste into chat)
+  claude_judge_mapping.json — item_id -> {persona, probe_id, condition,
+                              deepseek_dim_scores}; do NOT read before scoring.
+
+Both packets contain the same items/rubrics/anchors — NO condition labels.
+After scoring, save responses as:
+  results/claude_scores.json   {item_id: {dim_id: 1-5, ...}}
+  results/gpt_scores.json      same format
+
+Then run:
+  python backend/eval/persona_thinking/tools/aggregate_judges.py
 
 Run from Mingle-Reading-main/:
   python backend/eval/persona_thinking/tools/make_judge_packet.py
@@ -83,39 +88,68 @@ def main() -> None:
                 }
     rng.shuffle(items)
 
-    packet = {
-        "source_result": src.name,
-        "instructions": (
-            "你是跨族裁判。对每个 item，依据其 persona 的 rubric 维度和该作家真实原文锚点，"
-            "对‘去风格后的文本’在每个思维维度打 1-5 整数分。只看思维方式（认知动作/价值透镜/框定），"
-            "不看文采。输出 {item_id: {维度ID: 分数}}。"
-        ),
-        "rubrics": {
-            k: {
-                "display_name": v["display_name"],
-                "scale": v["scale"],
-                "dimensions": [
-                    {"id": d["id"], "name": d["name"], "description": d["description"],
-                     "anchor_high": d["anchor_high"], "anchor_low": d["anchor_low"]}
-                    for d in v["dimensions"]
-                ],
-            }
-            for k, v in rubrics.items()
-        },
-        "anchors": {
-            k: [{"label": a["label"], "moves": a.get("moves", []), "excerpt": a["excerpt"][:900]}
-                for a in v.get("anchors", []) if a.get("found") and a.get("excerpt")]
-            for k, v in anchors.items()
-        },
-        "items": items,
+    shared_rubrics = {
+        k: {
+            "display_name": v["display_name"],
+            "scale": v["scale"],
+            "dimensions": [
+                {"id": d["id"], "name": d["name"], "description": d["description"],
+                 "anchor_high": d["anchor_high"], "anchor_low": d["anchor_low"]}
+                for d in v["dimensions"]
+            ],
+        }
+        for k, v in rubrics.items()
     }
-    (RESULTS / "claude_judge_packet.json").write_text(
-        json.dumps(packet, ensure_ascii=False, indent=2), encoding="utf-8")
+    shared_anchors = {
+        k: [{"label": a["label"], "moves": a.get("moves", []), "excerpt": a["excerpt"][:900]}
+            for a in v.get("anchors", []) if a.get("found") and a.get("excerpt")]
+        for k, v in anchors.items()
+    }
+
+    _INSTRUCTIONS_CLAUDE = (
+        "你是跨族裁判（Claude）。对每个 item，依据其 persona 的 rubric 维度和该作家真实原文锚点，"
+        "对'去风格后的文本'在每个思维维度打 1-5 整数分。只看思维方式（认知动作/价值透镜/框定），"
+        "不看文采。输出格式：{\"item_id\": {\"维度ID\": 整数分, ...}, ...}，覆盖所有 items。"
+    )
+    _INSTRUCTIONS_GPT = (
+        "You are a cross-family judge (GPT). For each item, score the style-stripped Chinese text "
+        "on each thinking dimension from the rubric (1–5 integer). Use the real author excerpts as "
+        "ground truth for what the author's thinking looks like. Judge ONLY cognitive moves, value "
+        "lens, and framing — NOT writing style or eloquence (style has already been removed). "
+        "Output strict JSON: {\"item_id\": {\"dim_id\": score, ...}, ...} covering ALL items. "
+        "Return ONLY the JSON object, no explanation."
+    )
+
+    for fname, instructions in [
+        ("claude_judge_packet.json", _INSTRUCTIONS_CLAUDE),
+        ("gpt_judge_packet.json", _INSTRUCTIONS_GPT),
+    ]:
+        packet = {
+            "source_result": src.name,
+            "instructions": instructions,
+            "output_format": (
+                "Save your scores as results/claude_scores.json (Claude) or "
+                "results/gpt_scores.json (GPT). Format: "
+                "{\"IT000\": {\"dim_id\": 1-5, ...}, \"IT001\": {...}, ...}"
+            ),
+            "rubrics": shared_rubrics,
+            "anchors": shared_anchors,
+            "items": items,
+        }
+        (RESULTS / fname).write_text(json.dumps(packet, ensure_ascii=False, indent=2), encoding="utf-8")
+
     (RESULTS / "claude_judge_mapping.json").write_text(
         json.dumps(mapping, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"source: {src.name}")
     print(f"items: {len(items)} (personas={[pr['persona'] for pr in data['personas']]})")
-    print("wrote results/claude_judge_packet.json + claude_judge_mapping.json")
+    print("wrote results/claude_judge_packet.json")
+    print("wrote results/gpt_judge_packet.json")
+    print("wrote results/claude_judge_mapping.json")
+    print()
+    print("Next steps:")
+    print("  Claude: paste claude_judge_packet.json into conversation -> save output as results/claude_scores.json")
+    print("  GPT:    paste gpt_judge_packet.json into ChatGPT/Codex  -> save output as results/gpt_scores.json")
+    print("  Then:   python backend/eval/persona_thinking/tools/aggregate_judges.py")
 
 
 if __name__ == "__main__":
