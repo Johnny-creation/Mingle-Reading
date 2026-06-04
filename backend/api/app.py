@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+from collections import Counter
 from pathlib import Path
 from threading import Thread
 
@@ -366,6 +368,49 @@ def personas():
     return [persona.model_dump() for persona in list_personas()]
 
 
+@app.get("/api/frontend1/categories")
+def frontend1_categories():
+    return [
+        {"category_id": "favorites", "name": "收藏", "href": "favorites.html", "cover": "cateCard_collect.png"},
+        {"category_id": "suspense", "name": "悬疑", "href": "", "cover": "cateCard_suspense.png"},
+        {"category_id": "sci-fi", "name": "科幻", "href": "", "cover": "cateCard_sci-fi.png"},
+        {"category_id": "prose", "name": "散文", "href": "", "cover": "cateCard_prose.png"},
+        {"category_id": "lovestory", "name": "爱情", "href": "", "cover": "cateCard_lovestory.png"},
+    ]
+
+
+@app.get("/api/frontend1/categories/{category_id}/books")
+def frontend1_category_books(category_id: str):
+    books = [
+        {
+            "book_id": "the-pig-like-maverick",
+            "title": "特立独行的猪",
+            "cover": "bookCover_aPig.png",
+            "badge": "bookCornerBadge_Luxun.png",
+            "has_notification": True,
+            "href": "aPig.html",
+        },
+        {
+            "book_id": "one-hundred-years-of-solitude",
+            "title": "百年孤独",
+            "cover": "bookCover_100yrsofSolitude.png",
+            "badge": "bookCornerBadge_Eileen.png",
+            "has_notification": False,
+            "href": "100yrs.html",
+        },
+        {"book_id": "guxiang", "title": "故乡", "cover": "bookCover_Guxiang.png", "href": "#"},
+        {"book_id": "marcovaldo", "title": "马可瓦多", "cover": "bookCover_MarcoValdo.png", "href": "#"},
+    ]
+    titles = {
+        "favorites": "收藏",
+        "suspense": "悬疑",
+        "sci-fi": "科幻",
+        "prose": "散文",
+        "lovestory": "爱情",
+    }
+    return {"category_id": category_id, "title": titles.get(category_id, "书籍"), "books": books}
+
+
 @app.get("/api/persona-agents")
 def persona_agents():
     return [agent.model_dump() for agent in list_persona_agents()]
@@ -500,6 +545,344 @@ def graph_detail(book_id: str):
         "relations": [relation.model_dump() for relation in graph.relations.head(20)],
         "communities": [],
         "sagas": [],
+    }
+
+
+@app.get("/api/books/{book_id}/wordcloud")
+def book_wordcloud(book_id: str, limit: int = 36):
+    graph = get_or_build_graph(book_id)
+    normalized_limit = max(8, min(limit, 80))
+    allowed_types = {"character", "location", "artifact", "group", "theme", "concept"}
+    stop_words = {
+        "unknown",
+        "none",
+        "人物",
+        "地点",
+        "概念",
+        "主题",
+        "关系",
+        "故事",
+        "文本",
+        "章节",
+        "叙事",
+        "一个",
+        "一种",
+        "一些",
+        "自己",
+        "我们",
+        "他们",
+        "这个",
+        "那个",
+        "没有",
+        "什么",
+        "可以",
+        "不是",
+        "因为",
+        "所以",
+        "知道",
+        "觉得",
+        "别人",
+        "假如",
+        "当然",
+        "东西",
+        "件事",
+        "但我",
+        "而且",
+        "后来",
+        "现在",
+        "时候",
+        "先生",
+        "起来",
+        "但是",
+        "the",
+        "and",
+        "for",
+        "with",
+        "that",
+    }
+
+    words = []
+    seen: set[str] = set()
+    source = "knowledge_graph_entities"
+    for entity in sorted(graph.entities.values(), key=lambda item: item.mention_count, reverse=True):
+        text = entity.canonical_name.strip()
+        if not text or text in seen:
+            continue
+        if entity.entity_type not in allowed_types:
+            continue
+        if entity.mention_count <= 0:
+            continue
+        if text.lower() in stop_words or text.isdigit():
+            continue
+        if len(text) <= 1:
+            continue
+        seen.add(text)
+        words.append(
+            {
+                "text": text,
+                "weight": entity.mention_count,
+                "type": entity.entity_type,
+                "summary": entity.summary,
+            }
+        )
+        if len(words) >= normalized_limit:
+            break
+
+    if not words:
+        source = "book_text_frequency"
+        book = get_or_build_book(book_id)
+        counter: Counter[str] = Counter()
+        blocked_chars = set("的一是在了和与及或也都就而并把被对从中为有无不说这那其我你他她它们可但什")
+        for chunk in book.chunks:
+            text = chunk.text or ""
+            for run in re.findall(r"[\u4e00-\u9fff]{2,80}", text):
+                for size in (2, 3, 4):
+                    if len(run) < size:
+                        continue
+                    for index in range(0, len(run) - size + 1):
+                        token = run[index:index + size]
+                        if token[0] in blocked_chars or token[-1] in blocked_chars:
+                            continue
+                        if any(char in blocked_chars for char in token):
+                            continue
+                        counter[token] += 1 + (size - 2) * 0.18
+            counter.update(word.lower() for word in re.findall(r"[A-Za-z][A-Za-z'-]{2,}", text))
+
+        for text, count in counter.most_common(normalized_limit * 4):
+            if text in seen or text.lower() in stop_words or text.isdigit():
+                continue
+            if len(text) <= 1:
+                continue
+            seen.add(text)
+            words.append(
+                {
+                    "text": text,
+                    "weight": count,
+                    "type": "text_frequency",
+                    "summary": "",
+                }
+            )
+            if len(words) >= normalized_limit:
+                break
+
+    return {
+        "book_id": graph.book_id,
+        "title": graph.title,
+        "source": source,
+        "words": words,
+    }
+
+
+@app.get("/api/books/{book_id}/signature-lines")
+def book_signature_lines(book_id: str, limit: int = 18):
+    book = get_or_build_book(book_id)
+    try:
+        graph = load_graph(book_id)
+    except FileNotFoundError:
+        graph = None
+    normalized_limit = max(8, min(limit, 36))
+    sentence_limit = min(3, normalized_limit)
+    phrase_limit = normalized_limit - sentence_limit
+
+    style_terms = {
+        "自由",
+        "孤独",
+        "思维",
+        "命运",
+        "荒诞",
+        "权力",
+        "尊严",
+        "沉默",
+        "时间",
+        "记忆",
+        "家族",
+        "战争",
+        "预言",
+        "生活",
+        "乐趣",
+        "知识",
+        "精神",
+        "世界",
+        "幸福",
+        "痛苦",
+        "爱情",
+        "死亡",
+        "希望",
+        "秩序",
+    }
+    weak_terms = {
+        "我们",
+        "自己",
+        "可以",
+        "什么",
+        "知道",
+        "觉得",
+        "别人",
+        "当然",
+        "所以",
+        "因为",
+        "但是",
+        "这个",
+        "那个",
+        "他们",
+        "起来",
+        "时候",
+    }
+    semantic_phrase_terms = {
+        "特立独行",
+        "思维乐趣",
+        "独立思考",
+        "精神自由",
+        "自由意志",
+        "知识分子",
+        "荒诞现实",
+        "沉默权力",
+        "生活尊严",
+        "自我驯服",
+        "马孔多",
+        "布恩迪亚家族",
+        "百年孤独",
+        "魔幻现实",
+        "家族记忆",
+        "时间循环",
+        "命运预言",
+        "孤独宿命",
+        "战争记忆",
+        "文明幻灭",
+        "爱情孤独",
+        "历史回声",
+    }
+    punctuation_pattern = re.compile(r"(?<=[。！？!?])")
+    entity_weights = {
+        entity.canonical_name: max(1, entity.mention_count)
+        for entity in (graph.entities.values() if graph else [])
+        if entity.canonical_name and entity.mention_count > 0
+    }
+    max_entity_weight = max(entity_weights.values(), default=1)
+    chunk_entity_counts: dict[str, int] = {}
+    for episode in (graph.episodes.values() if graph else []):
+        if episode.chunk_id:
+            chunk_entity_counts[episode.chunk_id] = max(
+                chunk_entity_counts.get(episode.chunk_id, 0),
+                len(episode.entity_ids),
+            )
+
+    def clean_text(text: str) -> str:
+        return re.sub(r"\s+", " ", text).strip()
+
+    def split_sentences(text: str) -> list[str]:
+        pieces = punctuation_pattern.split(clean_text(text))
+        return [piece.strip() for piece in pieces if piece and piece.strip()]
+
+    def sentence_score(sentence: str, chunk_id: str, chapter_index: int, paragraph_index: int) -> float:
+        length = len(sentence)
+        if length < 10 or length > 92:
+            return -20.0
+        length_score = 1.0 - min(abs(length - 34) / 58, 1.0)
+        style_score = sum(1.0 for term in style_terms if term in sentence)
+        weak_penalty = sum(0.42 for term in weak_terms if term in sentence)
+        entity_score = 0.0
+        for name, weight in entity_weights.items():
+            if name in sentence:
+                entity_score += 0.8 + min(weight / max_entity_weight, 1.0) * 2.2
+        graph_score = min(chunk_entity_counts.get(chunk_id, 0), 8) * 0.22
+        judgment_score = 0.0
+        if any(term in sentence for term in ("我认为", "我看", "大概", "总之", "终于", "仿佛", "注定", "不得不")):
+            judgment_score += 0.9
+        if "，" in sentence or "；" in sentence:
+            judgment_score += 0.35
+        position_score = 0.16 / max(chapter_index, 1) + 0.06 / max(paragraph_index, 1)
+        return length_score * 2.0 + style_score * 1.35 + entity_score + graph_score + judgment_score + position_score - weak_penalty
+
+    sentence_candidates: list[dict[str, str | float | int]] = []
+    seen_sentences: set[str] = set()
+    for chunk in book.chunks:
+        for sentence in split_sentences(chunk.text or ""):
+            sentence = clean_text(sentence)
+            if sentence in seen_sentences:
+                continue
+            seen_sentences.add(sentence)
+            score = sentence_score(sentence, chunk.chunk_id, chunk.chapter_index, chunk.paragraph_index)
+            if score <= 0:
+                continue
+            sentence_candidates.append(
+                {
+                    "text": sentence,
+                    "kind": "sentence",
+                    "weight": round(score, 3),
+                    "chapter": chunk.chapter_index,
+                    "paragraph": chunk.paragraph_index,
+                    "chunk_id": chunk.chunk_id,
+                }
+            )
+
+    sentence_candidates.sort(key=lambda item: float(item["weight"]), reverse=True)
+    selected_sentences: list[dict[str, str | float | int]] = []
+    selected_chapters: set[int] = set()
+    for item in sentence_candidates:
+        chapter = int(item["chapter"])
+        if len(selected_sentences) < max(3, sentence_limit // 2) or chapter not in selected_chapters:
+            selected_sentences.append(item)
+            selected_chapters.add(chapter)
+        if len(selected_sentences) >= sentence_limit:
+            break
+    if len(selected_sentences) < sentence_limit:
+        for item in sentence_candidates:
+            if item not in selected_sentences:
+                selected_sentences.append(item)
+            if len(selected_sentences) >= sentence_limit:
+                break
+
+    phrase_counter: Counter[str] = Counter()
+    book_text = "\n".join(chunk.text or "" for chunk in book.chunks)
+    for phrase in style_terms:
+        count = book_text.count(phrase)
+        if count:
+            phrase_counter[phrase] += 3 + count
+    for phrase in semantic_phrase_terms:
+        count = book_text.count(phrase)
+        if count:
+            phrase_counter[phrase] += 4 + count
+    for entity in (graph.entities.values() if graph else []):
+        if entity.entity_type not in {"location", "artifact", "theme", "concept"}:
+            continue
+        phrase = entity.canonical_name.strip()
+        if not 2 <= len(phrase) <= 10:
+            continue
+        if phrase in weak_terms:
+            continue
+        phrase_counter[phrase] += 2 + min(entity.mention_count / max_entity_weight, 1.0) * 4
+
+    selected_phrases: list[dict[str, str | float | int]] = []
+    seen_phrases: set[str] = set()
+    for phrase, count in phrase_counter.most_common(max(phrase_limit * 4, 1)):
+        if phrase in seen_phrases or phrase in weak_terms:
+            continue
+        if any(phrase != other and phrase in other and count <= phrase_counter[other] for other in phrase_counter):
+            continue
+        if any(phrase in str(sentence["text"]) and len(phrase) > 10 for sentence in selected_sentences):
+            continue
+        seen_phrases.add(phrase)
+        selected_phrases.append(
+            {
+                "text": phrase,
+                "kind": "phrase",
+                "weight": round(float(count), 3),
+                "chapter": 0,
+                "paragraph": 0,
+                "chunk_id": "",
+            }
+        )
+        if len(selected_phrases) >= phrase_limit:
+            break
+
+    lines = selected_phrases + selected_sentences
+    lines.sort(key=lambda item: (str(item["kind"]) != "phrase", -float(item["weight"])))
+    return {
+        "book_id": book.book_id,
+        "title": book.title,
+        "source": "graph_centrality_text_candidates" if graph and graph.entities else "text_candidates",
+        "lines": lines[:normalized_limit],
     }
 
 
@@ -927,3 +1310,6 @@ def chapter_summary(request: SummaryRequest):
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     except PersonaAgentInvocationError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")

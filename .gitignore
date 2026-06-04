@@ -27,6 +27,8 @@ Thumbs.db
 backend/workspace_state/
 backend/runtime/indexes/
 backend/runtime/archive/
+backend/runtime/logs/
+backend/runtime/uploads/
 
 # Local script outputs and scratch artifacts
 backend/scripts/build_output/
@@ -55,3 +57,6 @@ zep/
 
 # Generated runtime data (keep local only)
 image.png
+.upload-staging/
+.upload-clean/
+Mingle-Reading-upload.zip

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mingle Reading</title>
+  <title>收藏的书籍 - Mingle Reading</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -36,7 +36,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      overflow: hidden;
+      overflow: visible;
       background: #F5F5F5;
       color: var(--text-primary);
       font-family: "Noto Serif SC", "Cormorant Garamond", Georgia, serif;
@@ -336,7 +336,7 @@
       flex: 1;
       min-height: 0;
       overflow-y: auto;
-      padding: 0 12px 48px 0;
+      padding: 0 72px 48px 0;
       scrollbar-color: #99A6BF rgba(255, 255, 255, 0.5);
       scrollbar-width: thin;
     }
@@ -359,87 +359,9 @@
     .card-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 60px;
-      width: min(100%, 1100px);
+      gap: 120px;
+      width: min(100%, 1300px);
       margin: 0 auto;
-    }
-
-    .category-card {
-      position: relative;
-      display: block;
-      aspect-ratio: 20 / 11;
-      min-height: 0;
-      overflow: hidden;
-      background: #F5F5F5;
-      color: inherit;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .category-card:hover {
-      transform: translateY(-2px);
-    }
-
-    .category-card.is-static {
-      cursor: default;
-    }
-
-    .category-card.is-static:hover {
-      transform: none;
-    }
-
-    .category-card img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .category-card::after {
-      position: absolute;
-      inset: 0;
-      content: "";
-      background: transparent;
-    }
-
-    .card-title {
-      position: absolute;
-      right: 20px;
-      bottom: 16px;
-      z-index: 1;
-      margin: 0;
-      font-family: "Noto Serif SC", "Cormorant Garamond", serif;
-      font-size: clamp(44px, 5vw, 64px);
-      font-weight: 600;
-      line-height: 1;
-      letter-spacing: 0.06em;
-      text-shadow: 0 3px 14px rgba(255, 255, 255, 0.42);
-    }
-
-    .title-favorite {
-      color: #5E5879;
-    }
-
-    .title-mystery {
-      color: #253B74;
-    }
-
-    .title-scifi {
-      color: #356B8C;
-    }
-
-    .title-romance {
-      color: #A86078;
-    }
-
-    .title-essay {
-      color: #7A6844;
-    }
-
-    .title-all {
-      color: #6B7280;
     }
 
     .create-card {
@@ -457,6 +379,126 @@
       font-size: 76px;
       font-weight: 400;
       line-height: 1;
+    }
+
+    .favorite-heading {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .back-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      color: var(--active-text);
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .back-arrow:hover {
+      background: rgba(255, 255, 255, 0.78);
+      transform: translateX(-2px);
+    }
+
+    .back-arrow i {
+      font-size: 22px;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 60px;
+      width: min(100%, 1100px);
+      margin: 0 auto;
+      padding-top: 6px;
+    }
+
+    .book-card {
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4.2;
+      overflow: visible;
+      border: 0;
+      border-radius: 2px;
+      background: #D4E6F7;
+      box-shadow: 0 10px 22px rgba(77, 88, 124, 0.12);
+      padding: 0;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .book-card:hover {
+      box-shadow: 0 14px 28px rgba(77, 88, 124, 0.16);
+      transform: translateY(-2px);
+    }
+
+    .book-cover {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .book-badge {
+      position: absolute;
+      right: -14%;
+      bottom: -6%;
+      z-index: 2;
+      display: grid;
+      width: 42%;
+      aspect-ratio: 117.54 / 100.5;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(231, 231, 231, 0.65);
+    }
+
+    .book-badge img {
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
+    }
+
+    .book-badge .book-badge-notification {
+      position: absolute;
+      top: -8%;
+      right: -4%;
+      z-index: 3;
+      width: 42.5%;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .new-book-card {
+      display: grid;
+      place-items: center;
+      box-shadow: none;
+    }
+
+    .new-book-card::before,
+    .new-book-card::after {
+      grid-area: 1 / 1;
+      display: block;
+      border-radius: 999px;
+      background: #535353;
+      content: "";
+    }
+
+    .new-book-card::before {
+      width: 34%;
+      height: 4px;
+    }
+
+    .new-book-card::after {
+      width: 4px;
+      height: 24%;
     }
 
     .bottom-tabs {
@@ -516,6 +558,11 @@
       .page-title {
         font-size: 30px;
       }
+
+      .book-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 34px;
+      }
     }
 
     @media (max-width: 767px) {
@@ -559,6 +606,21 @@
 
       .card-grid {
         grid-template-columns: 1fr;
+      }
+
+      .book-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        width: min(100%, 420px);
+      }
+
+      .favorite-heading {
+        gap: 10px;
+      }
+
+      .back-arrow {
+        width: 44px;
+        height: 44px;
       }
 
       .category-card {
@@ -627,12 +689,17 @@
     </aside>
 
     <main class="main">
-      <header class="main-header" aria-label="页面工具栏">
-        <h1 class="page-title" data-category-title>分类</h1>
+      <header class="main-header" aria-label="收藏的书籍工具栏">
+        <div class="favorite-heading">
+          <a class="back-arrow" href="index.html" aria-label="返回首页">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          </a>
+          <h1 class="page-title">收藏的书籍</h1>
+        </div>
         <div class="main-actions">
-          <label class="search-control" aria-label="查找已有分类">
+          <label class="search-control" aria-label="查找收藏的书籍">
             <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <input class="search-input" type="search" placeholder="查找已有分类" />
+            <input class="search-input" type="search" placeholder="查找收藏的书籍" />
           </label>
           <button class="action-button" type="button" aria-label="切换语言">
             <i class="fa-solid fa-language" aria-hidden="true"></i>
@@ -648,16 +715,103 @@
       </div>
 
       <div class="card-scroll">
-        <section class="card-grid" data-category-grid aria-label="分类卡片"></section>
+        <section class="book-grid" aria-label="收藏的书籍">
+          <a class="book-card" href="aPig.html" aria-label="特立独行的猪">
+            <img class="book-cover" src="bookCover_aPig.png" alt="特立独行的猪书籍封面" />
+            <span class="book-badge" aria-hidden="true">
+              <img src="bookCornerBadge_Luxun.png" alt="" />
+              <img class="book-badge-notification" src="bookBadgeNotification.png" alt="" />
+            </span>
+          </a>
+          <a class="book-card" href="100yrs.html" aria-label="百年孤独">
+            <img class="book-cover" src="bookCover_100yrsofSolitude.png" alt="百年孤独书籍封面" />
+            <span class="book-badge" aria-hidden="true">
+              <img src="bookCornerBadge_Eileen.png" alt="" />
+            </span>
+          </a>
+          <article class="book-card" aria-label="故乡">
+            <img class="book-cover" src="bookCover_Guxiang.png" alt="故乡书籍封面" />
+          </article>
+          <article class="book-card" aria-label="马可瓦多">
+            <img class="book-cover" src="bookCover_MarcoValdo.png" alt="马可瓦多书籍封面" />
+          </article>
+          <button class="book-card new-book-card" type="button" aria-label="上传本地书籍" data-upload-book-trigger></button>
+          <input type="file" data-upload-book-input accept=".txt,.pdf,.epub" hidden />
+        </section>
       </div>
     </main>
   </div>
+
+  <script>
+    async function fetchJSON(url, options = {}) {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+      }
+      return response.json();
+    }
+
+    function setUploadStatus(text) {
+      const button = document.querySelector("[data-upload-book-trigger]");
+      button.setAttribute("aria-label", text);
+      button.title = text;
+    }
+
+    async function pollUploadJob(jobId) {
+      let current = await fetchJSON(`/api/upload-jobs/${encodeURIComponent(jobId)}`);
+      while (current.status !== "completed" && current.status !== "failed") {
+        setUploadStatus(current.message || current.title || "正在处理上传文件...");
+        await new Promise((resolve) => window.setTimeout(resolve, 1200));
+        current = await fetchJSON(`/api/upload-jobs/${encodeURIComponent(jobId)}`);
+      }
+      if (current.status === "failed") {
+        throw new Error(current.error || current.message || "上传处理失败");
+      }
+      return current.result || current;
+    }
+
+    async function uploadSelectedBook(file) {
+      if (!file) return;
+      const button = document.querySelector("[data-upload-book-trigger]");
+      button.disabled = true;
+      setUploadStatus("正在上传本地书籍...");
+
+      try {
+        const body = new FormData();
+        body.append("file", file);
+        const job = await fetchJSON("/api/upload-jobs", {
+          method: "POST",
+          body,
+        });
+        const result = await pollUploadJob(job.job_id);
+        const bookId = result.book_id || result.result?.book_id || result.book?.book_id;
+        if (!bookId) {
+          throw new Error("上传完成，但没有返回 book_id");
+        }
+        window.localStorage.setItem("mingle:selectedBookId", bookId);
+        window.location.href = `role.html?mode=reader&return=favorites.html&book_id=${encodeURIComponent(bookId)}`;
+      } catch (error) {
+        console.error(error);
+        setUploadStatus(`上传失败：${error.message}`);
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    document.querySelector("[data-upload-book-trigger]").addEventListener("click", () => {
+      document.querySelector("[data-upload-book-input]").click();
+    });
+
+    document.querySelector("[data-upload-book-input]").addEventListener("change", (event) => {
+      uploadSelectedBook(event.target.files[0]).catch((error) => console.error(error));
+      event.target.value = "";
+    });
+  </script>
 
   <nav class="bottom-tabs" aria-label="移动端底部导航">
     <button class="tab-item active" type="button"><i class="fa-solid fa-book-bookmark"></i><span>书籍</span></button>
     <button class="tab-item" type="button"><i class="fa-solid fa-feather-pointed"></i><span>形象</span></button>
     <button class="tab-item" type="button"><i class="fa-regular fa-pen-to-square"></i><span>笔记</span></button>
   </nav>
-  <script src="frontend1.js"></script>
 </body>
 </html>
