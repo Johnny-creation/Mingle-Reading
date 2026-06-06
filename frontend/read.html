@@ -8,6 +8,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
   <style>
     :root {
       --topbar: #D4E6F7;
@@ -941,6 +949,61 @@
       overflow: hidden;
     }
 
+    .graph-viewport-shell {
+      position: absolute;
+      inset: 0;
+      min-height: 380px;
+    }
+
+    .graph-3d-view {
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      cursor: grab;
+    }
+
+    .graph-3d-view:active {
+      cursor: grabbing;
+    }
+
+    .graph-3d-view canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+
+    .graph-legend {
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      display: flex;
+      max-width: calc(100% - 28px);
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 7px 9px;
+      border: 1px solid rgba(37, 59, 116, 0.12);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--muted);
+      font-size: 12px;
+      backdrop-filter: blur(8px);
+    }
+
+    .graph-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .graph-legend i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--legend-color);
+    }
+
     .insight-drawer.is-graph-fullscreen .graph-canvas {
       min-height: 0;
       height: 100%;
@@ -1243,14 +1306,13 @@
       neutral: { name: "\u4f34\u8bfb", image: "character_user.png" },
     };
     const LUXUN_IDLE_IMAGE = "celebrity_Luxun.png";
-    const LUXUN_IDLE_ANIMATIONS = ["celebrity_Luxun_think.svg", "celebrity_Luxun_read.svg"];
-    const LUXUN_RESPONSE_ANIMATIONS = [
-      "celebrity_Luxun_think.svg",
-      "celebrity_Luxun_read.svg",
-      "celebrity_Luxun_happy.svg",
-      "celebrity_Luxun_mad.svg",
-      "celebrity_Luxun_sigh.svg",
-    ];
+    const LUXUN_IDLE_ANIMATIONS = ["celebrity_Luxun_read.svg"];
+    const LUXUN_MOOD_ANIMATIONS = {
+      happy: "celebrity_Luxun_happy.svg",
+      mad: "celebrity_Luxun_mad.svg",
+      sigh: "celebrity_Luxun_sigh.svg",
+      thinking: "celebrity_Luxun_think.svg",
+    };
 
     const state = {
       bookId: "",
@@ -1286,6 +1348,9 @@
       avatarMode: "idle",
       luxunAnimationIndex: 0,
     };
+    let threeRuntimePromise = null;
+    let graph3DInstance = null;
+    let graphRenderSerial = 0;
 
     function params() {
       return new URLSearchParams(window.location.search);
@@ -1390,7 +1455,7 @@
         ...Object.values(ROLE_META).map((role) => role.image),
         LUXUN_IDLE_IMAGE,
         ...LUXUN_IDLE_ANIMATIONS,
-        ...LUXUN_RESPONSE_ANIMATIONS,
+        ...Object.values(LUXUN_MOOD_ANIMATIONS),
       ]);
       sources.forEach((src) => {
         const image = new Image();
@@ -1399,10 +1464,40 @@
       });
     }
 
-    function nextLuxunAnimation() {
-      const animation = LUXUN_RESPONSE_ANIMATIONS[state.luxunAnimationIndex % LUXUN_RESPONSE_ANIMATIONS.length];
-      state.luxunAnimationIndex += 1;
-      return animation;
+    function classifyLuxunMood(text = "") {
+      const source = compactInlineText(text).toLowerCase();
+      if (!source) return "thinking";
+
+      const moodRules = [
+        {
+          mood: "mad",
+          terms: [
+            "愤怒", "生气", "恼火", "烦躁", "可恨", "混账", "荒谬", "压迫", "奴性", "麻木", "吃人",
+            "黑暗", "残酷", "迫害", "冷血", "不公", "丑恶", "卑劣", "怒", "恨", "mad", "angry",
+          ],
+        },
+        {
+          mood: "sigh",
+          terms: [
+            "无奈", "失望", "可悲", "悲哀", "叹息", "叹气", "冷清", "寂寞", "没落", "苍凉", "疲惫",
+            "沉重", "遗憾", "凄凉", "苦笑", "唉", "叹", "sigh", "sad", "disappointed",
+          ],
+        },
+        {
+          mood: "happy",
+          terms: [
+            "高兴", "开心", "幽默", "讽刺", "讥刺", "调侃", "好笑", "可笑", "滑稽", "荒唐", "妙",
+            "哈哈", "笑", "乐", "happy", "funny", "ironic", "satire",
+          ],
+        },
+      ];
+
+      for (const rule of moodRules) {
+        if (rule.terms.some((term) => source.includes(term))) {
+          return rule.mood;
+        }
+      }
+      return "thinking";
     }
 
     function setRoleImage(src) {
@@ -1474,7 +1569,9 @@
 
       state.avatarTimer = window.setTimeout(() => {
         if (!isLuxunRole() || state.avatarMode !== "idle") return;
-        setRoleImage(nextLuxunAnimation());
+        const animation = LUXUN_IDLE_ANIMATIONS[state.luxunAnimationIndex % LUXUN_IDLE_ANIMATIONS.length];
+        state.luxunAnimationIndex += 1;
+        setRoleImage(animation);
         state.avatarTimer = window.setTimeout(() => {
           if (!isLuxunRole() || state.avatarMode !== "idle") return;
           setRoleImage(LUXUN_IDLE_IMAGE);
@@ -1497,7 +1594,15 @@
       clearAvatarTimer();
       if (!isLuxunRole()) return;
       state.avatarMode = "responding";
-      setRoleImage(nextLuxunAnimation());
+      setRoleImage(LUXUN_MOOD_ANIMATIONS.thinking);
+    }
+
+    function startAvatarMood(mood) {
+      clearAvatarTimer();
+      if (!isLuxunRole()) return;
+      const normalizedMood = LUXUN_MOOD_ANIMATIONS[mood] ? mood : "thinking";
+      state.avatarMode = normalizedMood;
+      setRoleImage(LUXUN_MOOD_ANIMATIONS[normalizedMood]);
     }
 
     function setRole() {
@@ -1648,10 +1753,15 @@
       const top = rect.bottom + 10 < window.innerHeight - 120 ? rect.bottom + 10 : Math.max(16, rect.top - 132);
       card.style.left = `${left}px`;
       card.style.top = `${top}px`;
+
+      if (document.querySelector("[data-reader-shell]")?.classList.contains("chat-collapsed")) {
+        startAvatarMood(classifyLuxunMood(anchor.dataset.bubbleComment || ""));
+      }
     }
 
     function closeInlineBubbleNotes() {
       const card = document.getElementById("bubble-hover-card");
+      const wasOpen = card?.classList.contains("is-open");
       if (card) {
         card.classList.remove("is-open");
         card.removeAttribute("data-bubble-id");
@@ -1659,12 +1769,17 @@
       document.querySelectorAll(".inline-bubble-highlight.is-active").forEach((highlight) => {
         highlight.classList.remove("is-active");
       });
+      if (wasOpen && document.querySelector("[data-reader-shell]")?.classList.contains("chat-collapsed")) {
+        startAvatarIdle();
+      }
     }
 
     function wireInlineBubbleToggles() {
       document.querySelectorAll(".inline-bubble-highlight").forEach((highlight) => {
         highlight.addEventListener("mouseenter", (event) => showBubbleHoverCard(event.currentTarget));
+        highlight.addEventListener("mouseleave", closeInlineBubbleNotes);
         highlight.addEventListener("focus", (event) => showBubbleHoverCard(event.currentTarget));
+        highlight.addEventListener("blur", closeInlineBubbleNotes);
         highlight.addEventListener("click", (event) => {
           const target = event.currentTarget;
           const card = document.getElementById("bubble-hover-card");
@@ -2160,6 +2275,82 @@
       return "#706A63";
     }
 
+    function relationCategory(edge) {
+      const raw = `${edge?.relation_category || ""} ${edge?.state_family || ""} ${edge?.label || ""} ${edge?.fact || ""}`.toLowerCase();
+      if (/family|parent|child|sibling|spouse|married|kin|mother|father|son|daughter|brother|sister|亲|父|母|子|女|兄|弟|姐|妹|夫|妻/.test(raw)) {
+        return "family";
+      }
+      if (/conflict|enemy|oppose|fight|threat|kill|hate|rival|betray|冲突|敌|杀|恨|威胁|对抗|背叛/.test(raw)) {
+        return "conflict";
+      }
+      if (/love|friend|ally|trust|help|protect|care|mentor|情|友|爱|信任|帮助|保护|师/.test(raw)) {
+        return "affinity";
+      }
+      if (/speak|talk|meet|interact|see|ask|answer|spoke|交谈|相遇|看见|问|答/.test(raw)) {
+        return "interaction";
+      }
+      if (/located|location|place|live|arrive|leave|位于|地点|居住|来到|离开/.test(raw)) {
+        return "location";
+      }
+      if (/theme|symbol|concept|metaphor|主题|象征|隐喻/.test(raw)) {
+        return "theme";
+      }
+      return "other";
+    }
+
+    function relationStyle(edge) {
+      const styles = {
+        family: { color: "#a85f38", label: "亲属/身份", dash: false },
+        conflict: { color: "#b0413e", label: "冲突", dash: true },
+        affinity: { color: "#1f6a73", label: "亲近/信任", dash: false },
+        interaction: { color: "#7d6fb2", label: "互动", dash: false },
+        location: { color: "#5f7a48", label: "地点", dash: true },
+        theme: { color: "#a57b2d", label: "主题", dash: true },
+        other: { color: "#7b6d59", label: "其他", dash: false },
+      };
+      const style = styles[relationCategory(edge)] || styles.other;
+      return edge?.status && edge.status !== "active" ? { ...style, dash: true, color: "#9a8f86" } : style;
+    }
+
+    function formatRelationLabel(label = "") {
+      const labels = {
+        FAMILY_OF: "亲属",
+        PARENT_OF: "父母",
+        CHILD_OF: "子女",
+        SPOUSE_OF: "伴侣",
+        FRIEND_OF: "朋友",
+        ALLY_OF: "同盟",
+        CONFLICT_WITH: "冲突",
+        CONFLICTS_WITH: "冲突",
+        LOVES: "情感",
+        CARES_ABOUT: "关心",
+        TRUSTS: "信任",
+        HELPS: "帮助",
+        PROTECTS: "保护",
+        SPOKE_WITH: "交谈",
+        MET_WITH: "相遇",
+        LOCATED_IN: "位于",
+        SYMBOLIZES: "象征",
+      };
+      return labels[label] || String(label || "关系").replaceAll("_", " ").toLowerCase();
+    }
+
+    function formatEntityType(type = "") {
+      const labels = {
+        character: "人物",
+        person: "人物",
+        persona: "人物",
+        location: "地点",
+        theme: "主题",
+        concept: "概念",
+        artifact: "物件",
+        object: "物件",
+        人物: "人物",
+        角色: "人物",
+      };
+      return labels[type] || type || "实体";
+    }
+
     function graphNodeById(data) {
       return Object.fromEntries((data?.nodes || []).map((node) => [node.id, node]));
     }
@@ -2190,20 +2381,24 @@
       return { nodes, edges };
     }
 
-    function graphLayout(nodes, width, height) {
-      const centerX = width / 2;
-      const centerY = height / 2;
-      const radius = Math.min(width, height) * 0.34 * state.graphZoom;
-      const total = Math.max(nodes.length, 1);
+    function graphLayout(nodes) {
+      const radius = Math.max(72, Math.min(210, 54 + nodes.length * 16));
+      const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+      const characterCount = nodes.filter(isCharacterNode).length;
       return Object.fromEntries(
         nodes.map((node, index) => {
-          const angle = (Math.PI * 2 * index) / total - Math.PI / 2;
-          const characterPull = isCharacterNode(node) ? 0.86 : 1.08;
+          const total = Math.max(nodes.length, 2);
+          const y = nodes.length === 1 ? 0 : (1 - (index / (total - 1)) * 2) * radius * 0.52;
+          const ring = Math.sqrt(Math.max(0.12, 1 - (y / radius) ** 2)) * radius;
+          const angle = index * goldenAngle;
+          const characterPull = isCharacterNode(node) ? 0.72 : 1.08;
+          const personOffset = isCharacterNode(node) && characterCount > 1 ? (index - characterCount / 2) * 6 : 0;
           return [
             node.id,
             {
-              x: centerX + Math.cos(angle) * radius * characterPull,
-              y: centerY + Math.sin(angle) * radius * characterPull,
+              x: Math.cos(angle) * ring * characterPull,
+              y: y + personOffset,
+              z: Math.sin(angle) * ring * characterPull,
             },
           ];
         })
@@ -2216,15 +2411,30 @@
       return `${scope} · ${mode} · ${renderable.nodes.length} nodes · ${renderable.edges.length} edges`;
     }
 
+    function renderGraphLegend(edges) {
+      const seen = new Set();
+      const items = [];
+      (edges || []).forEach((edge) => {
+        const category = relationCategory(edge);
+        if (seen.has(category)) return;
+        seen.add(category);
+        const style = relationStyle(edge);
+        items.push(`<span><i style="--legend-color: ${style.color}"></i>${escapeHtml(style.label)}</span>`);
+      });
+      if (!items.length) {
+        items.push(`<span><i style="--legend-color: #253B74"></i>人物</span>`);
+      }
+      return items.join("");
+    }
+
     function showGraphNodeDetail(node) {
       const detail = document.querySelector("[data-graph-detail]");
       if (!detail || !node) return;
       detail.innerHTML = `
-        <strong>${escapeHtml(node.label || node.name || node.id)}</strong><br />
-        类型：${escapeHtml(node.type || "-")}<br />
+        <strong>${escapeHtml(node.label || node.name || node.id)}</strong> · ${escapeHtml(formatEntityType(node.type))}<br />
         提及：${escapeHtml(node.mention_count ?? "-")}<br />
-        首次出现：第 ${escapeHtml(node.first_seen_chapter || node.first_seen?.chapter || "-")} 章<br />
-        <span class="muted">${escapeHtml(node.summary || "")}</span>
+        首次出现：第 ${escapeHtml(node.first_seen_chapter || node.first_seen?.chapter || "-")} 章，第 ${escapeHtml(node.first_seen_paragraph || node.first_seen?.paragraph || "-")} 段<br />
+        <span class="muted">${escapeHtml(node.summary || "暂无实体摘要。")}</span>
       `;
     }
 
@@ -2233,13 +2443,317 @@
       if (!detail || !edge) return;
       const source = nodeById[edge.source]?.label || edge.source;
       const target = nodeById[edge.target]?.label || edge.target;
+      const style = relationStyle(edge);
       detail.innerHTML = `
         <strong>${escapeHtml(source)} -> ${escapeHtml(target)}</strong><br />
-        关系：${escapeHtml(edge.label || edge.relation || "-")}<br />
+        关系：<span style="color:${style.color}">${escapeHtml(formatRelationLabel(edge.label || edge.relation))}</span> · ${escapeHtml(style.label)}<br />
         权重：${escapeHtml(edge.weight ?? "-")}<br />
         位置：第 ${escapeHtml(edge.valid_at_chapter || "-")} 章，第 ${escapeHtml(edge.valid_at_paragraph || "-")} 段<br />
         <span class="muted">${escapeHtml(edge.fact || edge.summary || "")}</span>
       `;
+    }
+
+    function disposeGraph3D() {
+      if (!graph3DInstance) return;
+      if (graph3DInstance.animationFrame) {
+        cancelAnimationFrame(graph3DInstance.animationFrame);
+      }
+      graph3DInstance.resizeObserver?.disconnect();
+      graph3DInstance.controls?.dispose?.();
+      graph3DInstance.scene?.traverse?.((object) => {
+        object.geometry?.dispose?.();
+        if (Array.isArray(object.material)) {
+          object.material.forEach((material) => material.dispose?.());
+        } else {
+          object.material?.dispose?.();
+        }
+        object.material?.map?.dispose?.();
+      });
+      graph3DInstance.renderer?.dispose?.();
+      graph3DInstance = null;
+    }
+
+    async function loadThreeRuntime() {
+      if (!threeRuntimePromise) {
+        threeRuntimePromise = Promise.all([
+          import("three"),
+          import("three/addons/controls/OrbitControls.js"),
+        ]).then(([THREE, controls]) => ({ THREE, OrbitControls: controls.OrbitControls }));
+      }
+      return threeRuntimePromise;
+    }
+
+    function roundRect(context, x, y, width, height, radius) {
+      context.beginPath();
+      context.moveTo(x + radius, y);
+      context.arcTo(x + width, y, x + width, y + height, radius);
+      context.arcTo(x + width, y + height, x, y + height, radius);
+      context.arcTo(x, y + height, x, y, radius);
+      context.arcTo(x, y, x + width, y, radius);
+      context.closePath();
+    }
+
+    function makeTextSprite(THREE, text, options = {}) {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      const fontSize = options.fontSize || 30;
+      const paddingX = 20;
+      const paddingY = 10;
+      context.font = `700 ${fontSize}px "Noto Serif SC", "PingFang SC", sans-serif`;
+      const width = Math.min(640, Math.max(180, Math.ceil(context.measureText(text).width + paddingX * 2)));
+      const height = fontSize + paddingY * 2;
+      canvas.width = width * 2;
+      canvas.height = height * 2;
+      context.scale(2, 2);
+      context.font = `700 ${fontSize}px "Noto Serif SC", "PingFang SC", sans-serif`;
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.fillStyle = options.background || "rgba(255,255,255,0.78)";
+      roundRect(context, 0, 0, width, height, 14);
+      context.fill();
+      context.fillStyle = options.color || "#2a261f";
+      context.fillText(text, width / 2, height / 2 + 1);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.needsUpdate = true;
+      const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false });
+      const sprite = new THREE.Sprite(material);
+      sprite.scale.set(width * (options.scale || 0.34), height * (options.scale || 0.34), 1);
+      return sprite;
+    }
+
+    function createCylinderBetween(THREE, start, end, radius, material, userData = {}) {
+      const startVector = new THREE.Vector3(start.x, start.y, start.z);
+      const endVector = new THREE.Vector3(end.x, end.y, end.z);
+      const direction = new THREE.Vector3().subVectors(endVector, startVector);
+      const length = direction.length();
+      const geometry = new THREE.CylinderGeometry(radius, radius, length, 12, 1);
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.copy(startVector).add(endVector).multiplyScalar(0.5);
+      mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
+      mesh.userData = userData;
+      return mesh;
+    }
+
+    function addEdgeToScene(THREE, sceneGroup, pickables, edge, start, end) {
+      const style = relationStyle(edge);
+      const material = new THREE.MeshStandardMaterial({
+        color: style.color,
+        roughness: 0.62,
+        metalness: 0.08,
+        transparent: true,
+        opacity: edge.status && edge.status !== "active" ? 0.48 : 0.78,
+      });
+      const weight = Math.max(1.3, Math.min(4.2, Number(edge.weight || 1) * 0.72));
+      const startVector = new THREE.Vector3(start.x, start.y, start.z);
+      const endVector = new THREE.Vector3(end.x, end.y, end.z);
+      const direction = new THREE.Vector3().subVectors(endVector, startVector);
+      const edgeObjects = [];
+
+      if (style.dash) {
+        const segments = 7;
+        for (let index = 0; index < segments; index += 2) {
+          const a = startVector.clone().add(direction.clone().multiplyScalar(index / segments));
+          const b = startVector.clone().add(direction.clone().multiplyScalar(Math.min(index + 1, segments) / segments));
+          edgeObjects.push(createCylinderBetween(THREE, a, b, weight, material.clone(), { type: "edge", edge }));
+        }
+      } else {
+        edgeObjects.push(createCylinderBetween(THREE, start, end, weight, material, { type: "edge", edge }));
+      }
+
+      edgeObjects.forEach((object) => {
+        sceneGroup.add(object);
+        pickables.push(object);
+      });
+
+      if (edgeObjects.length && sceneGroup.children.length < 120) {
+        const label = makeTextSprite(THREE, formatRelationLabel(edge.label || edge.relation), {
+          fontSize: 22,
+          color: style.color,
+          background: "rgba(255,255,255,0.72)",
+          scale: 0.23,
+        });
+        label.position.copy(startVector).add(endVector).multiplyScalar(0.5);
+        label.position.y += 10;
+        sceneGroup.add(label);
+      }
+    }
+
+    async function renderGraph3D(renderable) {
+      const serial = ++graphRenderSerial;
+      disposeGraph3D();
+      const container = document.querySelector("[data-graph-3d-view]");
+      const detail = document.querySelector("[data-graph-detail]");
+      if (!container) return;
+      const { THREE, OrbitControls } = await loadThreeRuntime();
+      if (serial !== graphRenderSerial) return;
+
+      const bounds = container.getBoundingClientRect();
+      const width = Math.max(320, Math.floor(bounds.width || 420));
+      const height = Math.max(320, Math.floor(bounds.height || 420));
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.Fog(0xf8f7f2, 420, 980);
+      const camera = new THREE.PerspectiveCamera(42, width / height, 1, 1800);
+      camera.position.set(0, 120, 430);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(width, height);
+      container.innerHTML = "";
+      container.appendChild(renderer.domElement);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.enablePan = true;
+      controls.enableZoom = true;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.55;
+      controls.minDistance = 110;
+      controls.maxDistance = 760;
+
+      scene.add(new THREE.AmbientLight(0xffffff, 1.15));
+      const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
+      keyLight.position.set(180, 260, 240);
+      scene.add(keyLight);
+      const fillLight = new THREE.PointLight(0x253B74, 1.3, 900);
+      fillLight.position.set(-220, -80, 240);
+      scene.add(fillLight);
+
+      const group = new THREE.Group();
+      scene.add(group);
+      const pickables = [];
+      const layout = graphLayout(renderable.nodes);
+      const nodeById = Object.fromEntries(renderable.nodes.map((node) => [node.id, node]));
+
+      renderable.edges.forEach((edge) => {
+        if (!layout[edge.source] || !layout[edge.target]) return;
+        addEdgeToScene(THREE, group, pickables, edge, layout[edge.source], layout[edge.target]);
+      });
+
+      renderable.nodes.forEach((node) => {
+        const position = layout[node.id];
+        const size = Math.max(11, Math.min(26, 11 + Math.sqrt(Number(node.mention_count || 1)) * 3.2));
+        const material = new THREE.MeshStandardMaterial({
+          color: graphNodeColor(node.type),
+          roughness: 0.42,
+          metalness: isCharacterNode(node) ? 0.22 : 0.05,
+          emissive: graphNodeColor(node.type),
+          emissiveIntensity: isCharacterNode(node) ? 0.08 : 0.03,
+        });
+        const sphere = new THREE.Mesh(new THREE.SphereGeometry(size, 32, 24), material);
+        sphere.position.set(position.x, position.y, position.z);
+        sphere.userData = { type: "node", node };
+        group.add(sphere);
+        pickables.push(sphere);
+
+        if (isCharacterNode(node)) {
+          const ring = new THREE.Mesh(
+            new THREE.TorusGeometry(size + 4, 1.1, 8, 48),
+            new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.66 })
+          );
+          ring.position.copy(sphere.position);
+          ring.lookAt(camera.position);
+          group.add(ring);
+        }
+
+        const label = makeTextSprite(THREE, node.label || node.name || node.id, {
+          fontSize: isCharacterNode(node) ? 28 : 22,
+          color: isCharacterNode(node) ? "#1f393d" : "#514a42",
+          scale: isCharacterNode(node) ? 0.32 : 0.25,
+        });
+        label.position.set(position.x, position.y + size + 18, position.z);
+        group.add(label);
+      });
+
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      renderer.domElement.addEventListener("pointerdown", () => {
+        controls.autoRotate = false;
+      });
+      renderer.domElement.addEventListener("click", (event) => {
+        const rect = renderer.domElement.getBoundingClientRect();
+        pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hit = raycaster.intersectObjects(pickables, false)[0];
+        if (!hit) return;
+        if (hit.object.userData.type === "node") {
+          showGraphNodeDetail(hit.object.userData.node);
+        }
+        if (hit.object.userData.type === "edge") {
+          showGraphEdgeDetail(hit.object.userData.edge, nodeById);
+        }
+      });
+
+      const resizeObserver = new ResizeObserver(() => {
+        const nextBounds = container.getBoundingClientRect();
+        const nextWidth = Math.max(320, Math.floor(nextBounds.width || 420));
+        const nextHeight = Math.max(320, Math.floor(nextBounds.height || 420));
+        camera.aspect = nextWidth / nextHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(nextWidth, nextHeight);
+      });
+      resizeObserver.observe(container);
+
+      graph3DInstance = { THREE, scene, camera, renderer, controls, group, resizeObserver, animationFrame: null };
+      function animate() {
+        if (!graph3DInstance || graph3DInstance.renderer !== renderer) return;
+        controls.update();
+        renderer.render(scene, camera);
+        graph3DInstance.animationFrame = requestAnimationFrame(animate);
+      }
+      animate();
+
+      if (detail) {
+        detail.textContent = "拖拽旋转图谱，滚轮缩放；点击人物或关系查看细节。";
+      }
+    }
+
+    function renderGraphFallback(renderable, errorMessage) {
+      disposeGraph3D();
+      const canvas = document.querySelector("[data-graph-canvas]");
+      if (!canvas) return;
+      const nodes = renderable.nodes;
+      const nodeById = Object.fromEntries(nodes.map((node) => [node.id, node]));
+      const width = 680;
+      const height = 420;
+      const radius = Math.max(110, Math.min(180, 40 + nodes.length * 12));
+      const positions = {};
+      nodes.forEach((node, index) => {
+        const angle = (Math.PI * 2 * index) / Math.max(1, nodes.length);
+        positions[node.id] = {
+          x: width / 2 + Math.cos(angle) * radius,
+          y: height / 2 + Math.sin(angle) * Math.min(radius, 140),
+        };
+      });
+      const edgeMarkup = renderable.edges
+        .map((edge) => {
+          const source = positions[edge.source];
+          const target = positions[edge.target];
+          if (!source || !target) return "";
+          const style = relationStyle(edge);
+          return `<line class="graph-edge" stroke="${style.color}" stroke-width="${Math.max(1.5, edge.weight || 1)}" x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" data-edge-id="${escapeHtml(edge.id || `${edge.source}-${edge.target}`)}"></line>`;
+        })
+        .join("");
+      const nodeMarkup = nodes
+        .map((node) => {
+          const position = positions[node.id];
+          const size = isCharacterNode(node) ? 22 : 15;
+          return `<g class="graph-node" data-node-id="${escapeHtml(node.id)}"><circle class="graph-node-circle" cx="${position.x}" cy="${position.y}" r="${size}" fill="${graphNodeColor(node.type)}"></circle><text class="graph-node-label" x="${position.x}" y="${position.y + size + 14}">${escapeHtml(node.label || node.name || node.id)}</text></g>`;
+        })
+        .join("");
+      canvas.innerHTML = `<svg class="graph-svg" viewBox="0 0 ${width} ${height}">${edgeMarkup}${nodeMarkup}</svg><p class="muted">3D 渲染加载失败，已切换到 2D 视图：${escapeHtml(errorMessage)}</p>`;
+      canvas.querySelectorAll("[data-node-id]").forEach((nodeElement) => {
+        nodeElement.addEventListener("click", (event) => {
+          showGraphNodeDetail(nodeById[event.currentTarget.dataset.nodeId]);
+        });
+      });
+      canvas.querySelectorAll("[data-edge-id]").forEach((edgeElement) => {
+        edgeElement.addEventListener("click", (event) => {
+          const edge = renderable.edges.find((item) => (item.id || `${item.source}-${item.target}`) === event.currentTarget.dataset.edgeId);
+          showGraphEdgeDetail(edge, nodeById);
+        });
+      });
     }
 
     function renderGraphPanel() {
@@ -2249,6 +2763,7 @@
       const toggleButton = document.querySelector("[data-graph-toggle]");
       const expandButton = document.querySelector("[data-graph-expand]");
       const drawer = document.querySelector("[data-insight-drawer]");
+      const detail = document.querySelector("[data-graph-detail]");
       if (!panel || !canvas) return;
 
       document.querySelectorAll("[data-graph-scope]").forEach((button) => {
@@ -2260,21 +2775,28 @@
 
       panel.classList.toggle("is-hidden", !state.graphViewVisible);
       panel.classList.toggle("is-expanded", state.graphExpanded && state.graphViewVisible);
-      drawer.classList.toggle("is-graph-fullscreen", state.graphExpanded && state.graphViewVisible);
+      drawer?.classList.toggle("is-graph-fullscreen", state.graphExpanded && state.graphViewVisible);
       if (toggleButton) toggleButton.textContent = state.graphViewVisible ? "隐藏地图" : "加载地图";
       if (expandButton) expandButton.textContent = state.graphExpanded ? "退出全屏" : "全屏";
 
-      if (!state.graphViewVisible) return;
+      if (!state.graphViewVisible) {
+        disposeGraph3D();
+        return;
+      }
       if (state.graphViewLoading) {
+        disposeGraph3D();
         canvas.innerHTML = `<div class="graph-empty-state">正在加载关系图...</div>`;
+        if (detail) detail.textContent = "正在读取当前阅读范围内的实体和关系。";
         return;
       }
       if (state.graphViewError) {
+        disposeGraph3D();
         canvas.innerHTML = `<div class="graph-empty-state">${escapeHtml(state.graphViewError)}</div>`;
-        document.querySelector("[data-graph-detail]").textContent = "图谱请求失败，请确认当前书籍已经完成记忆重建。";
+        if (detail) detail.textContent = "图谱请求失败，请确认当前书籍已经完成记忆重建。";
         return;
       }
       if (!state.graphViewData) {
+        disposeGraph3D();
         canvas.innerHTML = `<div class="graph-empty-state">记忆地图尚未加载。</div>`;
         return;
       }
@@ -2282,38 +2804,22 @@
       const renderable = getRenderableGraphData(state.graphViewData);
       if (caption) caption.textContent = graphCaptionText(renderable);
       if (!renderable.nodes.length) {
+        disposeGraph3D();
         canvas.innerHTML = `<div class="graph-empty-state">当前范围还没有可展示的关系节点。</div>`;
+        if (detail) detail.textContent = "人物关系模式只显示人物和人物之间的关系，可切到“全部实体”查看地点、主题和概念。";
         return;
       }
 
-      const width = 680;
-      const height = 430;
-      const positions = graphLayout(renderable.nodes, width, height);
-      const nodeById = graphNodeById(state.graphViewData);
-      const edges = renderable.edges.map((edge, index) => {
-        const source = positions[edge.source];
-        const target = positions[edge.target];
-        if (!source || !target) return "";
-        const invalidated = edge.status === "invalidated" ? " is-invalidated" : "";
-        return `<line class="graph-edge${invalidated}" data-edge-index="${index}" x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}"></line>`;
-      }).join("");
-      const nodes = renderable.nodes.map((node) => {
-        const position = positions[node.id];
-        const size = isCharacterNode(node) ? 20 : 15;
-        return `
-          <g class="graph-node" data-node-id="${escapeHtml(node.id)}">
-            <circle class="graph-node-circle" cx="${position.x}" cy="${position.y}" r="${size}" fill="${graphNodeColor(node.type)}"></circle>
-            <text class="graph-node-label" x="${position.x}" y="${position.y + size + 15}">${escapeHtml(node.label || node.name || node.id)}</text>
-          </g>
-        `;
-      }).join("");
-
-      canvas.innerHTML = `<svg class="graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="记忆关系地图">${edges}${nodes}</svg>`;
-      canvas.querySelectorAll("[data-node-id]").forEach((node) => {
-        node.addEventListener("click", () => showGraphNodeDetail(nodeById[node.dataset.nodeId]));
-      });
-      canvas.querySelectorAll("[data-edge-index]").forEach((node) => {
-        node.addEventListener("click", () => showGraphEdgeDetail(renderable.edges[Number(node.dataset.edgeIndex)], nodeById));
+      canvas.innerHTML = `
+        <div class="graph-viewport-shell">
+          <div class="graph-3d-view" data-graph-3d-view role="img" aria-label="3D 记忆关系地图"></div>
+          <div class="graph-legend">${renderGraphLegend(renderable.edges)}</div>
+        </div>
+      `;
+      if (detail) detail.textContent = "点击人物或关系查看出现位置、关系类型和证据线索。";
+      renderGraph3D(renderable).catch((error) => {
+        console.error(error);
+        renderGraphFallback(renderable, String(error.message || error));
       });
     }
 
@@ -2362,13 +2868,18 @@
     }
 
     function zoomGraph(direction) {
-      state.graphZoom = Math.max(0.55, Math.min(1.8, state.graphZoom + direction * 0.12));
-      renderGraphPanel();
+      if (!graph3DInstance) return;
+      const factor = direction > 0 ? 0.82 : 1.18;
+      graph3DInstance.camera.position.multiplyScalar(factor);
+      graph3DInstance.controls?.update?.();
     }
 
     function resetGraphView() {
-      state.graphZoom = 1;
-      renderGraphPanel();
+      if (!graph3DInstance) return;
+      graph3DInstance.camera.position.set(0, 120, 430);
+      graph3DInstance.controls.target.set(0, 0, 0);
+      graph3DInstance.controls.autoRotate = true;
+      graph3DInstance.controls.update();
     }
 
     function exitGraphFullscreen() {
@@ -2472,14 +2983,17 @@
             conversation_history: state.conversation.slice(-8),
           }),
         });
-        appendMessage("assistant", response.answer || "");
+        const answer = response.answer || "";
+        appendMessage("assistant", answer);
+        startAvatarMood(classifyLuxunMood(answer));
         fetchInlineBubbles({ selectedOnly: true }).catch((error) => console.error(error));
       } catch (error) {
-        appendMessage("assistant", `API unavailable: ${error.message}`);
+        const errorMessage = `API unavailable: ${error.message}`;
+        appendMessage("assistant", errorMessage);
+        startAvatarMood("sigh");
       } finally {
         button.disabled = false;
         button.textContent = "Send";
-        startAvatarIdle();
       }
     }
 
@@ -2493,10 +3007,12 @@
 
     document.querySelector("[data-collapse-chat]").addEventListener("click", () => {
       document.querySelector("[data-reader-shell]").classList.add("chat-collapsed");
+      startAvatarIdle();
     });
 
     document.querySelector("[data-expand-chat]").addEventListener("click", () => {
       document.querySelector("[data-reader-shell]").classList.remove("chat-collapsed");
+      startAvatarIdle();
     });
 
     document.querySelector("[data-dark-toggle]").addEventListener("click", () => {
@@ -2603,10 +3119,16 @@
       if (!question) return;
       const highlightText = compactInlineText(state.quotedText);
       const userMessage = highlightText ? `引用：“${highlightText}”\n\n${question}` : question;
+      startAvatarIdle();
       appendMessage("user", userMessage);
       input.value = "";
       clearQuotedText();
       askRole(question, highlightText);
+    });
+    document.querySelector("[data-chat-input]").addEventListener("input", (event) => {
+      if (event.target.value.trim()) {
+        startAvatarIdle();
+      }
     });
 
     preloadAvatarImages();
