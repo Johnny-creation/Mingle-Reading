@@ -1,0 +1,58 @@
+{
+  "_doc": "Held-out test split for the v2 persona-thinking evaluation. These works supply the OBJECTIVE ground truth (the author's own judgments) for Layer-1 stance/continuation tasks, and the reference corpus for Burrows's Delta. STRICT RULE: nothing listed under `exclude` (used as v1 anchors / SKILL examples / persona-KB sources) may appear here, so the test set is disjoint from anything the persona pack was built on. The base DeepSeek model has of course seen these texts in pretraining — that is handled at scoring time by the `distinctive` subset (items the neutral baseline gets wrong), not by the split.",
+  "personas": {
+    "lu-xun": {
+      "source": "wikisource",
+      "source_note": "OCR EPUB《鲁迅全集》is corrupted (Internet Archive auto-OCR); ground truth is fetched clean from zh.wikisource.org, the same canonical source the project KB already cites (source_url on every Lu Xun work record).",
+      "exclude": [
+        "拿来主义", "论费厄泼赖应该缓行", "我之节烈观", "狂人日记", "灯下漫笔",
+        "呐喊自序", "野草题辞", "我怎么做起小说来", "呐喊", "彷徨", "野草"
+      ],
+      "heldout_essays": [
+        {"title": "娜拉走后怎样", "collection": "坟", "year": "1923", "moves": ["归谬法", "弱者正义", "经济权"]},
+        {"title": "论睁了眼看", "collection": "坟", "year": "1925", "moves": ["瞒和骗", "名实分离", "拒绝廉价安慰"]},
+        {"title": "春末闲谈", "collection": "坟", "year": "1925", "moves": ["隐喻去蔽", "归谬法", "治术批判"]},
+        {"title": "再论雷峰塔的倒掉", "collection": "坟", "year": "1925", "moves": ["十景病", "拒绝调和", "辩证张力"]},
+        {"title": "未有天才之前", "collection": "坟", "year": "1924", "moves": ["名实分离", "二难推理"]},
+        {"title": "我们现在怎样做父亲", "collection": "坟", "year": "1919", "moves": ["历史循环", "弱者正义", "进化/觉醒"]},
+        {"title": "现代史", "collection": "伪自由书", "year": "1933", "moves": ["历史循环", "隐喻去蔽", "变戏法"]},
+        {"title": "文学和出汗", "collection": "而已集", "year": "1927", "moves": ["归谬法", "辩证张力", "永久人性批判"]},
+        {"title": "习惯与改革", "collection": "二心集", "year": "1930", "moves": ["历史循环", "国民性", "弱者正义"]},
+        {"title": "论照相之类", "collection": "坟", "year": "1924", "moves": ["国民性", "隐喻去蔽", "反讽"]},
+        {"title": "从胡须说到牙齿", "collection": "坟", "year": "1925", "moves": ["名实分离", "反讽", "历史循环"]},
+        {"title": "男人的进化", "collection": "南腔北调集", "year": "1933", "moves": ["归谬法", "反讽", "名实分离"]},
+        {"title": "经验", "collection": "南腔北调集", "year": "1933", "moves": ["弱者正义", "辩证张力"]},
+        {"title": "爬和撞", "collection": "准风月谈", "year": "1933", "moves": ["隐喻去蔽", "二难推理", "国民性"]},
+        {"title": "夜颂", "collection": "准风月谈", "year": "1933", "moves": ["隐喻去蔽", "瞒和骗", "名实分离"]},
+        {"title": "推", "collection": "南腔北调集", "year": "1933", "moves": ["国民性", "看客", "弱者正义"]}
+      ]
+    },
+    "zhang-ailing": {
+      "source": "epub",
+      "source_note": "《张爱玲大全集【18册】.epub》is a clean formatted ebook (OEBPS, toc.ncx). Titles below are resolved to files via the NCX at runtime.",
+      "exclude": ["天才梦", "自己的文章", "金锁记", "倾城之恋", "红玫瑰与白玫瑰"],
+      "heldout_essays": [
+        {"title": "童言无忌", "moves": ["物质即心理", "不愿承认的欲望", "不说教"]},
+        {"title": "谈女人", "moves": ["关系即算计", "参差对照", "反壮烈"]},
+        {"title": "论写作", "moves": ["不说教", "参差对照"]},
+        {"title": "洋人看京戏及其他", "moves": ["参差对照", "苍凉非壮烈", "旁观距离"]},
+        {"title": "更衣记", "moves": ["物质即心理", "历史作为衣裳", "苍凉非壮烈"]},
+        {"title": "公寓生活记趣", "moves": ["物质即心理", "反崇高"]},
+        {"title": "道路以目", "moves": ["物质即心理", "旁观距离"]},
+        {"title": "必也正名乎", "moves": ["物质即心理", "参差对照"]},
+        {"title": "烬余录", "moves": ["苍凉非壮烈", "不彻底的人", "反崇高"]},
+        {"title": "私语", "moves": ["不愿承认的欲望", "苍凉非壮烈"]},
+        {"title": "诗与胡说", "moves": ["参差对照", "苍凉非壮烈"]},
+        {"title": "中国人的宗教", "moves": ["关系即算计", "参差对照", "旁观距离"]},
+        {"title": "谈音乐", "moves": ["物质即心理", "参差对照", "反崇高"]},
+        {"title": "谈跳舞", "moves": ["参差对照", "苍凉非壮烈"]},
+        {"title": "我看苏青", "moves": ["关系即算计", "不愿承认的欲望", "不说教"]},
+        {"title": "写什么", "moves": ["不说教", "反崇高"]},
+        {"title": "到底是上海人", "moves": ["参差对照", "旁观距离"]},
+        {"title": "传奇再版的话", "moves": ["苍凉非壮烈", "物质即心理", "出名要趁早"]},
+        {"title": "姑姑语录", "moves": ["参差对照", "不说教"]},
+        {"title": "谈画", "moves": ["物质即心理", "参差对照"]}
+      ]
+    }
+  }
+}

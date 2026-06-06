@@ -1,0 +1,752 @@
+{
+  "f041af680fab56a4": {
+    "persona": "lu-xun",
+    "item_id": "lu_习惯与改革_c2",
+    "condition": "neutral"
+  },
+  "c12a0bc64abfe6ee": {
+    "persona": "lu-xun",
+    "item_id": "lu_习惯与改革_c2",
+    "condition": "style_only"
+  },
+  "7741238152186824": {
+    "persona": "lu-xun",
+    "item_id": "lu_习惯与改革_c2",
+    "condition": "thinking_only"
+  },
+  "e35deda3dcd003fe": {
+    "persona": "lu-xun",
+    "item_id": "lu_习惯与改革_c2",
+    "condition": "full"
+  },
+  "bc1094ed7d0af3e1": {
+    "persona": "lu-xun",
+    "item_id": "lu_习惯与改革_c2",
+    "condition": "wrong_persona"
+  },
+  "082313f18710984a": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c1",
+    "condition": "neutral"
+  },
+  "b321b385d84256ce": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c1",
+    "condition": "style_only"
+  },
+  "fb320aeaa133d10f": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c1",
+    "condition": "thinking_only"
+  },
+  "ce7eea9281edb14c": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c1",
+    "condition": "full"
+  },
+  "c17794b408b1b82c": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c1",
+    "condition": "wrong_persona"
+  },
+  "06783da37e25af8f": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c2",
+    "condition": "neutral"
+  },
+  "2d8de289fa363bbb": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c2",
+    "condition": "style_only"
+  },
+  "f6bcd96ca61890f1": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c2",
+    "condition": "thinking_only"
+  },
+  "de6adef2f174deb8": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c2",
+    "condition": "full"
+  },
+  "d1da009a86d37426": {
+    "persona": "lu-xun",
+    "item_id": "lu_从胡须说到牙齿_c2",
+    "condition": "wrong_persona"
+  },
+  "2e27fcf2ee5bbd20": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c1",
+    "condition": "neutral"
+  },
+  "3fc47b6dde467447": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c1",
+    "condition": "style_only"
+  },
+  "d8ed56a36fdc3fa2": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c1",
+    "condition": "thinking_only"
+  },
+  "88a3ca751826f598": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c1",
+    "condition": "full"
+  },
+  "3e1a0eda1a2e5f98": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c1",
+    "condition": "wrong_persona"
+  },
+  "59d7ce1a873bc98a": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c2",
+    "condition": "neutral"
+  },
+  "78dd7b3cbe6fe961": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c2",
+    "condition": "style_only"
+  },
+  "80021760743b6646": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c2",
+    "condition": "thinking_only"
+  },
+  "7315e573a53f770b": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c2",
+    "condition": "full"
+  },
+  "dd2240f654ba256d": {
+    "persona": "lu-xun",
+    "item_id": "lu_再论雷峰塔的倒掉_c2",
+    "condition": "wrong_persona"
+  },
+  "c62786ff1a0d3854": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c1",
+    "condition": "neutral"
+  },
+  "c01e2e0320dd6ac8": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c1",
+    "condition": "style_only"
+  },
+  "301df17174c8e0fd": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c1",
+    "condition": "thinking_only"
+  },
+  "644387cebe335470": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c1",
+    "condition": "full"
+  },
+  "cd8cfccf866bc732": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c1",
+    "condition": "wrong_persona"
+  },
+  "1450b0daa4b3b820": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c2",
+    "condition": "neutral"
+  },
+  "80d5bd3b4205c037": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c2",
+    "condition": "style_only"
+  },
+  "261c974c1724968f": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c2",
+    "condition": "thinking_only"
+  },
+  "cea7b8a5590eb6b0": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c2",
+    "condition": "full"
+  },
+  "7bf6cee7116242d8": {
+    "persona": "lu-xun",
+    "item_id": "lu_夜颂_c2",
+    "condition": "wrong_persona"
+  },
+  "b74764af80030027": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c1",
+    "condition": "neutral"
+  },
+  "b35708744e31f589": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c1",
+    "condition": "style_only"
+  },
+  "12c487a9efdd6e44": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c1",
+    "condition": "thinking_only"
+  },
+  "2dce5673784d3d82": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c1",
+    "condition": "full"
+  },
+  "ab92df142e1b277c": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c1",
+    "condition": "wrong_persona"
+  },
+  "25cbd7036a44c8ce": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c2",
+    "condition": "neutral"
+  },
+  "bb4ee59a600a481b": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c2",
+    "condition": "style_only"
+  },
+  "5ec354cde7ba9296": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c2",
+    "condition": "thinking_only"
+  },
+  "f843ad16de3a1fe5": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c2",
+    "condition": "full"
+  },
+  "4ce1643c41b675a1": {
+    "persona": "lu-xun",
+    "item_id": "lu_娜拉走后怎样_c2",
+    "condition": "wrong_persona"
+  },
+  "25009940476b0e9b": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c1",
+    "condition": "neutral"
+  },
+  "e76c48f9472b9624": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c1",
+    "condition": "style_only"
+  },
+  "008c756264d30e4b": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c1",
+    "condition": "thinking_only"
+  },
+  "d35019ea7ebbfab8": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c1",
+    "condition": "full"
+  },
+  "488b3ba08e9bf4d2": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c1",
+    "condition": "wrong_persona"
+  },
+  "2b183f93ba636d98": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c2",
+    "condition": "neutral"
+  },
+  "9fbba8f48503bf50": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c2",
+    "condition": "style_only"
+  },
+  "11ea8d8858ed5eb9": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c2",
+    "condition": "thinking_only"
+  },
+  "43dc5e4c57839dd0": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c2",
+    "condition": "full"
+  },
+  "c44fec83f60c1601": {
+    "persona": "lu-xun",
+    "item_id": "lu_我们现在怎样做父亲_c2",
+    "condition": "wrong_persona"
+  },
+  "558b8536145c0e07": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c1",
+    "condition": "neutral"
+  },
+  "dafbbca300c6d9b0": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c1",
+    "condition": "style_only"
+  },
+  "62d89e41a10cdf72": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c1",
+    "condition": "thinking_only"
+  },
+  "279ccb6ad9b26e30": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c1",
+    "condition": "full"
+  },
+  "3ffc348adc10094c": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c1",
+    "condition": "wrong_persona"
+  },
+  "338562876a2aad09": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c2",
+    "condition": "neutral"
+  },
+  "1662a6d36f9ef389": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c2",
+    "condition": "style_only"
+  },
+  "bab92bba350d8a93": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c2",
+    "condition": "thinking_only"
+  },
+  "4992a7ed5df01f63": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c2",
+    "condition": "full"
+  },
+  "cfcefe9638d60a81": {
+    "persona": "lu-xun",
+    "item_id": "lu_推_c2",
+    "condition": "wrong_persona"
+  },
+  "f12e27692088f4c9": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c1",
+    "condition": "neutral"
+  },
+  "0218b3db890bcfac": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c1",
+    "condition": "style_only"
+  },
+  "c18936adc23d142d": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c1",
+    "condition": "thinking_only"
+  },
+  "c22e08fd311d0818": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c1",
+    "condition": "full"
+  },
+  "61f06c5e073af50d": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c1",
+    "condition": "wrong_persona"
+  },
+  "202dae7b5f859e41": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c2",
+    "condition": "neutral"
+  },
+  "3c2570a5a0bdeac1": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c2",
+    "condition": "style_only"
+  },
+  "b59eeea5575161f5": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c2",
+    "condition": "thinking_only"
+  },
+  "ff81e9d82f55a185": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c2",
+    "condition": "full"
+  },
+  "af075046386cd534": {
+    "persona": "lu-xun",
+    "item_id": "lu_文学和出汗_c2",
+    "condition": "wrong_persona"
+  },
+  "099cbce74eeff903": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c1",
+    "condition": "neutral"
+  },
+  "c94df4c382724706": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c1",
+    "condition": "style_only"
+  },
+  "350ea8e953bfb38a": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c1",
+    "condition": "thinking_only"
+  },
+  "e33b0b362e09f9ab": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c1",
+    "condition": "full"
+  },
+  "cb94b3c5b1e25959": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c1",
+    "condition": "wrong_persona"
+  },
+  "97606a070b25c0a5": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c2",
+    "condition": "neutral"
+  },
+  "b1cfd841ebb954eb": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c2",
+    "condition": "style_only"
+  },
+  "b390aa1ca9b9f1e1": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c2",
+    "condition": "thinking_only"
+  },
+  "5b8a49d58c7ee1e3": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c2",
+    "condition": "full"
+  },
+  "1b5e2e1d35647908": {
+    "persona": "lu-xun",
+    "item_id": "lu_春末闲谈_c2",
+    "condition": "wrong_persona"
+  },
+  "8191ea2b9e5fcc0e": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c1",
+    "condition": "neutral"
+  },
+  "e503819c56365b16": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c1",
+    "condition": "style_only"
+  },
+  "defc30ff58011752": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c1",
+    "condition": "thinking_only"
+  },
+  "70ed52d831be0e95": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c1",
+    "condition": "full"
+  },
+  "d972e6864831ebeb": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c1",
+    "condition": "wrong_persona"
+  },
+  "cf3669bc355d1366": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c2",
+    "condition": "neutral"
+  },
+  "76626b0f7b5da7c2": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c2",
+    "condition": "style_only"
+  },
+  "d9a7c3b960e0c61b": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c2",
+    "condition": "thinking_only"
+  },
+  "078bab8da15126f7": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c2",
+    "condition": "full"
+  },
+  "9f54a9c4fc14df35": {
+    "persona": "lu-xun",
+    "item_id": "lu_未有天才之前_c2",
+    "condition": "wrong_persona"
+  },
+  "a8a0282e2ae078d8": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c1",
+    "condition": "neutral"
+  },
+  "94ff1bb12135ea1e": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c1",
+    "condition": "style_only"
+  },
+  "3bc2b5842d07381a": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c1",
+    "condition": "thinking_only"
+  },
+  "d001b4011af898c1": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c1",
+    "condition": "full"
+  },
+  "d6c36b93481ef41c": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c1",
+    "condition": "wrong_persona"
+  },
+  "2677048b3e09869e": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c2",
+    "condition": "neutral"
+  },
+  "95ef61bc21c2fef3": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c2",
+    "condition": "style_only"
+  },
+  "e4643a577affb66a": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c2",
+    "condition": "thinking_only"
+  },
+  "886cd99ba33de561": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c2",
+    "condition": "full"
+  },
+  "67408376c8dc7349": {
+    "persona": "lu-xun",
+    "item_id": "lu_爬和撞_c2",
+    "condition": "wrong_persona"
+  },
+  "21ca84f2fa7c3fdc": {
+    "persona": "lu-xun",
+    "item_id": "lu_现代史_c1",
+    "condition": "neutral"
+  },
+  "952402dd1c428395": {
+    "persona": "lu-xun",
+    "item_id": "lu_现代史_c1",
+    "condition": "style_only"
+  },
+  "6610d8ea5746c73e": {
+    "persona": "lu-xun",
+    "item_id": "lu_现代史_c1",
+    "condition": "thinking_only"
+  },
+  "3934a29cb9e0bc26": {
+    "persona": "lu-xun",
+    "item_id": "lu_现代史_c1",
+    "condition": "full"
+  },
+  "06c387fc9cd40b37": {
+    "persona": "lu-xun",
+    "item_id": "lu_现代史_c1",
+    "condition": "wrong_persona"
+  },
+  "220b7733628ce661": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c1",
+    "condition": "neutral"
+  },
+  "9094b942668083d7": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c1",
+    "condition": "style_only"
+  },
+  "1ab56981fed683a2": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c1",
+    "condition": "thinking_only"
+  },
+  "5f7cc20eb0a9d312": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c1",
+    "condition": "full"
+  },
+  "e8be369ce59e7fa9": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c1",
+    "condition": "wrong_persona"
+  },
+  "7f32fe27382fb49b": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c2",
+    "condition": "neutral"
+  },
+  "f8897cd9a404b72b": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c2",
+    "condition": "style_only"
+  },
+  "b2035ae54892bae3": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c2",
+    "condition": "thinking_only"
+  },
+  "bbb2248518f60d79": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c2",
+    "condition": "full"
+  },
+  "7f043d24a9af18ef": {
+    "persona": "lu-xun",
+    "item_id": "lu_男人的进化_c2",
+    "condition": "wrong_persona"
+  },
+  "99d80625d3e48ef2": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c1",
+    "condition": "neutral"
+  },
+  "1d2528707f3b8564": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c1",
+    "condition": "style_only"
+  },
+  "9115306f0681131e": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c1",
+    "condition": "thinking_only"
+  },
+  "4e6847476b73eb71": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c1",
+    "condition": "full"
+  },
+  "88d1fbe82b2abc03": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c1",
+    "condition": "wrong_persona"
+  },
+  "4d937dd57eaca0be": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c2",
+    "condition": "neutral"
+  },
+  "481b0c7dedc661c3": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c2",
+    "condition": "style_only"
+  },
+  "34e6b2c2d6d339c4": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c2",
+    "condition": "thinking_only"
+  },
+  "98ea51c31a9c46db": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c2",
+    "condition": "full"
+  },
+  "518c5617f5bfaabb": {
+    "persona": "lu-xun",
+    "item_id": "lu_经验_c2",
+    "condition": "wrong_persona"
+  },
+  "dad6a94506ac1a1a": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c1",
+    "condition": "neutral"
+  },
+  "ce2abb65ccd44516": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c1",
+    "condition": "style_only"
+  },
+  "d7d13c532c8af588": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c1",
+    "condition": "thinking_only"
+  },
+  "506cf95c36d921a3": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c1",
+    "condition": "full"
+  },
+  "ae51aca4293185fe": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c1",
+    "condition": "wrong_persona"
+  },
+  "b6f81445817b1398": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c2",
+    "condition": "neutral"
+  },
+  "d7e6dc958cb59b06": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c2",
+    "condition": "style_only"
+  },
+  "ea6b847624cdcb14": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c2",
+    "condition": "thinking_only"
+  },
+  "302f829d0078bb6c": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c2",
+    "condition": "full"
+  },
+  "cf069c677f3d5bd4": {
+    "persona": "lu-xun",
+    "item_id": "lu_论照相之类_c2",
+    "condition": "wrong_persona"
+  },
+  "0cf5535822a4ad0f": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c1",
+    "condition": "neutral"
+  },
+  "32659cd0ec806a8e": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c1",
+    "condition": "style_only"
+  },
+  "df8c3dd57914d097": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c1",
+    "condition": "thinking_only"
+  },
+  "f34e4184ddda5050": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c1",
+    "condition": "full"
+  },
+  "2d0a8648c6ba5072": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c1",
+    "condition": "wrong_persona"
+  },
+  "94a3bd45ff7c0eb9": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c2",
+    "condition": "neutral"
+  },
+  "fca25608b130a729": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c2",
+    "condition": "style_only"
+  },
+  "83e4987b294cbd40": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c2",
+    "condition": "thinking_only"
+  },
+  "adb3abdeb562482b": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c2",
+    "condition": "full"
+  },
+  "527ed5bc1f8e4086": {
+    "persona": "lu-xun",
+    "item_id": "lu_论睁了眼看_c2",
+    "condition": "wrong_persona"
+  }
+}

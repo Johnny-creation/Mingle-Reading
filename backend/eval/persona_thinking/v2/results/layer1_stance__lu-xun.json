@@ -1,0 +1,3396 @@
+{
+  "persona": "lu-xun",
+  "display_name": "鲁迅",
+  "n_items": 48,
+  "n_distinctive": 3,
+  "runs": 3,
+  "summary": {
+    "neutral": {
+      "acc_all_soft": 0.917,
+      "acc_all_majority": 0.938,
+      "acc_distinctive_majority": 0.0
+    },
+    "style_only": {
+      "acc_all_soft": 0.931,
+      "acc_all_majority": 0.938,
+      "acc_distinctive_majority": 0.0
+    },
+    "thinking_only": {
+      "acc_all_soft": 0.951,
+      "acc_all_majority": 0.958,
+      "acc_distinctive_majority": 0.333
+    },
+    "full": {
+      "acc_all_soft": 0.924,
+      "acc_all_majority": 0.938,
+      "acc_distinctive_majority": 0.0
+    },
+    "wrong_persona": {
+      "acc_all_soft": 0.917,
+      "acc_all_majority": 0.917,
+      "acc_distinctive_majority": 0.0
+    }
+  },
+  "per_item": [
+    {
+      "id": "lu_习惯与改革_1",
+      "source_title": "习惯与改革",
+      "move": "民众反对改革的真实动机",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_习惯与改革_2",
+      "source_title": "习惯与改革",
+      "move": "改革与风俗习惯的关系",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_习惯与改革_3",
+      "source_title": "习惯与改革",
+      "move": "对历史革命的反思",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_从胡须说到牙齿_1",
+      "source_title": "从胡须说到牙齿",
+      "move": "名实分离",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "A",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_从胡须说到牙齿_2",
+      "source_title": "从胡须说到牙齿",
+      "move": "反讽",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_从胡须说到牙齿_3",
+      "source_title": "从胡须说到牙齿",
+      "move": "历史循环",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_再论雷峰塔的倒掉_1",
+      "source_title": "再论雷峰塔的倒掉",
+      "move": "区分表面原因与深层社会心理",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_再论雷峰塔的倒掉_2",
+      "source_title": "再论雷峰塔的倒掉",
+      "move": "批判追求表面完整、回避破坏的国民性",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_再论雷峰塔的倒掉_3",
+      "source_title": "再论雷峰塔的倒掉",
+      "move": "辨析破坏的不同性质与目的",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_夜颂_1",
+      "source_title": "夜颂",
+      "move": "隐喻去蔽",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_夜颂_2",
+      "source_title": "夜颂",
+      "move": "瞒和骗",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_夜颂_3",
+      "source_title": "夜颂",
+      "move": "名实分离",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_娜拉走后怎样_1",
+      "source_title": "娜拉走后怎样",
+      "move": "归谬法",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_娜拉走后怎样_2",
+      "source_title": "娜拉走后怎样",
+      "move": "经济权",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_娜拉走后怎样_3",
+      "source_title": "娜拉走后怎样",
+      "move": "弱者正义",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_我们现在怎样做父亲_1",
+      "source_title": "我们现在怎样做父亲",
+      "move": "针对鲁迅对传统‘恩’观念的批判",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_我们现在怎样做父亲_2",
+      "source_title": "我们现在怎样做父亲",
+      "move": "针对鲁迅对‘后起的生命更宝贵’的论断",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_我们现在怎样做父亲_3",
+      "source_title": "我们现在怎样做父亲",
+      "move": "针对鲁迅对‘爱己’与遗传的论述",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_推_1",
+      "source_title": "推",
+      "move": "国民性",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "A",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_推_2",
+      "source_title": "推",
+      "move": "看客",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_推_3",
+      "source_title": "推",
+      "move": "弱者正义",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        }
+      },
+      "distinctive": true
+    },
+    {
+      "id": "lu_文学和出汗_1",
+      "source_title": "文学和出汗",
+      "move": "归谬法",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_文学和出汗_2",
+      "source_title": "文学和出汗",
+      "move": "辩证张力",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_文学和出汗_3",
+      "source_title": "文学和出汗",
+      "move": "永久人性批判",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_春末闲谈_1",
+      "source_title": "春末闲谈",
+      "move": "隐喻去蔽",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_春末闲谈_2",
+      "source_title": "春末闲谈",
+      "move": "归谬法",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_春末闲谈_3",
+      "source_title": "春末闲谈",
+      "move": "治术批判",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_未有天才之前_1",
+      "source_title": "未有天才之前",
+      "move": "名实分离",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "B",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_未有天才之前_2",
+      "source_title": "未有天才之前",
+      "move": "二难推理",
+      "correct": "A",
+      "evidence_verified": false,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_未有天才之前_3",
+      "source_title": "未有天才之前",
+      "move": "名实分离",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_爬和撞_1",
+      "source_title": "爬和撞",
+      "move": "隐喻去蔽",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_爬和撞_2",
+      "source_title": "爬和撞",
+      "move": "二难推理",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_爬和撞_3",
+      "source_title": "爬和撞",
+      "move": "国民性",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_现代史_1",
+      "source_title": "现代史",
+      "move": "历史循环与隐喻去蔽",
+      "correct": "C",
+      "evidence_verified": false,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_现代史_2",
+      "source_title": "现代史",
+      "move": "批判麻木与循环",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_现代史_3",
+      "source_title": "现代史",
+      "move": "反讽与自嘲",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_男人的进化_1",
+      "source_title": "男人的进化",
+      "move": "归谬法",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 1,
+          "acc": 0.333,
+          "majority": "A",
+          "majority_correct": false
+        }
+      },
+      "distinctive": true
+    },
+    {
+      "id": "lu_男人的进化_2",
+      "source_title": "男人的进化",
+      "move": "反讽",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        }
+      },
+      "distinctive": true
+    },
+    {
+      "id": "lu_男人的进化_3",
+      "source_title": "男人的进化",
+      "move": "名实分离",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_经验_1",
+      "source_title": "经验",
+      "move": "弱者正义",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_经验_2",
+      "source_title": "经验",
+      "move": "辩证张力",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "C",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_经验_3",
+      "source_title": "经验",
+      "move": "弱者正义",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_论照相之类_1",
+      "source_title": "论照相之类",
+      "move": "国民性",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_论照相之类_2",
+      "source_title": "论照相之类",
+      "move": "隐喻去蔽",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_论照相之类_3",
+      "source_title": "论照相之类",
+      "move": "反讽",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_论睁了眼看_1",
+      "source_title": "论睁了眼看",
+      "move": "瞒和骗",
+      "correct": "A",
+      "evidence_verified": false,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_论睁了眼看_2",
+      "source_title": "论睁了眼看",
+      "move": "拒绝廉价安慰",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "lu_论睁了眼看_3",
+      "source_title": "论睁了眼看",
+      "move": "名实分离",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    }
+  ]
+}
