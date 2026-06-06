@@ -1,0 +1,4236 @@
+{
+  "persona": "zhang-ailing",
+  "display_name": "张爱玲",
+  "n_items": 60,
+  "n_distinctive": 4,
+  "runs": 3,
+  "summary": {
+    "neutral": {
+      "acc_all_soft": 0.911,
+      "acc_all_majority": 0.933,
+      "acc_distinctive_majority": 0.0
+    },
+    "style_only": {
+      "acc_all_soft": 0.939,
+      "acc_all_majority": 0.95,
+      "acc_distinctive_majority": 0.25
+    },
+    "thinking_only": {
+      "acc_all_soft": 0.939,
+      "acc_all_majority": 0.933,
+      "acc_distinctive_majority": 0.25
+    },
+    "full": {
+      "acc_all_soft": 0.944,
+      "acc_all_majority": 0.95,
+      "acc_distinctive_majority": 0.25
+    },
+    "wrong_persona": {
+      "acc_all_soft": 0.939,
+      "acc_all_majority": 0.95,
+      "acc_distinctive_majority": 0.25
+    }
+  },
+  "per_item": [
+    {
+      "id": "zhang_中国人的宗教_1",
+      "source_title": "中国人的宗教",
+      "move": "判断中国人面对虚无是否走向享乐或绝望",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_中国人的宗教_2",
+      "source_title": "中国人的宗教",
+      "move": "判断中国人对棺材和祖坟的过度关切源于什么",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "B",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_中国人的宗教_3",
+      "source_title": "中国人的宗教",
+      "move": "判断中国人认为凶死者的灵魂会如何",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_传奇再版的话_1",
+      "source_title": "传奇再版的话",
+      "move": "价值取向",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_传奇再版的话_2",
+      "source_title": "传奇再版的话",
+      "move": "审美判断",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_传奇再版的话_3",
+      "source_title": "传奇再版的话",
+      "move": "审美判断",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_公寓生活记趣_1",
+      "source_title": "公寓生活记趣",
+      "move": "反崇高：将公寓生活的琐碎与不便视为乐趣而非抱怨",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_公寓生活记趣_2",
+      "source_title": "公寓生活记趣",
+      "move": "反常识：喜欢市声而非宁静",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_公寓生活记趣_3",
+      "source_title": "公寓生活记趣",
+      "move": "反道德化：坦然接受并欣赏偷窥的乐趣",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "C",
+          "majority_correct": false
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": true
+    },
+    {
+      "id": "zhang_写什么_1",
+      "source_title": "写什么",
+      "move": "反崇高、不说教",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_写什么_2",
+      "source_title": "写什么",
+      "move": "反直觉、反崇高",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_写什么_3",
+      "source_title": "写什么",
+      "move": "反崇高、不说教",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_到底是上海人_1",
+      "source_title": "到底是上海人",
+      "move": "参差对照",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_到底是上海人_2",
+      "source_title": "到底是上海人",
+      "move": "旁观距离",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_到底是上海人_3",
+      "source_title": "到底是上海人",
+      "move": "参差对照",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_姑姑语录_1",
+      "source_title": "姑姑语录",
+      "move": "对生命长短的独特理解",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_姑姑语录_2",
+      "source_title": "姑姑语录",
+      "move": "对职业妇女与家庭妇女关系的看法",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_姑姑语录_3",
+      "source_title": "姑姑语录",
+      "move": "对不完美之物的态度",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_必也正名乎_1",
+      "source_title": "必也正名乎",
+      "move": "名字与人的关系",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_必也正名乎_2",
+      "source_title": "必也正名乎",
+      "move": "对多取别号的态度",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_必也正名乎_3",
+      "source_title": "必也正名乎",
+      "move": "对自己俗名的态度",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_我看苏青_1",
+      "source_title": "我看苏青",
+      "move": "大众接受文艺作品的心理动机",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_我看苏青_2",
+      "source_title": "我看苏青",
+      "move": "对苏青性格中女性弱点的态度",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_我看苏青_3",
+      "source_title": "我看苏青",
+      "move": "小说中人物的选择标准",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_更衣记_1",
+      "source_title": "更衣记",
+      "move": "物质即心理",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_更衣记_2",
+      "source_title": "更衣记",
+      "move": "历史作为衣裳",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_更衣记_3",
+      "source_title": "更衣记",
+      "move": "苍凉非壮烈",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_洋人看京戏及其他_1",
+      "source_title": "洋人看京戏及其他",
+      "move": "对战争与日常生活的类比",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_洋人看京戏及其他_2",
+      "source_title": "洋人看京戏及其他",
+      "move": "对传统与民间关系的理解",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_洋人看京戏及其他_3",
+      "source_title": "洋人看京戏及其他",
+      "move": "对传统戏剧中污秽与崇高并存的理解",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_烬余录_1",
+      "source_title": "烬余录",
+      "move": "反崇高",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_烬余录_2",
+      "source_title": "烬余录",
+      "move": "不彻底的人",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_烬余录_3",
+      "source_title": "烬余录",
+      "move": "苍凉非壮烈",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_私语_1",
+      "source_title": "私语",
+      "move": "对家的定义与常人不同，强调精致完全的体系而非情感归属",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_私语_2",
+      "source_title": "私语",
+      "move": "反直觉：破坏行为源于对完美体系的格格不入，而非粗心或恶意",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_私语_3",
+      "source_title": "私语",
+      "move": "苍凉非壮烈：对童年家的怀念带有春日迟迟的温暖，但并非完全美好",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_童言无忌_1",
+      "source_title": "童言无忌",
+      "move": "物质即心理",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_童言无忌_2",
+      "source_title": "童言无忌",
+      "move": "不说教",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_童言无忌_3",
+      "source_title": "童言无忌",
+      "move": "不愿承认的欲望",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "B",
+          "majority_correct": false
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "B",
+          "majority_correct": false
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "B",
+          "majority_correct": false
+        },
+        "full": {
+          "choices": [
+            "D",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 1,
+          "acc": 0.333,
+          "majority": "A",
+          "majority_correct": false
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "B",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        }
+      },
+      "distinctive": true
+    },
+    {
+      "id": "zhang_论写作_1",
+      "source_title": "论写作",
+      "move": "不说教，参差对照",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_论写作_2",
+      "source_title": "论写作",
+      "move": "反直觉判断",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_论写作_3",
+      "source_title": "论写作",
+      "move": "参差对照",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_诗与胡说_1",
+      "source_title": "诗与胡说",
+      "move": "参差对照：对道德与审美的非标准判断",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "A",
+          "majority_correct": false
+        }
+      },
+      "distinctive": true
+    },
+    {
+      "id": "zhang_诗与胡说_2",
+      "source_title": "诗与胡说",
+      "move": "苍凉非壮烈：以洁净凄清为美",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_诗与胡说_3",
+      "source_title": "诗与胡说",
+      "move": "苍凉非壮烈：偏爱脏乱中的珍贵",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈女人_1",
+      "source_title": "谈女人",
+      "move": "反常识判断",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "D",
+          "majority_correct": false
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "D",
+          "majority_correct": false
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "D",
+          "majority_correct": false
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "D",
+          "majority_correct": false
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 0,
+          "acc": 0.0,
+          "majority": "D",
+          "majority_correct": false
+        }
+      },
+      "distinctive": true
+    },
+    {
+      "id": "zhang_谈女人_2",
+      "source_title": "谈女人",
+      "move": "反壮烈",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈女人_3",
+      "source_title": "谈女人",
+      "move": "参差对照",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈画_1",
+      "source_title": "谈画",
+      "move": "物质即心理",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "A",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 1,
+          "acc": 0.333,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "B",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 1,
+          "acc": 0.333,
+          "majority": "A",
+          "majority_correct": false
+        },
+        "full": {
+          "choices": [
+            "C",
+            "A",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 2,
+          "acc": 0.667,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈画_2",
+      "source_title": "谈画",
+      "move": "参差对照",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈画_3",
+      "source_title": "谈画",
+      "move": "物质即心理",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈跳舞_1",
+      "source_title": "谈跳舞",
+      "move": "对艺术与性关系的判断",
+      "correct": "A",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            null,
+            "A",
+            "A"
+          ],
+          "n_valid": 2,
+          "n_correct": 2,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "A",
+            "A",
+            "A"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "A",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈跳舞_2",
+      "source_title": "谈跳舞",
+      "move": "对原始与文明的态度",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈跳舞_3",
+      "source_title": "谈跳舞",
+      "move": "对快乐与限制的参差对照",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈音乐_1",
+      "source_title": "谈音乐",
+      "move": "反崇高",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            null,
+            null,
+            "C"
+          ],
+          "n_valid": 1,
+          "n_correct": 1,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈音乐_2",
+      "source_title": "谈音乐",
+      "move": "反崇高",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_谈音乐_3",
+      "source_title": "谈音乐",
+      "move": "反崇高",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_道路以目_1",
+      "source_title": "道路以目",
+      "move": "文化自信与自我认知",
+      "correct": "D",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "D",
+            "D",
+            "D"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "D",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_道路以目_2",
+      "source_title": "道路以目",
+      "move": "日常审美与旅行意义",
+      "correct": "B",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "B",
+            "B",
+            "B"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "B",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    },
+    {
+      "id": "zhang_道路以目_3",
+      "source_title": "道路以目",
+      "move": "对技艺与人性成分的欣赏",
+      "correct": "C",
+      "evidence_verified": true,
+      "conditions": {
+        "neutral": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "style_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "thinking_only": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "full": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        },
+        "wrong_persona": {
+          "choices": [
+            "C",
+            "C",
+            "C"
+          ],
+          "n_valid": 3,
+          "n_correct": 3,
+          "acc": 1.0,
+          "majority": "C",
+          "majority_correct": true
+        }
+      },
+      "distinctive": false
+    }
+  ]
+}

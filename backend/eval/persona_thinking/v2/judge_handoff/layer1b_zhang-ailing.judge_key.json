@@ -1,0 +1,977 @@
+{
+  "f5ab3d32113e1e40": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c1",
+    "condition": "neutral"
+  },
+  "f3275bb5790ae67e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c1",
+    "condition": "style_only"
+  },
+  "a7892361836a994f": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c1",
+    "condition": "thinking_only"
+  },
+  "8a32b853323d28f6": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c1",
+    "condition": "full"
+  },
+  "e797ebb2687082f2": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c1",
+    "condition": "wrong_persona"
+  },
+  "8518a9882fcc1c3a": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c2",
+    "condition": "neutral"
+  },
+  "72d709b36cef037f": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c2",
+    "condition": "style_only"
+  },
+  "a972590a343d0a46": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c2",
+    "condition": "thinking_only"
+  },
+  "33d90a9d2973d433": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c2",
+    "condition": "full"
+  },
+  "7161a277630e57e7": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_中国人的宗教_c2",
+    "condition": "wrong_persona"
+  },
+  "e86bab249a44052d": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c1",
+    "condition": "neutral"
+  },
+  "aa91315620307b56": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c1",
+    "condition": "style_only"
+  },
+  "657b011cce99dc8c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c1",
+    "condition": "thinking_only"
+  },
+  "fc2c00fbc4c1f192": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c1",
+    "condition": "full"
+  },
+  "c930443735d76fc2": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c1",
+    "condition": "wrong_persona"
+  },
+  "a1446bfc8b40d1c9": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c2",
+    "condition": "neutral"
+  },
+  "e38519aa9a580f72": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c2",
+    "condition": "style_only"
+  },
+  "6ad6a1069bc655e4": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c2",
+    "condition": "thinking_only"
+  },
+  "306946ffde3da90c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c2",
+    "condition": "full"
+  },
+  "1faf8afdbef79425": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_传奇再版的话_c2",
+    "condition": "wrong_persona"
+  },
+  "40540af892be1c3e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c1",
+    "condition": "neutral"
+  },
+  "912d20990049e9d4": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c1",
+    "condition": "style_only"
+  },
+  "cdd6bbd388758903": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c1",
+    "condition": "thinking_only"
+  },
+  "536e9e224dd2707c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c1",
+    "condition": "full"
+  },
+  "dd48cc40eaff2867": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c1",
+    "condition": "wrong_persona"
+  },
+  "891df72e1d7842ce": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c2",
+    "condition": "neutral"
+  },
+  "61f1627f6d457fcc": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c2",
+    "condition": "style_only"
+  },
+  "153476408509e451": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c2",
+    "condition": "thinking_only"
+  },
+  "92809d6163bbc9f6": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c2",
+    "condition": "full"
+  },
+  "eb9f7bd27c982b70": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_公寓生活记趣_c2",
+    "condition": "wrong_persona"
+  },
+  "e9fb6b3c0d7dfcf3": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c1",
+    "condition": "neutral"
+  },
+  "1fc46c3149a5f409": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c1",
+    "condition": "style_only"
+  },
+  "b7c284a13a4a11e8": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c1",
+    "condition": "thinking_only"
+  },
+  "2479d6387e82b37b": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c1",
+    "condition": "full"
+  },
+  "859f0a15b5db44a6": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c1",
+    "condition": "wrong_persona"
+  },
+  "a4f771858ffaa004": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c2",
+    "condition": "neutral"
+  },
+  "720caf5cd22115c2": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c2",
+    "condition": "style_only"
+  },
+  "e02b54af745fe257": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c2",
+    "condition": "thinking_only"
+  },
+  "bdc750111abaae35": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c2",
+    "condition": "full"
+  },
+  "f7b386ec50d4072b": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_写什么_c2",
+    "condition": "wrong_persona"
+  },
+  "a2f7f93340700ee3": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c1",
+    "condition": "neutral"
+  },
+  "04d8ef1ef3c130eb": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c1",
+    "condition": "style_only"
+  },
+  "f22cd9dde4145fb9": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c1",
+    "condition": "thinking_only"
+  },
+  "7bda1e4eafe08e7b": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c1",
+    "condition": "full"
+  },
+  "f01829188f894db8": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c1",
+    "condition": "wrong_persona"
+  },
+  "c9b3976b093cb3cd": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c2",
+    "condition": "neutral"
+  },
+  "92377dd0bc6c3cf5": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c2",
+    "condition": "style_only"
+  },
+  "756e3da7206bcae3": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c2",
+    "condition": "thinking_only"
+  },
+  "df7ca148ffad7b3c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c2",
+    "condition": "full"
+  },
+  "ec97898f41a82f97": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_到底是上海人_c2",
+    "condition": "wrong_persona"
+  },
+  "07e602acd0517295": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c1",
+    "condition": "neutral"
+  },
+  "167294e4c3f8d065": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c1",
+    "condition": "style_only"
+  },
+  "945951a1b55b05d6": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c1",
+    "condition": "thinking_only"
+  },
+  "a9f925078f8303ad": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c1",
+    "condition": "full"
+  },
+  "8b3c6cf1d01c6adf": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c1",
+    "condition": "wrong_persona"
+  },
+  "be1b5da4b72ebb33": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c2",
+    "condition": "neutral"
+  },
+  "61e1d62ee32e755a": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c2",
+    "condition": "style_only"
+  },
+  "1681407d5afbe7a3": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c2",
+    "condition": "thinking_only"
+  },
+  "fc64a7e14761a47f": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c2",
+    "condition": "full"
+  },
+  "f921ced90004e497": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_姑姑语录_c2",
+    "condition": "wrong_persona"
+  },
+  "ecde8d5b893ca358": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c1",
+    "condition": "neutral"
+  },
+  "41c28abf1874f2e4": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c1",
+    "condition": "style_only"
+  },
+  "3bbce196f2b694fb": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c1",
+    "condition": "thinking_only"
+  },
+  "c17ce3ff70e4758c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c1",
+    "condition": "full"
+  },
+  "46c0bdcb4a642ce1": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c1",
+    "condition": "wrong_persona"
+  },
+  "7993d86cba0cbd53": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c2",
+    "condition": "neutral"
+  },
+  "008b01cf82e7b5e7": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c2",
+    "condition": "style_only"
+  },
+  "34dbd959497b0ed5": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c2",
+    "condition": "thinking_only"
+  },
+  "8831bc6e0596406d": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c2",
+    "condition": "full"
+  },
+  "259c6e73813826b8": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_必也正名乎_c2",
+    "condition": "wrong_persona"
+  },
+  "6fbe2735a033812b": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c1",
+    "condition": "neutral"
+  },
+  "9cb13e988cac9787": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c1",
+    "condition": "style_only"
+  },
+  "9c8c6667edb7ab1e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c1",
+    "condition": "thinking_only"
+  },
+  "e2a16aa850b8dbfe": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c1",
+    "condition": "full"
+  },
+  "9e1eb43e7ed436ee": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c1",
+    "condition": "wrong_persona"
+  },
+  "f23ebeb9838c5f23": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c2",
+    "condition": "neutral"
+  },
+  "5ff5fed435533639": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c2",
+    "condition": "style_only"
+  },
+  "2baf0f7cf665ae6c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c2",
+    "condition": "thinking_only"
+  },
+  "6a3c7888dba16ab0": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c2",
+    "condition": "full"
+  },
+  "421069871f39b488": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_我看苏青_c2",
+    "condition": "wrong_persona"
+  },
+  "a3ece728d6be76a3": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c1",
+    "condition": "neutral"
+  },
+  "8edbd59011143869": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c1",
+    "condition": "style_only"
+  },
+  "9dc7e7798a7f9d98": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c1",
+    "condition": "thinking_only"
+  },
+  "1bfa4ed9e5870e2c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c1",
+    "condition": "full"
+  },
+  "40d0fa43a32ce057": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c1",
+    "condition": "wrong_persona"
+  },
+  "af835f1c2cf7c4b1": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c2",
+    "condition": "neutral"
+  },
+  "5de80e0131a9bc31": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c2",
+    "condition": "style_only"
+  },
+  "5317eee66e3e871b": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c2",
+    "condition": "thinking_only"
+  },
+  "87e43fd0b4ce7441": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c2",
+    "condition": "full"
+  },
+  "8e4a2f228c60a563": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_更衣记_c2",
+    "condition": "wrong_persona"
+  },
+  "4df3a262603aaf90": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c1",
+    "condition": "neutral"
+  },
+  "d1a85cfdea4d23dd": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c1",
+    "condition": "style_only"
+  },
+  "4082975a7dd533a8": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c1",
+    "condition": "thinking_only"
+  },
+  "139dd2eb41847914": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c1",
+    "condition": "full"
+  },
+  "b285cdfabea400f0": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c1",
+    "condition": "wrong_persona"
+  },
+  "73b1af90977e8a87": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c2",
+    "condition": "neutral"
+  },
+  "d928f0bf74b341d6": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c2",
+    "condition": "style_only"
+  },
+  "9873ac09e9a64e59": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c2",
+    "condition": "thinking_only"
+  },
+  "4feb9c3447ff8fc5": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c2",
+    "condition": "full"
+  },
+  "d9af6f67c832a4e2": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_洋人看京戏及其他_c2",
+    "condition": "wrong_persona"
+  },
+  "4e961780a04c51c1": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c1",
+    "condition": "neutral"
+  },
+  "fac371871ccce978": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c1",
+    "condition": "style_only"
+  },
+  "0d33e2fbf6cce458": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c1",
+    "condition": "thinking_only"
+  },
+  "5c4866e52247efac": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c1",
+    "condition": "full"
+  },
+  "a000711c2e9b75f6": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c1",
+    "condition": "wrong_persona"
+  },
+  "35c9877a30006bd8": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c2",
+    "condition": "neutral"
+  },
+  "d16691c1246e5a2a": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c2",
+    "condition": "style_only"
+  },
+  "a4bde1c185aa8926": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c2",
+    "condition": "thinking_only"
+  },
+  "ce6064ac0ad37c13": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c2",
+    "condition": "full"
+  },
+  "862138db41c2569d": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_烬余录_c2",
+    "condition": "wrong_persona"
+  },
+  "b458413c2e2eda6a": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c1",
+    "condition": "neutral"
+  },
+  "e1de6031b23be589": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c1",
+    "condition": "style_only"
+  },
+  "0e0d34f90b005b3e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c1",
+    "condition": "thinking_only"
+  },
+  "bb6b10e1304113c6": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c1",
+    "condition": "full"
+  },
+  "2df7713207d42376": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c1",
+    "condition": "wrong_persona"
+  },
+  "49f62171a892dd72": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c2",
+    "condition": "neutral"
+  },
+  "42a172b700f8141c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c2",
+    "condition": "style_only"
+  },
+  "0ae4033d6e0cfd22": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c2",
+    "condition": "thinking_only"
+  },
+  "1ece9bcc7d7a1aac": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c2",
+    "condition": "full"
+  },
+  "7d29fca06a2fb505": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_私语_c2",
+    "condition": "wrong_persona"
+  },
+  "5fc822596c482766": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c1",
+    "condition": "neutral"
+  },
+  "d68598c6f8faafbe": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c1",
+    "condition": "style_only"
+  },
+  "01d45f99cf8dc599": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c1",
+    "condition": "thinking_only"
+  },
+  "57326dc00b02fa27": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c1",
+    "condition": "full"
+  },
+  "103994eb4ae1733f": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c1",
+    "condition": "wrong_persona"
+  },
+  "721d8ea2ae50b8aa": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c2",
+    "condition": "neutral"
+  },
+  "1701f356a813366e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c2",
+    "condition": "style_only"
+  },
+  "531ccb5e57ea2256": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c2",
+    "condition": "thinking_only"
+  },
+  "54f951f934df93c7": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c2",
+    "condition": "full"
+  },
+  "8db3541bf06db289": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_童言无忌_c2",
+    "condition": "wrong_persona"
+  },
+  "9fe2e9a2f4927ba5": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c1",
+    "condition": "neutral"
+  },
+  "71b3ec0c2c0aaec4": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c1",
+    "condition": "style_only"
+  },
+  "9fc98ae98051cad5": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c1",
+    "condition": "thinking_only"
+  },
+  "164720ea0cc0d9b0": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c1",
+    "condition": "full"
+  },
+  "e7be232a065949f2": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c1",
+    "condition": "wrong_persona"
+  },
+  "1e5e616711f6b1d2": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c2",
+    "condition": "neutral"
+  },
+  "9f7fcd20e3a4537b": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c2",
+    "condition": "style_only"
+  },
+  "102f15f52aa679ae": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c2",
+    "condition": "thinking_only"
+  },
+  "5152c6965305a9e4": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c2",
+    "condition": "full"
+  },
+  "adbcc5d319825a42": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_论写作_c2",
+    "condition": "wrong_persona"
+  },
+  "cf60bb6793165efc": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c1",
+    "condition": "neutral"
+  },
+  "56f534d5cde8ea6c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c1",
+    "condition": "style_only"
+  },
+  "92e4595f5725f0f9": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c1",
+    "condition": "thinking_only"
+  },
+  "5d8ad28469f7ee48": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c1",
+    "condition": "full"
+  },
+  "6ec74c1590f15135": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c1",
+    "condition": "wrong_persona"
+  },
+  "3f6d2aab930a9dec": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c2",
+    "condition": "neutral"
+  },
+  "488f2228212e26f4": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c2",
+    "condition": "style_only"
+  },
+  "a289e4d5e51052f4": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c2",
+    "condition": "thinking_only"
+  },
+  "06778d296ba2767b": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c2",
+    "condition": "full"
+  },
+  "43bb846f712f146b": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_诗与胡说_c2",
+    "condition": "wrong_persona"
+  },
+  "807d5bdb5f8da4d5": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c1",
+    "condition": "neutral"
+  },
+  "69d777e88f7dd36f": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c1",
+    "condition": "style_only"
+  },
+  "d018bfdff8d64ecb": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c1",
+    "condition": "thinking_only"
+  },
+  "c5e8780bf5e7e5e8": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c1",
+    "condition": "full"
+  },
+  "24634c93880f1670": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c1",
+    "condition": "wrong_persona"
+  },
+  "4b43c2bb90f98fc8": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c2",
+    "condition": "neutral"
+  },
+  "8a8cd203eb45bbfb": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c2",
+    "condition": "style_only"
+  },
+  "f67b04c60c1a3cc1": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c2",
+    "condition": "thinking_only"
+  },
+  "23835586a2b12d96": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c2",
+    "condition": "full"
+  },
+  "93ebd70f3defc81a": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈女人_c2",
+    "condition": "wrong_persona"
+  },
+  "278631450e207012": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c1",
+    "condition": "neutral"
+  },
+  "c79a73d216a9cce9": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c1",
+    "condition": "style_only"
+  },
+  "27ad1034eb4a099b": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c1",
+    "condition": "thinking_only"
+  },
+  "47efcf3b43ac693d": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c1",
+    "condition": "full"
+  },
+  "6d9b5190d5afb154": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c1",
+    "condition": "wrong_persona"
+  },
+  "829a14e37d827170": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c2",
+    "condition": "neutral"
+  },
+  "fb7462c48936f8b7": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c2",
+    "condition": "style_only"
+  },
+  "038377dbf27b387c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c2",
+    "condition": "thinking_only"
+  },
+  "ecef568fb93aaa8e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c2",
+    "condition": "full"
+  },
+  "6276b30420ef2ca7": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈画_c2",
+    "condition": "wrong_persona"
+  },
+  "d506802ed1df194c": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c1",
+    "condition": "neutral"
+  },
+  "f35787b0e98c3b9e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c1",
+    "condition": "style_only"
+  },
+  "34df48d6ef493718": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c1",
+    "condition": "thinking_only"
+  },
+  "d5d3a12fa4e5454d": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c1",
+    "condition": "full"
+  },
+  "af770e77c17aaecd": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c1",
+    "condition": "wrong_persona"
+  },
+  "40db636af252a500": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c2",
+    "condition": "neutral"
+  },
+  "33348a2d555c9282": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c2",
+    "condition": "style_only"
+  },
+  "931b1762e03dd8ed": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c2",
+    "condition": "thinking_only"
+  },
+  "f7dc90a0f42ec384": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c2",
+    "condition": "full"
+  },
+  "06c27d071447fe63": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈跳舞_c2",
+    "condition": "wrong_persona"
+  },
+  "9782fc5ea2bc6bbd": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈音乐_c2",
+    "condition": "neutral"
+  },
+  "5939a55c6ea6428e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈音乐_c2",
+    "condition": "style_only"
+  },
+  "13f9e12f74ea8f1e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈音乐_c2",
+    "condition": "thinking_only"
+  },
+  "7eed3b38dd247442": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈音乐_c2",
+    "condition": "full"
+  },
+  "14f994e1a60d0b42": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_谈音乐_c2",
+    "condition": "wrong_persona"
+  },
+  "5fe0a6b7579cb446": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c1",
+    "condition": "neutral"
+  },
+  "3aa36c787cedc600": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c1",
+    "condition": "style_only"
+  },
+  "cbde848f890de7b4": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c1",
+    "condition": "thinking_only"
+  },
+  "d566ea15d7c6a2dd": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c1",
+    "condition": "full"
+  },
+  "6a83fee2d88e1fbd": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c1",
+    "condition": "wrong_persona"
+  },
+  "247f36735d7cea74": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c2",
+    "condition": "neutral"
+  },
+  "df51fd034eae46c5": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c2",
+    "condition": "style_only"
+  },
+  "ca5c3be695aee98e": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c2",
+    "condition": "thinking_only"
+  },
+  "8207b87fe6e09d19": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c2",
+    "condition": "full"
+  },
+  "42c00699deca0e81": {
+    "persona": "zhang-ailing",
+    "item_id": "zhang_道路以目_c2",
+    "condition": "wrong_persona"
+  }
+}

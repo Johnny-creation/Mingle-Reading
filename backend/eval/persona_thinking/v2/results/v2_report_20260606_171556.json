@@ -1,0 +1,623 @@
+{
+  "generated_at": "2026-06-06T17:15:52",
+  "personas": [
+    {
+      "persona": "lu-xun",
+      "display_name": "鲁迅",
+      "thinking_continuation": {
+        "n_items": 30,
+        "judges": {
+          "deepseek": {
+            "mean": {
+              "neutral": 0.1333,
+              "style_only": 0.1667,
+              "thinking_only": 0.2,
+              "full": 0.2667,
+              "wrong_persona": 0.0
+            },
+            "contrasts": {
+              "full_vs_neutral": {
+                "name": "full_vs_neutral",
+                "n": 30,
+                "mean_a": 0.2667,
+                "mean_b": 0.1333,
+                "diff": 0.1333,
+                "ci95": [
+                  -0.1333,
+                  0.4
+                ],
+                "p_value": 0.6192,
+                "significant_0.05": false
+              },
+              "thinking_only_vs_neutral": {
+                "name": "thinking_only_vs_neutral",
+                "n": 30,
+                "mean_a": 0.2,
+                "mean_b": 0.1333,
+                "diff": 0.0667,
+                "ci95": [
+                  -0.1333,
+                  0.2667
+                ],
+                "p_value": 1.0,
+                "significant_0.05": false
+              },
+              "full_vs_style_only": {
+                "name": "full_vs_style_only",
+                "n": 30,
+                "mean_a": 0.2667,
+                "mean_b": 0.1667,
+                "diff": 0.1,
+                "ci95": [
+                  -0.1667,
+                  0.3667
+                ],
+                "p_value": 0.6288,
+                "significant_0.05": false
+              },
+              "thinking_only_vs_style_only": {
+                "name": "thinking_only_vs_style_only",
+                "n": 30,
+                "mean_a": 0.2,
+                "mean_b": 0.1667,
+                "diff": 0.0333,
+                "ci95": [
+                  -0.2,
+                  0.2667
+                ],
+                "p_value": 1.0,
+                "significant_0.05": false
+              },
+              "full_vs_wrong_persona": {
+                "name": "full_vs_wrong_persona",
+                "n": 30,
+                "mean_a": 0.2667,
+                "mean_b": 0.0,
+                "diff": 0.2667,
+                "ci95": [
+                  0.0667,
+                  0.5333
+                ],
+                "p_value": 0.1202,
+                "significant_0.05": false
+              }
+            }
+          }
+        }
+      },
+      "thinking_mcq": {
+        "n_items": 48,
+        "n_distinctive": 3,
+        "acc_all": {
+          "neutral": 0.9375,
+          "style_only": 0.9375,
+          "thinking_only": 0.9583,
+          "full": 0.9375,
+          "wrong_persona": 0.9167
+        },
+        "acc_distinctive": {
+          "neutral": 0.0,
+          "style_only": 0.0,
+          "thinking_only": 0.3333,
+          "full": 0.0,
+          "wrong_persona": 0.0
+        },
+        "contrasts_all": {
+          "full_vs_neutral": {
+            "name": "full_vs_neutral",
+            "n": 48,
+            "mean_a": 0.9375,
+            "mean_b": 0.9375,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "thinking_only_vs_neutral": {
+            "name": "thinking_only_vs_neutral",
+            "n": 48,
+            "mean_a": 0.9583,
+            "mean_b": 0.9375,
+            "diff": 0.0208,
+            "ci95": [
+              0.0,
+              0.0625
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "full_vs_style_only": {
+            "name": "full_vs_style_only",
+            "n": 48,
+            "mean_a": 0.9375,
+            "mean_b": 0.9375,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "thinking_only_vs_style_only": {
+            "name": "thinking_only_vs_style_only",
+            "n": 48,
+            "mean_a": 0.9583,
+            "mean_b": 0.9375,
+            "diff": 0.0208,
+            "ci95": [
+              0.0,
+              0.0625
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "full_vs_wrong_persona": {
+            "name": "full_vs_wrong_persona",
+            "n": 48,
+            "mean_a": 0.9375,
+            "mean_b": 0.9167,
+            "diff": 0.0208,
+            "ci95": [
+              0.0,
+              0.0625
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          }
+        },
+        "contrasts_distinctive": {
+          "full_vs_neutral": {
+            "name": "full_vs_neutral",
+            "n": 3,
+            "mean_a": 0.0,
+            "mean_b": 0.0,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "thinking_only_vs_neutral": {
+            "name": "thinking_only_vs_neutral",
+            "n": 3,
+            "mean_a": 0.3333,
+            "mean_b": 0.0,
+            "diff": 0.3333,
+            "ci95": [
+              0.0,
+              1.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "full_vs_style_only": {
+            "name": "full_vs_style_only",
+            "n": 3,
+            "mean_a": 0.0,
+            "mean_b": 0.0,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "thinking_only_vs_style_only": {
+            "name": "thinking_only_vs_style_only",
+            "n": 3,
+            "mean_a": 0.3333,
+            "mean_b": 0.0,
+            "diff": 0.3333,
+            "ci95": [
+              0.0,
+              1.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "full_vs_wrong_persona": {
+            "name": "full_vs_wrong_persona",
+            "n": 3,
+            "mean_a": 0.0,
+            "mean_b": 0.0,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          }
+        }
+      },
+      "style": {
+        "n_probes": 8,
+        "author_baseline": 3.278,
+        "mean_ratio": {
+          "neutral": 0.4363,
+          "style_only": 2.5907,
+          "thinking_only": 0.5952,
+          "full": 1.2373,
+          "wrong_persona": 0.6943
+        },
+        "contrasts": {
+          "style_only_vs_neutral": {
+            "name": "style_only_vs_neutral",
+            "n": 8,
+            "mean_a": 2.5907,
+            "mean_b": 0.4363,
+            "diff": 2.1545,
+            "ci95": [
+              1.8332,
+              2.4774
+            ],
+            "p_value": 0.0086,
+            "significant_0.05": true
+          },
+          "full_vs_neutral": {
+            "name": "full_vs_neutral",
+            "n": 8,
+            "mean_a": 1.2373,
+            "mean_b": 0.4363,
+            "diff": 0.8011,
+            "ci95": [
+              0.6281,
+              0.9847
+            ],
+            "p_value": 0.0086,
+            "significant_0.05": true
+          },
+          "full_vs_thinking_only": {
+            "name": "full_vs_thinking_only",
+            "n": 8,
+            "mean_a": 1.2373,
+            "mean_b": 0.5952,
+            "diff": 0.6421,
+            "ci95": [
+              0.4183,
+              0.8548
+            ],
+            "p_value": 0.0086,
+            "significant_0.05": true
+          },
+          "thinking_only_vs_neutral": {
+            "name": "thinking_only_vs_neutral",
+            "n": 8,
+            "mean_a": 0.5952,
+            "mean_b": 0.4363,
+            "diff": 0.159,
+            "ci95": [
+              0.0244,
+              0.2929
+            ],
+            "p_value": 0.0765,
+            "significant_0.05": false
+          }
+        }
+      },
+      "dissociation": {
+        "style_axis_tracks_style_factor": true,
+        "style_axis_flat_on_thinking_factor": true,
+        "thinking_axis_tracks_thinking_factor": true,
+        "thinking_axis_flat_on_style_factor": true,
+        "double_dissociation_holds": true
+      }
+    },
+    {
+      "persona": "zhang-ailing",
+      "display_name": "张爱玲",
+      "thinking_continuation": {
+        "n_items": 39,
+        "judges": {
+          "deepseek": {
+            "mean": {
+              "neutral": 0.0,
+              "style_only": 0.0513,
+              "thinking_only": 0.1026,
+              "full": 0.1538,
+              "wrong_persona": 0.0256
+            },
+            "contrasts": {
+              "full_vs_neutral": {
+                "name": "full_vs_neutral",
+                "n": 39,
+                "mean_a": 0.1538,
+                "mean_b": 0.0,
+                "diff": 0.1538,
+                "ci95": [
+                  0.0,
+                  0.359
+                ],
+                "p_value": 0.2437,
+                "significant_0.05": false
+              },
+              "thinking_only_vs_neutral": {
+                "name": "thinking_only_vs_neutral",
+                "n": 39,
+                "mean_a": 0.1026,
+                "mean_b": 0.0,
+                "diff": 0.1026,
+                "ci95": [
+                  0.0,
+                  0.2564
+                ],
+                "p_value": 0.4875,
+                "significant_0.05": false
+              },
+              "full_vs_style_only": {
+                "name": "full_vs_style_only",
+                "n": 39,
+                "mean_a": 0.1538,
+                "mean_b": 0.0513,
+                "diff": 0.1026,
+                "ci95": [
+                  -0.1026,
+                  0.3077
+                ],
+                "p_value": 0.6237,
+                "significant_0.05": false
+              },
+              "thinking_only_vs_style_only": {
+                "name": "thinking_only_vs_style_only",
+                "n": 39,
+                "mean_a": 0.1026,
+                "mean_b": 0.0513,
+                "diff": 0.0513,
+                "ci95": [
+                  -0.1026,
+                  0.2051
+                ],
+                "p_value": 1.0,
+                "significant_0.05": false
+              },
+              "full_vs_wrong_persona": {
+                "name": "full_vs_wrong_persona",
+                "n": 39,
+                "mean_a": 0.1538,
+                "mean_b": 0.0256,
+                "diff": 0.1282,
+                "ci95": [
+                  -0.0256,
+                  0.3077
+                ],
+                "p_value": 0.2437,
+                "significant_0.05": false
+              }
+            }
+          }
+        }
+      },
+      "thinking_mcq": {
+        "n_items": 60,
+        "n_distinctive": 4,
+        "acc_all": {
+          "neutral": 0.9333,
+          "style_only": 0.95,
+          "thinking_only": 0.9333,
+          "full": 0.95,
+          "wrong_persona": 0.95
+        },
+        "acc_distinctive": {
+          "neutral": 0.0,
+          "style_only": 0.25,
+          "thinking_only": 0.25,
+          "full": 0.25,
+          "wrong_persona": 0.25
+        },
+        "contrasts_all": {
+          "full_vs_neutral": {
+            "name": "full_vs_neutral",
+            "n": 60,
+            "mean_a": 0.95,
+            "mean_b": 0.9333,
+            "diff": 0.0167,
+            "ci95": [
+              0.0,
+              0.05
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "thinking_only_vs_neutral": {
+            "name": "thinking_only_vs_neutral",
+            "n": 60,
+            "mean_a": 0.9333,
+            "mean_b": 0.9333,
+            "diff": 0.0,
+            "ci95": [
+              -0.05,
+              0.05
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "full_vs_style_only": {
+            "name": "full_vs_style_only",
+            "n": 60,
+            "mean_a": 0.95,
+            "mean_b": 0.95,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "thinking_only_vs_style_only": {
+            "name": "thinking_only_vs_style_only",
+            "n": 60,
+            "mean_a": 0.9333,
+            "mean_b": 0.95,
+            "diff": -0.0167,
+            "ci95": [
+              -0.05,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "full_vs_wrong_persona": {
+            "name": "full_vs_wrong_persona",
+            "n": 60,
+            "mean_a": 0.95,
+            "mean_b": 0.95,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          }
+        },
+        "contrasts_distinctive": {
+          "full_vs_neutral": {
+            "name": "full_vs_neutral",
+            "n": 4,
+            "mean_a": 0.25,
+            "mean_b": 0.0,
+            "diff": 0.25,
+            "ci95": [
+              0.0,
+              0.75
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "thinking_only_vs_neutral": {
+            "name": "thinking_only_vs_neutral",
+            "n": 4,
+            "mean_a": 0.25,
+            "mean_b": 0.0,
+            "diff": 0.25,
+            "ci95": [
+              0.0,
+              0.75
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "full_vs_style_only": {
+            "name": "full_vs_style_only",
+            "n": 4,
+            "mean_a": 0.25,
+            "mean_b": 0.25,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "thinking_only_vs_style_only": {
+            "name": "thinking_only_vs_style_only",
+            "n": 4,
+            "mean_a": 0.25,
+            "mean_b": 0.25,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          },
+          "full_vs_wrong_persona": {
+            "name": "full_vs_wrong_persona",
+            "n": 4,
+            "mean_a": 0.25,
+            "mean_b": 0.25,
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "p_value": 1.0,
+            "significant_0.05": false
+          }
+        }
+      },
+      "style": {
+        "n_probes": 8,
+        "author_baseline": 1.593,
+        "mean_ratio": {
+          "neutral": 0.2066,
+          "style_only": 1.6925,
+          "thinking_only": 1.0268,
+          "full": 1.1937,
+          "wrong_persona": 0.6563
+        },
+        "contrasts": {
+          "style_only_vs_neutral": {
+            "name": "style_only_vs_neutral",
+            "n": 8,
+            "mean_a": 1.6925,
+            "mean_b": 0.2066,
+            "diff": 1.4859,
+            "ci95": [
+              1.2561,
+              1.7552
+            ],
+            "p_value": 0.0086,
+            "significant_0.05": true
+          },
+          "full_vs_neutral": {
+            "name": "full_vs_neutral",
+            "n": 8,
+            "mean_a": 1.1937,
+            "mean_b": 0.2066,
+            "diff": 0.9871,
+            "ci95": [
+              0.6625,
+              1.3308
+            ],
+            "p_value": 0.0086,
+            "significant_0.05": true
+          },
+          "full_vs_thinking_only": {
+            "name": "full_vs_thinking_only",
+            "n": 8,
+            "mean_a": 1.1937,
+            "mean_b": 1.0268,
+            "diff": 0.1669,
+            "ci95": [
+              -0.3464,
+              0.724
+            ],
+            "p_value": 0.6072,
+            "significant_0.05": false
+          },
+          "thinking_only_vs_neutral": {
+            "name": "thinking_only_vs_neutral",
+            "n": 8,
+            "mean_a": 1.0268,
+            "mean_b": 0.2066,
+            "diff": 0.8202,
+            "ci95": [
+              0.5093,
+              1.1572
+            ],
+            "p_value": 0.0086,
+            "significant_0.05": true
+          }
+        }
+      },
+      "dissociation": {
+        "style_axis_tracks_style_factor": true,
+        "style_axis_flat_on_thinking_factor": false,
+        "thinking_axis_tracks_thinking_factor": true,
+        "thinking_axis_flat_on_style_factor": true,
+        "double_dissociation_holds": false
+      }
+    }
+  ]
+}
